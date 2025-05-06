@@ -1,26 +1,51 @@
+@import url(https://fonts.googleapis.com/css2?family=Lato&display=swap);
+@import url(https://fonts.googleapis.com/css2?family=Open+Sans&display=swap);
+@import url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css);
+@import url(https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200);
+
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+   /* Font Families */
+   --font-sans: "Open Sans", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
+      "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+   --font-title: "Lato", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+      "Segoe UI Symbol", "Noto Color Emoji";
+   --font-body: "Open Sans", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
+      "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+@theme {
+   /* Colors */
+   --color-neutral-50: #f7f7f7;
+   --color-neutral-100: #eeeeee;
+   --color-neutral-200: #e0e0e0;
+   --color-neutral-300: #cacaca;
+   --color-neutral-400: #b1b1b1;
+   --color-neutral-500: #999999;
+   --color-neutral-600: #7f7f7f;
+   --color-neutral-700: #676767;
+   --color-neutral-800: #545454;
+   --color-neutral-900: #464646;
+   --color-neutral-950: #282828;
+
+   --color-primary-50: #e7ffe5;
+   --color-primary-100: #c8ffc6;
+   --color-primary-200: #96ff95;
+   --color-primary-300: #57ff5b;
+   --color-primary-400: #1cf624;
+   --color-primary-500: #05dd10;
+   --color-primary-600: #00b10d;
+   --color-primary-700: #058611;
+   --color-primary-800: #0b6914;
+   --color-primary-900: #0e5917;
+   --color-primary-950: #013208;
+   --color-primary: #1cf624;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+.top-shadow {
+   box-shadow: 0 -5px 5px -5px #cacaca;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+.bottom-shadow {
+   box-shadow: 0 5px 5px -5px #cacaca;
 }
