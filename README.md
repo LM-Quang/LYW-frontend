@@ -18,6 +18,8 @@ frontend/
 |  |  └──page.tsx
 |  ├──profile/
 |  |  └──page.tsx
+|  ├──search/
+|  |  └──page.tsx
 |  ├──teaching/
 |  |  ├──registration/
 |  |  |  ├──confirmation/

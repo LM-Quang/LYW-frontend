@@ -41,11 +41,3 @@
    --color-primary-950: #013208;
    --color-primary: #1cf624;
 }
-
-.top-shadow {
-   box-shadow: 0 -5px 5px -5px #cacaca;
-}
-
-.bottom-shadow {
-   box-shadow: 0 5px 5px -5px #cacaca;
-}
