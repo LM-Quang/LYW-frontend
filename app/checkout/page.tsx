@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements, CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
-import { useCart } from "@/context/Context"; // Assuming you’ve set up a CartContext as suggested
+import { useCart } from "@/context/CourseContext"; // Assuming you’ve set up a CartContext as suggested
 import Link from "next/link";
 import logo1 from "@/assets/logo-1.png";
 import Image from "next/image";

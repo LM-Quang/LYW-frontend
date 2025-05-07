@@ -41,3 +41,7 @@
    --color-primary-950: #013208;
    --color-primary: #1cf624;
 }
+
+.swiper-wrapper {
+   padding-bottom: 2px;
+}

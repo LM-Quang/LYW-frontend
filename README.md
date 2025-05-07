@@ -1,3 +1,7 @@
+### Task
+
+-  Use React Context for User data accross pages
+
 ### Folder Structure
 
 ```

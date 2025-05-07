@@ -1,64 +1,151 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
+import { useCart } from "@/context/CourseContext"; // Assuming CartContext is set up
 import { useRouter } from "next/navigation";
+import logo1 from "@/assets/logo-1.png";
 import Link from "next/link";
 import Image from "next/image";
-import logo1 from "@/assets/logo-1.png";
-import { useCart } from "@/context/CourseContext";
 
-// Interface for a Cart Item
-// interface CartItem {
-//    id: string;
-//    title: string;
-//    instructor: string;
-//    price: number;
-//    thumbnail: string;
-//    quantity: number;
-// }
+// Interface for a Course
+interface Course {
+   id: string;
+   title: string;
+   instructor: string;
+   category: string;
+   level: string;
+   price: number;
+   rating: number;
+   description: string;
+   thumbnail: string;
+   students: number;
+}
 
-// Sample cart data (in a real app, this would come from state management or a backend)
-// const initialCart: CartItem[] = [
-//    {
-//       id: "1",
-//       title: "Complete JavaScript Bootcamp: From Zero to Hero",
-//       instructor: "John Smith",
-//       price: 49.99,
-//       thumbnail:
-//          "https://images.unsplash.com/photo-1633356122544-f1348a13f899?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80",
-//       quantity: 1,
-//    },
-//    {
-//       id: "2",
-//       title: "Python for Data Science and Machine Learning",
-//       instructor: "Sarah Johnson",
-//       price: 79.99,
-//       thumbnail:
-//          "https://images.unsplash.com/photo-1551288049-b1f3a0a1c7f1?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80",
-//       quantity: 1,
-//    },
-// ];
+// Sample course data (same as previous components)
+const coursesData: Course[] = [
+   {
+      id: "1",
+      title: "Complete JavaScript Bootcamp: From Zero to Hero",
+      instructor: "John Smith",
+      category: "Web Development",
+      level: "All Levels",
+      price: 49.99,
+      rating: 4.8,
+      description:
+         "Learn JavaScript from scratch and build real-world projects in this comprehensive course.",
+      thumbnail:
+         "https://images.unsplash.com/photo-1633356122544-f1348a13f899?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80",
+      students: 12000,
+   },
+   {
+      id: "2",
+      title: "Python for Data Science and Machine Learning",
+      instructor: "Sarah Johnson",
+      category: "Data Science",
+      level: "Intermediate",
+      price: 79.99,
+      rating: 4.6,
+      description:
+         "Master Python for data science, including pandas, numpy, and machine learning basics.",
+      thumbnail:
+         "https://images.unsplash.com/photo-1551288049-b1f3a0a1c7f1?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80",
+      students: 8500,
+   },
+   {
+      id: "3",
+      title: "Introduction to Web Development",
+      instructor: "Michael Brown",
+      category: "Web Development",
+      level: "Beginner",
+      price: 0,
+      rating: 4.2,
+      description: "A beginner-friendly course covering HTML, CSS, and basic JavaScript.",
+      thumbnail:
+         "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80",
+      students: 15000,
+   },
+   {
+      id: "4",
+      title: "Advanced React and Redux",
+      instructor: "Emily Davis",
+      category: "Web Development",
+      level: "Advanced",
+      price: 99.99,
+      rating: 4.9,
+      description: "Deep dive into React and Redux for building scalable web applications.",
+      thumbnail:
+         "https://images.unsplash.com/photo-1593642532973-d31b6557fa68?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80",
+      students: 4500,
+   },
+   {
+      id: "5",
+      title: "Digital Marketing Masterclass",
+      instructor: "Lisa Green",
+      category: "Marketing",
+      level: "All Levels",
+      price: 59.99,
+      rating: 4.5,
+      description:
+         "Learn SEO, social media marketing, and email marketing in this all-in-one course.",
+      thumbnail:
+         "https://images.unsplash.com/photo-1557426272-fc759fdf7a8d?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80",
+      students: 9500,
+   },
+];
 
-export default function CartDetailsPage() {
-   // const [cart, setCart] = useState<CartItem[]>(initialCart);
+export default function CategoriesPage() {
+   //    const [categories, setCategories] = useState<string[]>([]);
+   // const [courses, setCourses] = useState<Course[]>(coursesData);
+
+   // useEffect(() => {
+   //    const fetchData = async () => {
+   //       // Fetch Courses Data API
+   //       const categoriesRes = await fetch("/api/categories");
+   //       const categoriesData = await categoriesRes.json();
+   //       setCategories(categoriesData);
+
+   //       const coursesRes = await fetch("/api/courses");
+   //       const coursesData = await coursesRes.json();
+   //       setCourses(coursesData);
+   //    };
+   //    fetchData();
+   // }, []);
+
+   // const filteredCourses = courses.filter(
+   //    (course) => course.category === selectedCategory
+   // );
+
+   const { cart, addToCart } = useCart();
    const router = useRouter();
-   const { cart, removeFromCart, updateQuantity } = useCart();
-   // Calculate total price
-   const totalPrice = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
-   // Remove an item from the cart
-   // const removeFromCart = (id: string) => {
-   //    setCart(cart.filter((item) => item.id !== id));
-   // };
 
-   // // Update quantity of an item
-   // const updateQuantity = (id: string, newQuantity: number) => {
-   //    if (newQuantity < 1) return; // Prevent quantity from going below 1
-   //    setCart(
-   //       cart.map((item) =>
-   //          item.id === id ? { ...item, quantity: newQuantity } : item
-   //       )
-   //    );
-   // };
+   // List of categories (derived from course data)
+   const categories = Array.from(new Set(coursesData.map((course) => course.category)));
+
+   // State for selected category
+   const [selectedCategory, setSelectedCategory] = useState(categories[0] || "Web Development");
+
+   // Filter courses by selected category
+   const filteredCourses = coursesData.filter((course) => course.category === selectedCategory);
+
+   // Handle adding to cart
+   const handleAddToCart = (course: Course) => {
+      addToCart({
+         id: course.id,
+         title: course.title,
+         instructor: course.instructor,
+         price: course.price,
+         thumbnail: course.thumbnail,
+      });
+      router.push("/cart");
+   };
+
+   const [page, setPage] = useState(1);
+   const coursesPerPage = 2;
+   const paginatedCourses = filteredCourses.slice(
+      (page - 1) * coursesPerPage,
+      page * coursesPerPage
+   );
+
    return (
       <div className="w-full min-h-screen p-0 bg-gray-50 font-sans">
          {/* Header */}
@@ -107,8 +194,8 @@ export default function CartDetailsPage() {
                      </li>
                      <li>
                         <a
-                           href="#"
-                           className="px-3 py-1 font-medium hover:text-primary-600 transition-colors"
+                           href="/categories"
+                           className="px-3 py-1 font-medium bg-primary-50 text-primary-600 rounded hover:bg-primary-100 transition-colors"
                         >
                            Categories
                         </a>
@@ -163,119 +250,128 @@ export default function CartDetailsPage() {
             </div>
          </header>
 
-         {/* Main Content: Cart Details */}
+         {/* Main Content: Categories and Courses */}
          <main className="container mx-auto px-4 md:px-6 py-8">
-            <h1 className="text-2xl md:text-3xl font-bold mb-6 text-gray-800">Your Cart</h1>
+            <h1 className="text-2xl md:text-3xl font-bold mb-6 text-gray-800">
+               Browse by Category
+            </h1>
 
-            {cart.length > 0 ? (
-               <div className="flex flex-col lg:flex-row gap-8">
-                  {/* Cart Items */}
-                  <div className="lg:w-3/4">
-                     <div className="space-y-4">
-                        {cart.map((item) => (
+            <div className="flex flex-col lg:flex-row gap-8">
+               {/* Category Sidebar */}
+               <div className="lg:w-1/4">
+                  <div className="hidden lg:block bg-white rounded-lg shadow-md p-6 sticky top-24">
+                     <h2 className="text-xl font-semibold text-gray-800 mb-4">Categories</h2>
+                     <ul className="space-y-2">
+                        {categories.map((category) => (
+                           <li key={category}>
+                              <button
+                                 onClick={() => setSelectedCategory(category)}
+                                 className={`w-full text-left px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                                    selectedCategory === category
+                                       ? "bg-primary-50 text-primary-600"
+                                       : "text-gray-700 hover:bg-gray-100"
+                                 }`}
+                              >
+                                 {category}
+                              </button>
+                           </li>
+                        ))}
+                     </ul>
+                  </div>
+               </div>
+
+               {/* Courses List */}
+               <div className="lg:w-3/4">
+                  <h2 className="text-2xl font-semibold text-gray-800 mb-4">
+                     {selectedCategory} Courses
+                  </h2>
+                  {filteredCourses.length > 0 ? (
+                     <div className="space-y-6">
+                        {filteredCourses.map((course) => (
                            <div
-                              key={item.id}
-                              className="bg-white rounded-lg shadow-md p-4 flex flex-col md:flex-row gap-4"
+                              key={course.id}
+                              className="bg-white rounded-lg shadow-md p-4 flex flex-col md:flex-row gap-4 hover:shadow-lg transition-shadow"
                            >
                               {/* Thumbnail */}
                               <div className="md:w-1/4">
                                  <Image
                                     src={logo1}
-                                    alt={item.title}
+                                    alt={course.title}
                                     className="w-full h-32 object-cover rounded-lg"
                                     width={128}
                                     height={128}
                                  />
                               </div>
 
-                              {/* Item Details */}
-                              <div className="flex-1 flex flex-col justify-between">
-                                 <div>
-                                    <h2 className="text-lg font-semibold text-gray-800">
-                                       {item.title}
-                                    </h2>
-                                    <p className="text-sm text-gray-600 mb-2">
-                                       By {item.instructor}
-                                    </p>
-                                    <p className="text-lg font-semibold text-gray-800">
-                                       ${item.price.toFixed(2)}
-                                    </p>
+                              {/* Course Details */}
+                              <div className="flex-1">
+                                 <h2 className="text-lg font-semibold text-gray-800">
+                                    {course.title}
+                                 </h2>
+                                 <p className="text-sm text-gray-600 mb-2">
+                                    By {course.instructor}
+                                 </p>
+                                 <div className="flex items-center mb-2">
+                                    <span className="text-sm font-medium text-yellow-500 mr-1">
+                                       {course.rating}
+                                    </span>
+                                    <span className="text-yellow-500">★</span>
+                                    <span className="text-sm text-gray-600 ml-2">
+                                       ({course.students.toLocaleString()} students)
+                                    </span>
                                  </div>
-                                 <div className="flex items-center gap-4 mt-2">
-                                    <div className="flex items-center border border-gray-300 rounded-lg">
-                                       <button
-                                          onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                                          className="px-3 py-1 text-gray-600 hover:bg-gray-100 rounded-l-lg"
-                                       >
-                                          -
-                                       </button>
-                                       <span className="px-4 py-1 text-gray-800">
-                                          {item.quantity}
+                                 <p className="text-gray-600 text-sm mb-2 line-clamp-2">
+                                    {course.description}
+                                 </p>
+                                 <div className="flex items-center justify-between">
+                                    <span className="text-sm text-gray-700">
+                                       {course.level} • {course.category}
+                                    </span>
+                                    <div className="flex items-center gap-2">
+                                       <span className="text-lg font-semibold text-gray-800">
+                                          {course.price === 0 ? "Free" : `$${course.price}`}
                                        </span>
                                        <button
-                                          onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                                          className="px-3 py-1 text-gray-600 hover:bg-gray-100 rounded-r-lg"
+                                          onClick={() => handleAddToCart(course)}
+                                          className="px-4 py-2 bg-primary-500 text-white rounded-lg hover:bg-primary-600 transition-colors"
                                        >
-                                          +
+                                          Add to Cart
                                        </button>
                                     </div>
-                                    <button
-                                       onClick={() => removeFromCart(item.id)}
-                                       className="text-red-500 hover:text-red-600 text-sm flex items-center"
-                                    >
-                                       <span className="material-symbols-outlined mr-1">
-                                          delete
-                                       </span>
-                                       Remove
-                                    </button>
                                  </div>
                               </div>
                            </div>
                         ))}
-                     </div>
-                  </div>
-
-                  {/* Cart Summary */}
-                  <div className="lg:w-1/4">
-                     <div className="bg-white rounded-lg shadow-md p-6 sticky top-24">
-                        <h2 className="text-xl font-semibold text-gray-800 mb-4">Cart Summary</h2>
-                        <div className="space-y-2 mb-4">
-                           <div className="flex justify-between text-gray-700">
-                              <span>Subtotal</span>
-                              <span>${totalPrice.toFixed(2)}</span>
-                           </div>
-                           <div className="flex justify-between text-gray-700">
-                              <span>Tax (5%)</span>
-                              <span>${(totalPrice * 0.05).toFixed(2)}</span>
-                           </div>
-                           <div className="flex justify-between font-semibold text-gray-800 border-t pt-2">
-                              <span>Total</span>
-                              <span>${(totalPrice * 1.05).toFixed(2)}</span>
-                           </div>
+                        <div className="mt-8 flex justify-center space-x-2">
+                           <button
+                              onClick={() => setPage((p) => Math.max(1, p - 1))}
+                              disabled={page === 1}
+                              className="px-4 py-2 bg-gray-200 rounded-lg disabled:opacity-50"
+                           >
+                              Prev
+                           </button>
+                           <span className="px-4 py-2">Page {page}</span>
+                           <button
+                              onClick={() => setPage((p) => p + 1)}
+                              disabled={paginatedCourses.length < coursesPerPage}
+                              className="px-4 py-2 bg-primary-500 text-white rounded-lg disabled:opacity-50"
+                           >
+                              Next
+                           </button>
                         </div>
-                        <button
-                           onClick={() => router.push("/checkout")} // In a real app, redirect to payment gateway
-                           className="w-full px-4 py-3 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors"
-                        >
-                           Proceed to Checkout
-                        </button>
                      </div>
-                  </div>
+                  ) : (
+                     <div className="text-center py-10">
+                        <h2 className="text-xl font-semibold text-gray-800">
+                           No Courses Available
+                        </h2>
+                        <p className="text-gray-600">
+                           There are currently no courses in this category.
+                        </p>
+                     </div>
+                  )}
                </div>
-            ) : (
-               <div className="text-center py-10">
-                  <h2 className="text-xl font-semibold text-gray-800">Your Cart is Empty</h2>
-                  <p className="text-gray-600 mb-4">
-                     Add some courses to your cart to get started!
-                  </p>
-                  <a
-                     href="/search"
-                     className="inline-flex items-center px-4 py-2 bg-primary-500 text-white rounded-lg hover:bg-primary-600 transition-colors"
-                  >
-                     Browse Courses
-                  </a>
-               </div>
-            )}
+            </div>
          </main>
 
          {/* Footer */}
