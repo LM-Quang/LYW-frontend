@@ -6,7 +6,6 @@ import { useSearchParams } from "next/navigation";
 import logo from "@/assets/logo-1.png";
 import Image from "next/image";
 import { Search } from "lucide-react";
-import { logout } from "@/libs/auth";
 import { useUser } from "@/context/UserContext";
 
 export default function Header() {
@@ -16,7 +15,8 @@ export default function Header() {
 
    const handleLogout = async () => {
       setUserInfo(null);
-      logout();
+      localStorage.removeItem("token");
+      window.location.href = "/";
    };
 
    return (
@@ -125,13 +125,13 @@ export default function Header() {
                   ) : (
                      <>
                         <li>
-                           <Link
+                           <a
                               href="/auth/login"
                               className="px-3 py-1 rounded-full border border-primary-500 text-primary-600 hover:bg-primary-100 transition-colors"
                               aria-label="Sign In"
                            >
                               Log In
-                           </Link>
+                           </a>
                         </li>
                         <li>
                            <Link

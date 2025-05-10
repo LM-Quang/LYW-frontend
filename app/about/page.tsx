@@ -1,6 +1,7 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
+import axios from "axios";
 import Link from "next/link";
 import Image from "next/image";
 import logo from "@/assets/logo-1.png";
@@ -48,8 +49,23 @@ const values = [
 ];
 
 export default function AboutUsPage() {
+   const [user, setUser] = useState(null);
+   const handleClick = () => {
+      axios
+         .get("http://localhost:8080/user-info", { withCredentials: true })
+         .then((response) => {
+            setUser(response.data);
+            console.log(">> User: ", response.data);
+         })
+         .catch((error) => console.log(">> Error: ", error));
+   };
    return (
       <div className="w-full min-h-screen p-0 bg-gray-50 font-sans">
+         <div>
+            <button className="cursor-pointer" onClick={handleClick}>
+               Fetch User Data
+            </button>
+         </div>
          {/* Main Content */}
          <main className="container mx-auto px-4 md:px-6 py-8">
             {/* Hero Section */}

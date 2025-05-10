@@ -1,844 +1,782 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
+import logo from "@/assets/img-1.jpg";
 import Image from "next/image";
-import img1 from "@/assets/img-1.jpg";
+import renderRatingStars from "@/utils/ratingStars";
 import {
-   ArrowRight,
-   Award,
-   BellRing,
-   BookOpen,
-   CheckCircle,
+   Check,
    ChevronDown,
-   ChevronRight,
    CirclePlay,
+   Clock3,
    Download,
+   FileQuestion,
    FileText,
-   GraduationCap,
+   Folder,
+   Heart,
    Infinity,
-   MessageSquareText,
-   NotebookPen,
    ScrollText,
-   Search,
-   Star,
-   User,
+   Share,
+   ShoppingCart,
+   SquareTerminal,
    Users,
    Video,
 } from "lucide-react";
-import Link from "next/link";
 
-export default function CourseDetailPage() {
-   // Function to render rating stars dynamically
-   const renderRatingStars = (rating: number) => {
-      const fullStars = Math.floor(rating); // Number of full stars
-      const hasHalfStar = rating % 1 >= 0.5; // Check for half star
-      const stars = [];
+export default function CoursesPage() {
+   const [isClicked, setIsClicked] = useState(false);
+   const [totalPrice, setTotalPrice] = useState(0);
 
-      // Add full stars
-      for (let i = 0; i < fullStars; i++) {
-         stars.push(
-            <i
-               key={`star-${i}`}
-               className="fa-solid fa-star text-yellow-400"
-               aria-label="Full star"
-            />
-         );
-      }
-
-      // Add half star if applicable
-      if (hasHalfStar) {
-         stars.push(
-            <i
-               key="star-half"
-               className="fa-solid fa-star-half-stroke text-yellow-400"
-               aria-label="Half star"
-            />
-         );
-      }
-
-      return stars;
+   const updatePrice = (price: number) => {
+      setTotalPrice((prevPrice) => prevPrice + price);
    };
-
    return (
-      <div className="w-full min-h-screen bottom-shadow bg-gray-50 font-sans">
-         {/* Header */}
-         <header className="bg-white shadow-md p-4">
-            <div className="container mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
-               {/* Logo */}
-               <div className="flex items-center">
-                  <div className="bg-primary-500 text-white p-2 rounded-full mr-2">
-                     <GraduationCap aria-label="Education Logo" />
-                  </div>
-                  <div className="text-2xl font-bold text-primary-500">
-                     EduLearn <br /> Academy
-                  </div>
-               </div>
-
-               {/* Search bar */}
-               <div className="flex-1 max-w-xl mx-auto md:mx-0">
-                  <div className="relative">
-                     <input
-                        type="text"
-                        placeholder="Search courses, topics, instructors..."
-                        className="w-full p-3 pl-9 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-primary-500 transition-all"
-                        aria-label="Search courses"
-                     />
-                     <Search
-                        className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5"
-                        aria-hidden="true"
-                     />
-                  </div>
-               </div>
-
-               {/* Navbar */}
-               <nav className="w-full md:w-auto">
-                  <ul className="flex flex-wrap justify-center gap-2 text-sm">
-                     <li>
-                        <a
-                           href="#"
-                           className="px-3 py-1 font-medium hover:text-primary-600 transition-colors"
-                        >
-                           Home
-                        </a>
-                     </li>
-                     <li>
-                        <a
-                           href="#"
-                           className="px-3 py-1 font-medium hover:text-primary-600 transition-colors"
-                        >
-                           Courses
-                        </a>
-                     </li>
-                     <li>
-                        <a
-                           href="#"
-                           className="px-3 py-1 font-medium hover:text-primary-600 transition-colors"
-                        >
-                           Categories
-                        </a>
-                     </li>
-                     <li>
-                        <a
-                           href="#"
-                           className="px-3 py-1 font-medium hover:text-primary-600 transition-colors"
-                        >
-                           Teaching
-                        </a>
-                     </li>
-                     <li>
-                        <a
-                           href="#"
-                           className="px-3 py-1 font-medium hover:text-primary-600 transition-colors"
-                        >
-                           My Learning
-                        </a>
-                     </li>
-                     <li>
-                        <a
-                           href="#"
-                           className="px-3 py-1 font-medium hover:text-primary-600 transition-colors"
-                        >
-                           Wishlist
-                        </a>
-                     </li>
-                     <li>
-                        <a
-                           href="#"
-                           className="px-3 py-1 rounded-full bg-primary-500 text-white hover:bg-primary-600 transition-colors"
-                        >
-                           Sign In
-                        </a>
-                     </li>
-                  </ul>
-               </nav>
-            </div>
-         </header>
-
-         {/* Main */}
-         <div className="container mx-auto px-4 md:px-5 py-5">
-            <div className="grid grid-cols-1 lg:grid-cols-7 gap-6">
-               {/* <!-- Sidebar --> */}
+      <div className="w-full min-h-screen p-0 bg-gray-50 font-sans">
+         <div className="container mx-auto px-4 md:px-6 py-8">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+               {/* Main */}
                <div className="lg:col-span-2">
-                  <div className="bg-white shadow-sm rounded-lg p-4 sticky top-2.5">
-                     <div className="mb-6">
-                        <span className="bg-primary-500 text-white p-1 mr-1 rounded-lg text-sm font-medium">
-                           Best Seller
-                        </span>
-                        <h2 className="text-2xl font-bold mt-2">Complete JavaScript Course 2023</h2>
-                        <div className="text-sm mt-1">
-                           <span>4.8</span>
-                           <span className="mx-1">{renderRatingStars(4.8)}</span>(
-                           <Link href="#" className="mx-1 underline text-blue-500">
-                              42,297 ratings
-                           </Link>
-                           )
-                        </div>
-                     </div>
-
-                     <div className="my-6 p-4 bg-primary-50 rounded-lg border border-primary-100">
-                        <div className="font-bold text-2xl text-gray-800 mb-2">
-                           Course Includes:
-                        </div>
-                        <ul className="space-y-2">
-                           <li className="flex items-center text-sm">
-                              <Video className="text-primary-500 mr-2" />
-                              <span>67 hours on-demand video</span>
-                           </li>
-                           <li className="flex items-center text-sm">
-                              <FileText className="text-primary-500 mr-2" />
-                              <span>25 articles</span>
-                           </li>
-                           <li className="flex items-center text-sm">
-                              <Download className="text-primary-500 mr-2" />
-                              <span>154 downloadable resources</span>
-                           </li>
-                           <li className="flex items-center text-sm">
-                              <Award className="text-primary-500 mr-2" />
-                              <span>Certificate of completion</span>
-                           </li>
-                           <li className="flex items-center text-sm">
-                              <Infinity className="text-primary-500 mr-2" />
-                              <span>Full lifetime access</span>
-                           </li>
-                        </ul>
-                        <button className="w-full mt-4 bg-primary-500 hover:bg-primary-600 text-white font-medium py-2 px-4 rounded-full transition-colors shadow-sm cursor-pointer">
-                           Enroll Now - $89.99
-                        </button>
-                        <div className="text-center mt-2 text-sm">30-Day Money-Back Guarantee</div>
-                     </div>
-
-                     {/* <nav className="space-y-1">
-                        <a
-                           href="#overview"
-                           className="flex items-center p-2 rounded-md bg-gray-100 text-primary-600 font-medium transition-colors"
-                        >
-                           <ScrollText
-                              className="mr-2 text-primary-500"
-                              aria-label="Course Overview"
-                           />
-                           Course Overview
-                        </a>
-                        <a
-                           href="#content"
-                           className="flex items-center p-2 rounded-md hover:bg-gray-100 text-gray-700 hover:text-primary-600 font-medium transition-colors"
-                        >
-                           <BookOpen
-                              className="mr-2 text-primary-500"
-                              aria-label="Course Content"
-                           />
-                           Course Content
-                        </a>
-                        <a
-                           href="#reviews"
-                           className="flex items-center p-2 rounded-md hover:bg-gray-100 text-gray-700 hover:text-primary-600 font-medium transition-colors"
-                        >
-                           <Star className="mr-2 text-primary-500" aria-label="Reviews" />
-                           Reviews
-                        </a>
-                        <a
-                           href="#instructor"
-                           className="flex items-center p-2 rounded-md hover:bg-gray-100 text-gray-700 hover:text-primary-600 font-medium transition-colors"
-                        >
-                           <User className="mr-2 text-primary-500" aria-label="Instructor" />
-                           Instructor
-                        </a>
-                        <a
-                           href="#faq"
-                           className="flex items-center p-2 rounded-md hover:bg-gray-100 text-gray-700 hover:text-primary-600 font-medium transition-colors"
-                        >
-                           <HelpCircle className="mr-2 text-primary-500" aria-label="FAQ" />
-                           FAQ
-                        </a>
-                        <a
-                           href="#requirements"
-                           className="flex items-center p-2 rounded-md hover:bg-gray-100 text-gray-700 hover:text-primary-600 font-medium transition-colors"
-                        >
-                           <CheckSquare
-                              className="mr-2 text-primary-500"
-                              aria-label="Requirements"
-                           />
-                           Requirements
-                        </a>
-                        <a
-                           href="#resources"
-                           className="flex items-center p-2 rounded-md hover:bg-gray-100 text-gray-700 hover:text-primary-600 font-medium transition-colors"
-                        >
-                           <Download className="mr-2 text-primary-500" aria-label="Resources" />
-                           Resources
-                        </a>
-                     </nav> */}
-                  </div>
-               </div>
-
-               {/* <!-- Main Content --> */}
-               <div className="lg:col-span-5">
-                  <div className="bg-white shadow-md rounded-lg overflow-hidden">
-                     {/* <!-- Title Section --> */}
-                     <div className="relative">
+                  <div className="bg-white shadow-md rounded-lg border border-gray-200 overflow-hidden">
+                     <div className="relative h-64 md:h-80 overflow-hidden">
                         <Image
-                           src={img1}
-                           alt="JavaScript programming code on screen"
-                           className="w-full h-64 object-cover"
-                           width={img1.width}
-                           height={img1.height}
+                           src={logo}
+                           alt="Full-Stack Development Bootcamp Cover"
+                           className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                           fill
                         />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end">
-                           <div className="p-6 text-white">
-                              <div className="text-3xl font-bold mb-2">
-                                 Complete JavaScript Course 2023
-                              </div>
-                              <div className="text-lg">
-                                 Master JavaScript with the most comprehensive course available
-                              </div>
-                              <div className="mt-4 flex flex-wrap gap-2">
-                                 <div className="bg-white/20 backdrop-blur-sm text-white text-xs font-medium px-3 py-1 rounded-full">
-                                    Bestseller
-                                 </div>
-                                 <div className="bg-white/20 backdrop-blur-sm text-white text-xs font-medium px-3 py-1 rounded-full">
-                                    Updated July 2023
-                                 </div>
-                                 <div className="bg-white/20 backdrop-blur-sm text-white text-xs font-medium px-3 py-1 rounded-full">
-                                    67 hours
-                                 </div>
-                              </div>
-                           </div>
+                        <div className="absolute top-4 right-4 flex space-x-2">
+                           <span className="px-3 py-1 bg-primary-500 text-white rounded-full text-sm font-medium shadow-lg">
+                              Bestseller
+                           </span>
+                           <span className="px-3 py-1 bg-blue-500 text-white rounded-full text-sm font-medium shadow-lg">
+                              Updated 2023
+                           </span>
                         </div>
                      </div>
 
-                     {/* <!-- Content Sections --> */}
-                     <div className="p-6 space-y-10">
-                        {/* <!-- Overview Section --> */}
-                        <section id="overview" className="scroll-mt-20">
-                           <div className="text-3xl font-bold mb-4 text-gray-800 flex items-center border-b pb-2">
-                              <ScrollText
-                                 className="mr-2 text-primary-500 w-7 h-7"
-                                 aria-label="Course Overview"
-                              />
-                              Course Overview
+                     <div className="p-6">
+                        <h2 className="text-3xl font-bold mb-3">Full-Stack Development Bootcamp</h2>
+                        <p className="mb-4">
+                           Master modern web development with this comprehensive bootcamp. Learn
+                           front-end, back-end, databases, and deployment - everything you need to
+                           become a professional developer.
+                        </p>
+
+                        <div className="flex items-center mb-6">
+                           <div className="flex items-center mr-6">
+                              <span className="mr-2">
+                                 <i
+                                    className="fa-solid fa-star text-yellow-400 w-4 h-4"
+                                    aria-label="Full star"
+                                 ></i>
+                              </span>
+                              <span className="font-semibold">4.8</span>
+                              <span className="text-gray-500 ml-1">(3,245 reviews)</span>
                            </div>
-
-                           <div className="bg-gray-50 p-4 rounded-lg mb-4 border-l-4 border-primary-500">
-                              <div className="text-gray-700">
-                                 This complete JavaScript course takes you from zero to expert!
-                                 Learn JavaScript from scratch with hands-on projects, challenges,
-                                 and real-world applications. Whether you are a complete beginner or
-                                 looking to enhance your skills, this course covers everything you
-                                 need to become a professional JavaScript developer.
-                              </div>
+                           <div className="flex items-center mr-6">
+                              <Users className="mr-1 text-gray-600" />
+                              <span className="text-gray-600">12,879 students</span>
                            </div>
-
-                           <h4 className="font-bold mb-3 text-gray-800">What you will learn:</h4>
-
-                           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                              <div className="flex items-start space-x-3">
-                                 <CheckCircle className="text-green-500 mt-0.5" />
-                                 <div className="text-gray-700">
-                                    JavaScript fundamentals: variables, operators, conditionals
-                                 </div>
-                              </div>
-                              <div className="flex items-start space-x-3">
-                                 <CheckCircle className="text-green-500 mt-0.5" />
-                                 <div className="text-gray-700">
-                                    Modern ES6+ features and syntax
-                                 </div>
-                              </div>
-                              <div className="flex items-start space-x-3">
-                                 <CheckCircle className="text-green-500 mt-0.5" />
-                                 <div className="text-gray-700">
-                                    Object-oriented programming with JavaScript
-                                 </div>
-                              </div>
-                              <div className="flex items-start space-x-3">
-                                 <CheckCircle className="text-green-500 mt-0.5" />
-                                 <div className="text-gray-700">
-                                    Asynchronous JavaScript: Promises, async/await
-                                 </div>
-                              </div>
-                              <div className="flex items-start space-x-3">
-                                 <CheckCircle className="text-green-500 mt-0.5" />
-                                 <div className="text-gray-700">
-                                    Modern tools: NPM, Parcel, Babel and ES6 modules
-                                 </div>
-                              </div>
-                              <div className="flex items-start space-x-3">
-                                 <CheckCircle className="text-green-500 mt-0.5" />
-                                 <div className="text-gray-700">
-                                    5 real-world projects to build a portfolio
-                                 </div>
-                              </div>
+                           <div className="flex items-center">
+                              <Clock3 className="mr-1 text-gray-600" />
+                              <span className="text-gray-600">Last updated: Oct 2023</span>
                            </div>
+                        </div>
 
-                           <div className="bg-blue-50 p-4 rounded-lg border border-blue-100 mt-6">
+                        {/* What will you learn */}
+                        <div className="border-t border-gray-200 pt-6">
+                           <h3 className="text-xl font-semibold mb-4">What You will Learn</h3>
+                           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                               <div className="flex items-start">
-                                 <BellRing className="text-blue-600 mr-3 mt-1" />
-                                 <div>
-                                    <div className="font-bold text-gray-800 mb-1">
-                                       Limited Time Offer!
-                                    </div>
-                                    <div className="text-gray-700">
-                                       Enroll now and get the{" "}
-                                       <strong>Advanced JavaScript Patterns</strong> bonus module
-                                       for free! Offer valid until August 31, 2023.
-                                    </div>
-                                 </div>
+                                 <Check className="text-green-500 mr-2 mt-0.5" />
+                                 <p className="text-gray-700">
+                                    Build responsive websites with HTML, CSS and JavaScript
+                                 </p>
+                              </div>
+                              <div className="flex items-start">
+                                 <Check className="text-green-500 mr-2 mt-0.5" />
+                                 <p className="text-gray-700">
+                                    Create backends with Node.js, Express and MongoDB
+                                 </p>
+                              </div>
+                              <div className="flex items-start">
+                                 <Check className="text-green-500 mr-2 mt-0.5" />
+                                 <p className="text-gray-700">
+                                    Develop modern React applications with hooks
+                                 </p>
+                              </div>
+                              <div className="flex items-start">
+                                 <Check className="text-green-500 mr-2 mt-0.5" />
+                                 <p className="text-gray-700">
+                                    Deploy applications to cloud platforms
+                                 </p>
+                              </div>
+                              <div className="flex items-start">
+                                 <Check className="text-green-500 mr-2 mt-0.5" />
+                                 <p className="text-gray-700">
+                                    Implement authentication and authorization
+                                 </p>
+                              </div>
+                              <div className="flex items-start">
+                                 <Check className="text-green-500 mr-2 mt-0.5" />
+                                 <p className="text-gray-700">Work with RESTful and GraphQL APIs</p>
                               </div>
                            </div>
-                        </section>
+                        </div>
 
-                        {/* <!-- Course Content Section --> */}
-                        <section id="content" className="scroll-mt-20">
-                           <div className="text-3xl font-bold mb-4 text-gray-800 flex items-center border-b pb-2">
-                              <BookOpen
-                                 className="mr-2 text-primary-500 w-7 h-7"
-                                 aria-label="Course Content"
-                              />
-                              Course Content
-                           </div>
-
-                           <div className="mb-4">
-                              <div className="flex items-center justify-between mb-3">
-                                 <div className="text-gray-700">
-                                    <span className="font-medium">17 sections</span> •{" "}
-                                    <span className="font-medium">157 lectures</span> •{" "}
-                                    <span className="font-medium">Total: 67 hours</span>
-                                 </div>
-                                 <button className="text-primary-500 hover:text-primary-600 font-medium text-sm cursor-pointer">
-                                    Expand All Sections
-                                 </button>
-                              </div>
-
-                              <div className="relative">
-                                 <input
-                                    type="text"
-                                    placeholder="Search lectures..."
-                                    className="w-full p-3 pl-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 transition-all"
-                                 />
-                                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
-                              </div>
-                           </div>
-
+                        {/* Course Content */}
+                        <div className="border-t border-gray-200 pt-6 mt-6">
+                           <h3 className="text-3xl font-semibold mb-4">Course Content</h3>
                            <div className="space-y-3">
-                              <details className="bg-white border border-gray-200 rounded-lg overflow-hidden group hover:shadow-sm transition-all">
-                                 <summary className="flex items-center justify-between cursor-pointer p-4">
+                              {/* Section 1 */}
+                              <details className="bg-gray-50 rounded-lg overflow-hidden border border-gray-200 transition-all duration-300 hover:shadow-md group">
+                                 <summary className="px-4 py-3 cursor-pointer flex justify-between items-center font-medium hover:bg-gray-100 transition-colors">
                                     <div className="flex items-center">
-                                       <ChevronRight className="mr-3 text-primary-500 group-open:rotate-90 transition-transform" />
-                                       <div>
-                                          <div className="font-medium text-gray-800">
-                                             1. Introduction to JavaScript
-                                          </div>
-                                          <div className="text-sm text-gray-500">
-                                             5 lectures • 32 min
-                                          </div>
-                                       </div>
+                                       <Folder className="mr-2" />
+                                       Section 1: Introduction to Web Development
                                     </div>
-                                    <div className="text-primary-500 hover:text-primary-600 text-sm font-medium">
-                                       Preview
+                                    <div className="flex items-center text-sm text-gray-500">
+                                       <span>5 lectures • 1.5 hours</span>
+                                       <ChevronDown className="ml-2 group-open:rotate-180 transition-transform" />
                                     </div>
                                  </summary>
-                                 <div className="p-4 pt-0 border-t border-gray-100">
-                                    <ul className="divide-y">
-                                       <li className="py-3 flex items-center justify-between">
+                                 <div className="px-4 py-2 border-t border-gray-200">
+                                    <ul className="divide-y divide-gray-100">
+                                       <li className="py-2 flex justify-between items-center">
                                           <div className="flex items-center">
-                                             <CirclePlay className="mr-3 text-gray-400" />
-                                             <div className="text-gray-700">
-                                                Welcome to the Course!
-                                             </div>
+                                             <CirclePlay className="mr-2 text-primary-500" />
+                                             <span>Course Overview and Setup</span>
                                           </div>
-                                          <div className="text-sm text-gray-500">8:12</div>
+                                          <span className="text-sm text-gray-500">15:20</span>
                                        </li>
-                                       <li className="py-3 flex items-center justify-between">
+                                       <li className="py-2 flex justify-between items-center">
                                           <div className="flex items-center">
-                                             <CirclePlay className="mr-3 text-gray-400" />
-                                             <div className="text-gray-700">
-                                                Setting Up the Development Environment
-                                             </div>
+                                             <CirclePlay className="mr-2 text-primary-500" />
+                                             <span>HTML Fundamentals</span>
                                           </div>
-                                          <div className="text-sm text-gray-500">10:35</div>
+                                          <span className="text-sm text-gray-500">22:45</span>
                                        </li>
-                                       <li className="py-3 flex items-center justify-between">
+                                       <li className="py-2 flex justify-between items-center">
                                           <div className="flex items-center">
-                                             <FileText className="mr-3 text-gray-400" />
-                                             <div className="text-gray-700">
-                                                Course Resources & Documents
-                                             </div>
+                                             <CirclePlay className="mr-2 text-primary-500" />
+                                             <span>CSS Basics and Styling</span>
                                           </div>
-                                          <div className="text-sm text-gray-500">5:08</div>
+                                          <span className="text-sm text-gray-500">28:10</span>
+                                       </li>
+                                       <li className="py-2 flex justify-between items-center">
+                                          <div className="flex items-center">
+                                             <FileText className="mr-2 text-primary-500" />
+                                             <span>Assignment: Build Your First Webpage</span>
+                                          </div>
+                                          <span className="text-sm text-gray-500">Practice</span>
+                                       </li>
+                                       <li className="py-2 flex justify-between items-center">
+                                          <div className="flex items-center">
+                                             <FileQuestion className="mr-2 text-primary-500" />
+                                             <span>Section Quiz</span>
+                                          </div>
+                                          <span className="text-sm text-gray-500">
+                                             10 questions
+                                          </span>
                                        </li>
                                     </ul>
                                  </div>
                               </details>
 
-                              <details className="bg-white border border-gray-200 rounded-lg overflow-hidden group hover:shadow-sm transition-all">
-                                 <summary className="flex items-center justify-between cursor-pointer p-4">
+                              {/* Section 2 */}
+                              <details className="bg-gray-50 rounded-lg overflow-hidden border border-gray-200 transition-all duration-300 hover:shadow-md group">
+                                 <summary className="px-4 py-3 cursor-pointer flex justify-between items-center font-medium hover:bg-gray-100 transition-colors">
                                     <div className="flex items-center">
-                                       <ChevronRight className="mr-3 text-primary-500 group-open:rotate-90 transition-transform" />
-                                       <div>
-                                          <div className="font-medium text-gray-800">
-                                             2. JavaScript Fundamentals – Part 1
-                                          </div>
-                                          <div className="text-sm text-gray-500">
-                                             12 lectures • 1h 45min
-                                          </div>
-                                       </div>
+                                       <Folder className="mr-2" />
+                                       Section 2: JavaScript Fundamentals
                                     </div>
-                                    <div className="text-primary-500 hover:text-primary-600 text-sm font-medium">
-                                       Preview
+                                    <div className="flex items-center text-sm text-gray-500">
+                                       <span>8 lectures • 3.2 hours</span>
+                                       <ChevronDown className="ml-2 group-open:rotate-180 transition-transform" />
                                     </div>
                                  </summary>
-                                 <div className="p-4 pt-0 border-t border-gray-100">
-                                    <ul className="divide-y">
-                                       <li className="py-3 flex items-center justify-between">
+                                 <div className="px-4 py-2 border-t border-gray-200">
+                                    <ul className="divide-y divide-gray-100">
+                                       <li className="py-2 flex justify-between items-center">
                                           <div className="flex items-center">
-                                             <CirclePlay className="mr-3 text-gray-400" />
-                                             <div className="text-gray-700">
-                                                Variables and Values
-                                             </div>
+                                             <CirclePlay className="mr-2 text-primary-500" />
+                                             <span>JavaScript Basics and Syntax</span>
                                           </div>
-                                          <div className="text-sm text-gray-500">14:20</div>
+                                          <span className="text-sm text-gray-500">28:15</span>
                                        </li>
-                                       <li className="py-3 flex items-center justify-between">
+                                       <li className="py-2 flex justify-between items-center">
                                           <div className="flex items-center">
-                                             <CirclePlay className="mr-3 text-gray-400" />
-                                             <div className="text-gray-700">Data Types</div>
+                                             <CirclePlay className="mr-2 text-primary-500" />
+                                             <span>Variables, Data Types, and Operators</span>
                                           </div>
-                                          <div className="text-sm text-gray-500">11:05</div>
+                                          <span className="text-sm text-gray-500">24:30</span>
                                        </li>
-                                       <li className="py-3 flex items-center justify-between">
+                                       <li className="py-2 flex justify-between items-center">
                                           <div className="flex items-center">
-                                             <NotebookPen className="mr-3 text-gray-400" />
-                                             <div className="text-gray-700">
-                                                Coding Challenge #1
-                                             </div>
+                                             <CirclePlay className="mr-2 text-primary-500" />
+                                             <span>Control Flow: Conditions and Loops</span>
                                           </div>
-                                          <div className="text-sm text-gray-500">8:15</div>
+                                          <span className="text-sm text-gray-500">31:45</span>
                                        </li>
                                     </ul>
                                  </div>
                               </details>
 
-                              <details className="bg-white border border-gray-200 rounded-lg overflow-hidden group hover:shadow-sm transition-all">
-                                 <summary className="flex items-center justify-between cursor-pointer p-4">
+                              {/* Section 3 */}
+                              <details className="bg-gray-50 rounded-lg overflow-hidden border border-gray-200 transition-all duration-300 hover:shadow-md group">
+                                 <summary className="px-4 py-3 cursor-pointer flex justify-between items-center font-medium hover:bg-gray-100 transition-colors">
                                     <div className="flex items-center">
-                                       <ChevronRight className="mr-3 text-primary-500 group-open:rotate-90 transition-transform" />
-                                       <div>
-                                          <div className="font-medium text-gray-800">
-                                             3. JavaScript Fundamentals – Part 2
-                                          </div>
-                                          <div className="text-sm text-gray-500">
-                                             15 lectures • 2h 20min
-                                          </div>
-                                       </div>
+                                       <Folder className="mr-2" />
+                                       Section 3: Building the Front-end with React
+                                    </div>
+                                    <div className="flex items-center text-sm text-gray-500">
+                                       <span>12 lectures • 5.8 hours</span>
+                                       <ChevronDown className="ml-2 group-open:rotate-180 transition-transform" />
                                     </div>
                                  </summary>
                               </details>
 
-                              <details className="bg-white border border-gray-200 rounded-lg overflow-hidden group hover:shadow-sm transition-all">
-                                 <summary className="flex items-center justify-between cursor-pointer p-4">
+                              {/* Section 4 */}
+                              <details className="bg-gray-50 rounded-lg overflow-hidden border border-gray-200 transition-all duration-300 hover:shadow-md group">
+                                 <summary className="px-4 py-3 cursor-pointer flex justify-between items-center font-medium hover:bg-gray-100 transition-colors">
                                     <div className="flex items-center">
-                                       <ChevronRight className="mr-3 text-primary-500 group-open:rotate-90 transition-transform" />
-                                       <div>
-                                          <div className="font-medium text-gray-800">
-                                             4. DOM and Events Fundamentals
-                                          </div>
-                                          <div className="text-sm text-gray-500">
-                                             13 lectures • 2h 05min
-                                          </div>
-                                       </div>
+                                       <Folder className="mr-2" />
+                                       Section 4: Node.js and Express Back-end
+                                    </div>
+                                    <div className="flex items-center text-sm text-gray-500">
+                                       <span>10 lectures • 4.5 hours</span>
+                                       <ChevronDown className="ml-2 group-open:rotate-180 transition-transform" />
                                     </div>
                                  </summary>
                               </details>
-                           </div>
 
-                           <button className="mt-6 px-4 py-2 bg-primary-500 hover:bg-primary-600 text-white font-medium rounded-full transition-colors flex items-center justify-center">
-                              <span>Show 13 more sections</span>
-                              <ChevronDown className="ml-2" />
-                           </button>
-                        </section>
-
-                        {/* <!-- Instructor Section --> */}
-                        <section id="instructor" className="scroll-mt-20">
-                           <div className="text-3xl font-bold mb-4 text-gray-800 flex items-center border-b pb-2">
-                              <Star
-                                 className="mr-2 text-primary-500 w-7 h-7"
-                                 aria-label="Reviews"
-                              />
-                              Instructor
-                           </div>
-
-                           <div className="flex flex-col md:flex-row gap-6">
-                              <div className="md:w-1/4">
-                                 <Image
-                                    src={img1}
-                                    alt="Instructor portrait"
-                                    className="w-40 h-40 object-cover rounded-full mx-auto"
-                                    width={160}
-                                    height={160}
-                                 />
-                              </div>
-                              <div className="md:w-3/4">
-                                 <h3 className="text-xl font-bold text-gray-800">John Smith</h3>
-                                 <div className="text-gray-600 mb-2">
-                                    Web Developer & JavaScript Expert
-                                 </div>
-
-                                 <div className="flex items-center mb-4 text-sm text-gray-600">
-                                    <div className="flex items-center mr-4">
-                                       <Star className="material-symbols-outlined text-gray-500 mr-1" />
-                                       4.8 Instructor Rating
-                                    </div>
-                                    <div className="flex items-center mr-4">
-                                       <MessageSquareText className="text-gray-500 mr-1" />
-                                       12,487 Reviews
-                                    </div>
-                                    <div className="flex items-center">
-                                       <Users className="text-gray-500 mr-1" />
-                                       124,587 Students
-                                    </div>
-                                 </div>
-
-                                 <p className="text-gray-700 mb-4">
-                                    I have spent the last 10 years working as a professional web
-                                    developer for major tech companies. During this time, I have
-                                    taught over 120,000 students online, helping them achieve their
-                                    goals in web development. My teaching approach focuses on
-                                    practical, real-world applications rather than theory.
-                                 </p>
-
-                                 <p className="text-gray-700 mb-4">
-                                    My courses are project-based because I firmly believe in
-                                    learning by doing. With over 15 years of JavaScript experience,
-                                    I will guide you through becoming a confident JavaScript
-                                    developer from scratch.
-                                 </p>
-
-                                 <button className="text-primary-500 hover:text-primary-600 font-medium flex items-center cursor-pointer">
-                                    <span>View full profile</span>
-                                    <ArrowRight className="ml-1" />
+                              <div className="text-center py-3 border text-white bg-primary-500 hover:bg-primary-600 rounded-lg transition-colors cursor-pointer">
+                                 <button className="font-medium flex items-center justify-center mx-auto transition-colors">
+                                    <span>Show all 12 sections</span>
+                                    <ChevronDown className="ml-1" />
                                  </button>
                               </div>
                            </div>
-                        </section>
+                        </div>
 
-                        {/* <!-- Reviews Section --> */}
-                        <section id="reviews" className="scroll-mt-20">
-                           <div className="text-3xl font-bold mb-4 text-gray-800 flex items-center border-b pb-2">
-                              <User
-                                 className="mr-2 text-primary-500 w-7 h-7"
-                                 aria-label="Instructor"
-                              />
-                              Student Reviews
-                           </div>
+                        {/* Requirements */}
+                        <div className="border-t border-gray-200 pt-6 mt-6">
+                           <h3 className="text-3xl font-semibold mb-4">Requirements</h3>
+                           <ul className="space-y-2">
+                              <li className="flex items-start">
+                                 <Check className="text-primary-500 mr-2 mt-0.5" />
+                                 <p className="text-gray-700">
+                                    Basic computer knowledge and familiarity with using the internet
+                                 </p>
+                              </li>
+                              <li className="flex items-start">
+                                 <Check className="text-primary-500 mr-2 mt-0.5" />
+                                 <p className="text-gray-700">
+                                    No prior programming experience required - we will start from
+                                    the basics
+                                 </p>
+                              </li>
+                              <li className="flex items-start">
+                                 <Check className="text-primary-500 mr-2 mt-0.5" />
+                                 <p className="text-gray-700">
+                                    A computer with at least 8GB RAM and 10GB free disk space
+                                    (Windows, Mac, or Linux)
+                                 </p>
+                              </li>
+                           </ul>
+                        </div>
 
-                           <div className="flex flex-col md:flex-row gap-6 mb-6">
-                              <div className="md:w-1/3 bg-gray-50 p-5 rounded-lg flex flex-col items-center justify-center">
-                                 <div className="text-5xl font-bold text-gray-800 mb-2">4.8</div>
-                                 <div className="flex items-center mb-2 space-x-1">
-                                    {renderRatingStars(4.8)}
+                        {/* About Instructor */}
+                        <div className="border-t border-gray-200 pt-6 mt-6">
+                           <h3 className="text-3xl font-semibold mb-4">About the Instructor</h3>
+                           <div className="flex items-start">
+                              <div className="mr-4">
+                                 <div className="w-20 h-20 rounded-full overflow-hidden border-2 border-primary-500">
+                                    <Image
+                                       src={logo}
+                                       alt="Instructor profile"
+                                       className="w-full h-full object-cover"
+                                       width={80}
+                                       height={80}
+                                    />
                                  </div>
-                                 <div className="text-gray-600 text-sm">Course Rating</div>
-                                 <div className="mt-2 text-gray-700 font-medium">
-                                    (4,297 ratings)
+                              </div>
+                              <div>
+                                 <h4 className="font-semibold text-lg">Sarah Johnson</h4>
+                                 <p className="text-gray-600 text-sm mb-2">
+                                    Senior Software Engineer & Educator
+                                 </p>
+                                 <div className="flex items-center mb-2">
+                                    <span className="mr-2">
+                                       <i
+                                          className="fa-solid fa-star text-yellow-400 w-4 h-4"
+                                          aria-label="Full star"
+                                       ></i>
+                                    </span>
+                                    <span className="text-sm ml-1">4.9 Instructor Rating</span>
+                                    <span className="mx-2 text-gray-300">|</span>
+                                    <Users className="text-gray-500 text-sm" />
+                                    <span className="text-sm ml-1">43,120 Students</span>
+                                    <span className="mx-2 text-gray-300">|</span>
+                                    <ScrollText className="text-gray-500 text-sm" />
+                                    <span className="text-sm ml-1">15 Courses</span>
+                                 </div>
+                                 <p className="text-gray-700">
+                                    Full-stack developer with 10+ years of experience in building
+                                    web applications. I have worked with companies like Google and
+                                    Amazon, and I am passionate about teaching programming in a
+                                    practical, project-based way.
+                                 </p>
+                              </div>
+                           </div>
+                        </div>
+
+                        {/* Feedback */}
+                        <div className="border-t border-gray-200 pt-6 mt-6">
+                           <h3 className="text-3xl font-semibold mb-4">Student Feedback</h3>
+                           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                              {/* Ratings */}
+                              <div className="md:col-span-1">
+                                 <div className="flex flex-col items-center justify-center bg-gray-50 p-6 rounded-lg">
+                                    <div className="text-5xl font-bold text-primary-500">4.8</div>
+                                    <div className="flex items-center my-2 space-x-1">
+                                       {renderRatingStars(4.8)}
+                                    </div>
+                                    <div className="text-gray-600">Course Rating</div>
+                                    <div className="text-sm text-gray-500 mt-1">3,245 Reviews</div>
                                  </div>
                               </div>
 
-                              <div className="md:w-2/3">
-                                 <div className="space-y-1">
+                              {/* Stars count */}
+                              <div className="md:col-span-2">
+                                 <div className="space-y-2">
                                     <div className="flex items-center">
-                                       <div className="w-24 text-sm text-gray-600">5 stars</div>
-                                       <div className="flex-1 h-4 bg-gray-200 rounded-full overflow-hidden">
+                                       <div className="w-20 text-right pr-3">5 stars</div>
+                                       <div className="flex-1 h-2 bg-gray-200 rounded-full overflow-hidden">
                                           <div
                                              className="bg-primary-500 h-full rounded-full"
                                              style={{ width: "78%" }}
                                           ></div>
                                        </div>
-                                       <div className="w-12 text-sm text-gray-600 ml-2">78%</div>
+                                       <div className="w-10 text-right pl-3 text-sm text-gray-500">
+                                          78%
+                                       </div>
                                     </div>
                                     <div className="flex items-center">
-                                       <div className="w-24 text-sm text-gray-600">4 stars</div>
-                                       <div className="flex-1 h-4 bg-gray-200 rounded-full overflow-hidden">
+                                       <div className="w-20 text-right pr-3">4 stars</div>
+                                       <div className="flex-1 h-2 bg-gray-200 rounded-full overflow-hidden">
                                           <div
                                              className="bg-primary-500 h-full rounded-full"
-                                             style={{ width: "14%" }}
+                                             style={{ width: "15%" }}
                                           ></div>
                                        </div>
-                                       <div className="w-12 text-sm text-gray-600 ml-2">14%</div>
+                                       <div className="w-10 text-right pl-3 text-sm text-gray-500">
+                                          15%
+                                       </div>
                                     </div>
                                     <div className="flex items-center">
-                                       <div className="w-24 text-sm text-gray-600">3 stars</div>
-                                       <div className="flex-1 h-4 bg-gray-200 rounded-full overflow-hidden">
+                                       <div className="w-20 text-right pr-3">3 stars</div>
+                                       <div className="flex-1 h-2 bg-gray-200 rounded-full overflow-hidden">
                                           <div
                                              className="bg-primary-500 h-full rounded-full"
                                              style={{ width: "5%" }}
                                           ></div>
                                        </div>
-                                       <div className="w-12 text-sm text-gray-600 ml-2">5%</div>
+                                       <div className="w-10 text-right pl-3 text-sm text-gray-500">
+                                          5%
+                                       </div>
                                     </div>
                                     <div className="flex items-center">
-                                       <div className="w-24 text-sm text-gray-600">2 stars</div>
-                                       <div className="flex-1 h-4 bg-gray-200 rounded-full overflow-hidden">
+                                       <div className="w-20 text-right pr-3">2 stars</div>
+                                       <div className="flex-1 h-2 bg-gray-200 rounded-full overflow-hidden">
                                           <div
                                              className="bg-primary-500 h-full rounded-full"
-                                             style={{ width: "2%" }}
+                                             style={{ width: "1%" }}
                                           ></div>
                                        </div>
-                                       <div className="w-12 text-sm text-gray-600 ml-2">2%</div>
+                                       <div className="w-10 text-right pl-3 text-sm text-gray-500">
+                                          1%
+                                       </div>
                                     </div>
                                     <div className="flex items-center">
-                                       <div className="w-24 text-sm text-gray-600">1 star</div>
-                                       <div className="flex-1 h-4 bg-gray-200 rounded-full overflow-hidden"></div>
-                                       <div className="w-12 text-sm text-gray-600 ml-2">0%</div>
+                                       <div className="w-20 text-right pr-3">1 star</div>
+                                       <div className="flex-1 h-2 bg-gray-200 rounded-full overflow-hidden">
+                                          <div
+                                             className="bg-primary-500 h-full rounded-full"
+                                             style={{ width: "1%" }}
+                                          ></div>
+                                       </div>
+                                       <div className="w-10 text-right pl-3 text-sm text-gray-500">
+                                          1%
+                                       </div>
                                     </div>
                                  </div>
                               </div>
                            </div>
-                        </section>
+
+                           {/* Comment */}
+                           <div className="mt-6 space-y-4">
+                              {/* Comment 1 */}
+                              <div className="bg-gray-50 p-4 rounded-lg">
+                                 <div className="flex items-start">
+                                    <div className="w-10 h-10 rounded-full overflow-hidden mr-3 bg-blue-100 flex items-center justify-center text-blue-500 font-semibold">
+                                       MJ
+                                    </div>
+                                    <div className="flex-1">
+                                       <div className="flex items-center justify-between">
+                                          <h4 className="font-semibold">Michael Johnson</h4>
+                                          <span className="text-gray-500 text-sm">2 weeks ago</span>
+                                       </div>
+                                       <div className="flex items-center my-1">
+                                          {renderRatingStars(5)}
+                                       </div>
+                                       <p className="text-gray-700">
+                                          This course exceeded my expectations. The instructor
+                                          explains complex concepts clearly and the projects are
+                                          practical and engaging. I went from knowing nothing about
+                                          web development to building full-stack applications.
+                                          Highly recommended!
+                                       </p>
+                                    </div>
+                                 </div>
+                              </div>
+
+                              {/* Comment 2 */}
+                              <div className="bg-gray-50 p-4 rounded-lg">
+                                 <div className="flex items-start">
+                                    <div className="w-10 h-10 rounded-full overflow-hidden mr-3 bg-blue-100 flex items-center justify-center text-blue-500 font-semibold">
+                                       AP
+                                    </div>
+                                    <div className="flex-1">
+                                       <div className="flex items-center justify-between">
+                                          <h4 className="font-semibold">Amanda Peterson</h4>
+                                          <span className="text-gray-500 text-sm">1 month ago</span>
+                                       </div>
+                                       <div className="flex items-center my-1">
+                                          {renderRatingStars(4.5)}
+                                       </div>
+                                       <p className="text-gray-700">
+                                          Great course with a lot of valuable content. My only
+                                          suggestion would be to update some of the Node.js sections
+                                          as a few packages are now deprecated. Otherwise, this was
+                                          exactly what I needed to transition into web development.
+                                       </p>
+                                    </div>
+                                 </div>
+                              </div>
+
+                              {/* Show more */}
+                              <div className="text-center py-2 text-white bg-primary-500 hover:bg-primary-600 transition-colors rounded-lg cursor-pointer">
+                                 <button className="font-medium flex items-center justify-center mx-auto">
+                                    <span>See all 3,245 reviews</span>
+                                    <ChevronDown className="ml-1" />
+                                 </button>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+
+               {/* Sidebar */}
+               <div className="lg:col-span-1">
+                  <div className="sticky top-2.5">
+                     {/* Course Price */}
+                     <div className="bg-white border border-gray-200 rounded-lg overflow-hidden shadow-lg mb-6">
+                        <div className="p-5">
+                           <div className="flex justify-between items-center mb-4">
+                              <div className="text-3xl font-bold">$94.99</div>
+                              <div className="text-sm text-gray-500 line-through">$199.99</div>
+                           </div>
+                           <div className="text-sm text-red-600 font-medium mb-4">
+                              53% off - 2 days left at this price!
+                           </div>
+
+                           <div
+                              className="w-full py-3 bg-primary-500 text-white rounded-lg mb-3 font-medium hover:bg-primary-600 transition-colors transform hover:-translate-y-0.5 duration-300 shadow-md hover:shadow-lg flex items-center justify-center cursor-pointer"
+                              onClick={() => {
+                                 setIsClicked(true);
+                              }}
+                           >
+                              <ShoppingCart className="mr-2" />
+                              Add to Cart
+                           </div>
+
+                           <div className="text-center text-sm text-gray-500 mb-4">
+                              30-Day Money-Back Guarantee
+                           </div>
+
+                           <div className="mb-2">
+                              <h4 className="font-semibold">This course includes:</h4>
+                              <ul className="space-y-2">
+                                 <li className="flex items-center text-sm">
+                                    <Video className="text-gray-500 mr-2" />
+                                    <span>42 hours on-demand video</span>
+                                 </li>
+                                 <li className="flex items-center text-sm">
+                                    <FileText className="text-gray-500 mr-2" />
+                                    <span>85 articles</span>
+                                 </li>
+                                 <li className="flex items-center text-sm">
+                                    <Download className="text-gray-500 mr-2" />
+                                    <span>120 downloadable resources</span>
+                                 </li>
+                                 <li className="flex items-center text-sm">
+                                    <SquareTerminal className="text-gray-500 mr-2" />
+                                    <span>25 coding exercises</span>
+                                 </li>
+                                 <li className="flex items-center text-sm">
+                                    <Infinity className="text-gray-500 mr-2" />
+                                    <span>Full lifetime access</span>
+                                 </li>
+                              </ul>
+                           </div>
+
+                           {/* Coupon */}
+                           <div>
+                              <h4 className="font-semibold mb-2">Coupon:</h4>
+                              <div className="flex">
+                                 <input
+                                    type="text"
+                                    placeholder="Enter Coupon"
+                                    className="w-full p-3 border border-gray-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 transition-all text-sm mr-2"
+                                    aria-label="Search courses"
+                                 />
+                                 <button className="p-3 rounded-lg bg-primary-500 text-white hover:bg-primary-600 transition-colors cursor-pointer">
+                                    Apply
+                                 </button>
+                              </div>
+                           </div>
+
+                           {/* Share */}
+                           <div className="flex justify-center mt-6 space-x-4">
+                              <button className="text-gray-500 hover:text-primary-500 transition-colors text-sm flex items-center">
+                                 <Heart className="mr-1" />
+                                 Wishlist
+                              </button>
+                              <button className="text-gray-500 hover:text-primary-500 transition-colors text-sm flex items-center">
+                                 <Share className="mr-1" />
+                                 Share
+                              </button>
+                           </div>
+                        </div>
+                     </div>
+
+                     {/* Course Statistics */}
+                     <div className="bg-white border border-gray-200 rounded-lg overflow-hidden shadow-lg mb-6">
+                        <div className="p-5">
+                           <h3 className="font-semibold text-lg mb-3">Course Statistics</h3>
+                           <div className="space-y-3">
+                              <div className="flex items-center justify-between">
+                                 <span className="text-gray-600">Enrollment Status</span>
+                                 <span className="bg-green-100 text-green-700 px-2 py-1 rounded-full text-xs font-medium">
+                                    Active
+                                 </span>
+                              </div>
+                              <div className="flex items-center justify-between">
+                                 <span className="text-gray-600">Last Updated</span>
+                                 <span className="text-gray-700">October 15, 2023</span>
+                              </div>
+                              <div className="flex items-center justify-between">
+                                 <span className="text-gray-600">Language</span>
+                                 <span className="text-gray-700">English</span>
+                              </div>
+                              <div className="flex items-center justify-between">
+                                 <span className="text-gray-600">Skill Level</span>
+                                 <span className="text-gray-700">All Levels</span>
+                              </div>
+                              <div className="flex items-center justify-between">
+                                 <span className="text-gray-600">Students</span>
+                                 <span className="text-gray-700">12,879</span>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+
+                     {/* Train 5 or More people */}
+                     {/* <div className="bg-primary-100 rounded-lg shadow-lg p-5">
+                        <h3 className="font-semibold text-lg mb-3">Training 5 or more people?</h3>
+                        <p className="text-gray-600 text-sm mb-4">
+                           Get your team access to 25,000+ top courses anytime, anywhere.
+                        </p>
+                     </div> */}
+
+                     {/* Modal */}
+                     <div
+                        className={`fixed inset-0 z-40 items-center justify-center ${
+                           isClicked ? "flex" : "hidden"
+                        }`}
+                        id="courseModal"
+                     >
+                        <div
+                           className="fixed top-0 left-0 right-0 bottom-0 bg-black opacity-80"
+                           onClick={() => {
+                              setIsClicked(false);
+                           }}
+                        />
+                        <div className="bg-white z-50 rounded-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6 m-4">
+                           <div className="flex justify-between items-center mb-4">
+                              <h3 className="text-xl font-bold text-gray-800">
+                                 Customize Your Course Purchase
+                              </h3>
+                              <span
+                                 className="material-symbols-outlined text-gray-500 cursor-pointer hover:text-gray-700 transition-colors"
+                                 onClick={() => {
+                                    setIsClicked(false);
+                                 }}
+                              >
+                                 close
+                              </span>
+                           </div>
+
+                           <p className="text-gray-600 mb-4">
+                              Select the sections you want to purchase. Price adjusts based on your
+                              selection.
+                           </p>
+
+                           <div className="border-t border-gray-200 py-4">
+                              <div className="flex items-center justify-between mb-3">
+                                 <div className="font-semibold">Course Sections</div>
+                                 <div
+                                    className="text-sm text-primary-600 cursor-pointer hover:text-primary-700 transition-colors"
+                                    //   onClick={()=>{document.querySelectorAll('[id^=section-checkbox]').forEach(cb => cb.checked = true)}}
+                                 >
+                                    Select All
+                                 </div>
+                              </div>
+
+                              <div className="space-y-3 max-h-[40vh] overflow-y-auto pr-2">
+                                 <label className="flex items-start py-2 px-3 rounded-lg border border-gray-200 hover:bg-gray-50 transition-colors cursor-pointer">
+                                    <input
+                                       type="checkbox"
+                                       className="mt-1 h-4 w-4 text-primary-500 rounded border-gray-300 focus:ring-primary-500"
+                                       id="section-checkbox-1"
+                                       // checked
+                                       onChange={() => {
+                                          updatePrice(10);
+                                       }}
+                                    />
+                                    <div className="ml-3">
+                                       <div className="font-medium">
+                                          Section 1: Introduction to Web Development
+                                       </div>
+                                       <div className="text-sm text-gray-500">
+                                          5 lectures • 1.5 hours
+                                       </div>
+                                    </div>
+                                    <div className="ml-auto text-gray-700">$19.99</div>
+                                 </label>
+
+                                 <label className="flex items-start py-2 px-3 rounded-lg border border-gray-200 hover:bg-gray-50 transition-colors cursor-pointer">
+                                    <input
+                                       type="checkbox"
+                                       className="mt-1 h-4 w-4 text-primary-500 rounded border-gray-300 focus:ring-primary-500"
+                                       id="section-checkbox-2"
+                                       // checked
+                                       onChange={() => {
+                                          updatePrice(20);
+                                       }}
+                                    />
+                                    <div className="ml-3">
+                                       <div className="font-medium">
+                                          Section 2: JavaScript Fundamentals
+                                       </div>
+                                       <div className="text-sm text-gray-500">
+                                          8 lectures • 3.2 hours
+                                       </div>
+                                    </div>
+                                    <div className="ml-auto text-gray-700">$24.99</div>
+                                 </label>
+
+                                 <label className="flex items-start py-2 px-3 rounded-lg border border-gray-200 hover:bg-gray-50 transition-colors cursor-pointer">
+                                    <input
+                                       type="checkbox"
+                                       className="mt-1 h-4 w-4 text-primary-500 rounded border-gray-300 focus:ring-primary-500"
+                                       id="section-checkbox-3"
+                                       // checked
+                                       onChange={() => {
+                                          updatePrice(30);
+                                       }}
+                                    />
+                                    <div className="ml-3">
+                                       <div className="font-medium">
+                                          Section 3: Building the Front-end with React
+                                       </div>
+                                       <div className="text-sm text-gray-500">
+                                          12 lectures • 5.8 hours
+                                       </div>
+                                    </div>
+                                    <div className="ml-auto text-gray-700">$29.99</div>
+                                 </label>
+
+                                 <label className="flex items-start py-2 px-3 rounded-lg border border-gray-200 hover:bg-gray-50 transition-colors cursor-pointer">
+                                    <input
+                                       type="checkbox"
+                                       className="mt-1 h-4 w-4 text-primary-500 rounded border-gray-300 focus:ring-primary-500"
+                                       id="section-checkbox-4"
+                                       // checked
+                                       onChange={() => {
+                                          updatePrice(40);
+                                       }}
+                                    />
+                                    <div className="ml-3">
+                                       <div className="font-medium">
+                                          Section 4: Node.js and Express Back-end
+                                       </div>
+                                       <div className="text-sm text-gray-500">
+                                          10 lectures • 4.5 hours
+                                       </div>
+                                    </div>
+                                    <div className="ml-auto text-gray-700">$24.99</div>
+                                 </label>
+                              </div>
+                           </div>
+
+                           <div className="border-t border-gray-200 pt-4 mt-4">
+                              <div className="flex justify-between items-center mb-2">
+                                 <div className="text-gray-600">Original Price:</div>
+                                 <div className="text-gray-600 line-through">$199.99</div>
+                              </div>
+                              <div className="flex justify-between items-center mb-2">
+                                 <div className="text-gray-600">Discount:</div>
+                                 <div className="text-green-600">-$105.00</div>
+                              </div>
+                              <div className="flex justify-between items-center text-lg font-bold">
+                                 <div>Total Price:</div>
+                                 <div id="totalPrice">${totalPrice}</div>
+                              </div>
+                              <div className="text-xs text-red-600 mt-1">
+                                 53% off - 2 days left at this price!
+                              </div>
+                           </div>
+
+                           <div className="flex space-x-3 mt-6">
+                              <button
+                                 className="flex-1 py-3 bg-primary-500 text-white rounded-lg font-medium hover:bg-primary-600 transition-colors transform hover:-translate-y-0.5 duration-300 shadow-md hover:shadow-lg flex items-center justify-center"
+                                 onClick={() => {
+                                    setIsClicked(false);
+                                 }}
+                              >
+                                 <span className="material-symbols-outlined mr-2">
+                                    shopping_cart
+                                 </span>
+                                 Add to Cart
+                              </button>
+                              <button
+                                 className="py-3 px-4 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+                                 onClick={() => {
+                                    setIsClicked(false);
+                                 }}
+                              >
+                                 Cancel
+                              </button>
+                           </div>
+                        </div>
                      </div>
                   </div>
                </div>
             </div>
          </div>
-
-         {/* Footer */}
-         <footer className="bg-white top-shadow py-10">
-            <div className="container mx-auto px-4 md:px-5">
-               <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                  {/* Brand Information */}
-                  <div>
-                     <div className="flex items-center mb-4">
-                        <div className="bg-primary-500 text-white p-2 rounded-full mr-2">
-                           <GraduationCap aria-label="EduLearn Academy Logo" />
-                        </div>
-                        <div className="text-xl font-bold">EduLearn Academy</div>
-                     </div>
-                     <p className="text-sm">
-                        Empowering learners worldwide with high-quality online courses in
-                        programming, design, business, and more.
-                     </p>
-                  </div>
-
-                  {/* Navigation Links */}
-                  <div>
-                     <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
-                     <ul className="space-y-2 text-sm">
-                        <li>
-                           <Link
-                              href="#"
-                              className="hover:text-primary-400 transition-colors"
-                              aria-label="Home page"
-                           >
-                              Home
-                           </Link>
-                        </li>
-                        <li>
-                           <Link
-                              href="#"
-                              className="hover:text-primary-400 transition-colors"
-                              aria-label="Courses page"
-                           >
-                              Courses
-                           </Link>
-                        </li>
-                        <li>
-                           <Link
-                              href="#"
-                              className="hover:text-primary-400 transition-colors"
-                              aria-label="Categories page"
-                           >
-                              Categories
-                           </Link>
-                        </li>
-                        <li>
-                           <Link
-                              href="#"
-                              className="hover:text-primary-400 transition-colors"
-                              aria-label="Teaching page"
-                           >
-                              Teaching
-                           </Link>
-                        </li>
-                        <li>
-                           <Link
-                              href="#"
-                              className="hover:text-primary-400 transition-colors"
-                              aria-label="About page"
-                           >
-                              About
-                           </Link>
-                        </li>
-                        <li>
-                           <Link
-                              href="#"
-                              className="hover:text-primary-400 transition-colors"
-                              aria-label="Contact page"
-                           >
-                              Contact
-                           </Link>
-                        </li>
-                     </ul>
-                  </div>
-
-                  {/* Contact and Social Media */}
-                  <div>
-                     <h3 className="text-lg font-semibold mb-4">Get in Touch</h3>
-                     <div className="mt-4 flex space-x-4">
-                        <a
-                           href="https://twitter.com"
-                           target="_blank"
-                           rel="noopener noreferrer"
-                           aria-label="Follow us on Twitter"
-                        >
-                           <i className="fa-brands fa-x-twitter text-2xl"></i>
-                        </a>
-                        <a
-                           href="https://facebook.com"
-                           target="_blank"
-                           rel="noopener noreferrer"
-                           aria-label="Follow us on Facebook"
-                        >
-                           <i className="fa-brands fa-facebook-f text-2xl"></i>
-                        </a>
-                        <a
-                           href="https://instagram.com"
-                           target="_blank"
-                           rel="noopener noreferrer"
-                           aria-label="Follow us on Instagram"
-                        >
-                           <i className="fa-brands fa-square-instagram text-2xl"></i>
-                        </a>
-                        <a
-                           href="https://linkedin.com"
-                           target="_blank"
-                           rel="noopener noreferrer"
-                           aria-label="Follow us on LinkedIn"
-                        >
-                           <i className="fa-brands fa-linkedin text-2xl"></i>
-                        </a>
-                     </div>
-                  </div>
-               </div>
-
-               {/* Bottom Bar */}
-               <div className="mt-8 pt-8 border-t border-gray-700 flex flex-col md:flex-row justify-between items-center text-sm">
-                  <div className="mb-4 md:mb-0">
-                     <a
-                        href="#"
-                        className="hover:text-primary-400 transition-colors mr-4"
-                        aria-label="Privacy Policy"
-                     >
-                        Privacy Policy
-                     </a>
-                     <a
-                        href="#"
-                        className="hover:text-primary-400 transition-colors"
-                        aria-label="Terms of Service"
-                     >
-                        Terms of Service
-                     </a>
-                  </div>
-                  <div>
-                     &copy; {new Date().getFullYear()} EduLearn Academy. All rights reserved.
-                  </div>
-               </div>
-            </div>
-         </footer>
       </div>
    );
 }

@@ -1,38 +1,49 @@
 "use client";
 
 import React, { useState } from "react";
-// import { useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { GraduationCap } from "lucide-react";
 import Link from "next/link";
+import axios from "axios";
 
 export default function SignupPage() {
-   const [name, setName] = useState("");
+   // const [name, setName] = useState("");
    const [email, setEmail] = useState("");
    const [password, setPassword] = useState("");
    const [error, setError] = useState("");
-   //   const router = useRouter();
+   const router = useRouter();
 
    const handleSignup = async (e: React.FormEvent) => {
       e.preventDefault();
       setError("");
 
-      if (!name || !email || !password) {
+      // if (!name || !email || !password) {
+      //    setError("Please fill in all fields.");
+      //    return;
+      // }
+      if (!email || !password) {
          setError("Please fill in all fields.");
          return;
       }
 
       try {
-         const response = await fetch("/api/auth/signup", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ name, email, password }),
+         await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/signup`, {
+            email,
+            password,
          });
+         alert("Signup successful");
+         router.push("/login");
+         // const response = await fetch("/api/auth/signup", {
+         //    method: "POST",
+         //    headers: { "Content-Type": "application/json" },
+         //    body: JSON.stringify({ name, email, password }),
+         // });
 
-         if (!response.ok) {
-            const data = await response.json();
-            setError(data.error || "Something went wrong.");
-            return;
-         }
+         // if (!response.ok) {
+         //    const data = await response.json();
+         //    setError(data.error || "Something went wrong.");
+         //    return;
+         // }
 
          // Automatically sign in after signup
          // Call Log In API
@@ -47,9 +58,14 @@ export default function SignupPage() {
          // } else {
          //   router.push("/edu");
          // }
-         // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      } catch (err) {
-         setError("An unexpected error occurred.");
+
+         // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      } catch (err: any) {
+         if (err.response?.status === 409) {
+            setError("Email already in use.");
+         } else {
+            setError("Signup failed. Try again.");
+         }
       }
    };
 
@@ -72,7 +88,7 @@ export default function SignupPage() {
 
             <form className="mt-8 space-y-6" onSubmit={handleSignup}>
                <div className="space-y-4">
-                  <div className="relative">
+                  {/* <div className="relative">
                      <input
                         type="text"
                         value={name}
@@ -82,7 +98,7 @@ export default function SignupPage() {
                         aria-label="Full name"
                         required
                      />
-                  </div>
+                  </div> */}
                   <div className="relative">
                      <input
                         type="email"

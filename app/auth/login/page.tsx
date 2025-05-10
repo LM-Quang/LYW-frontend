@@ -1,15 +1,16 @@
 "use client";
 
 import React, { useState } from "react";
-// import { useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { GraduationCap } from "lucide-react";
 import Link from "next/link";
+import axios from "axios";
 
 export default function LoginPage() {
    const [email, setEmail] = useState("");
    const [password, setPassword] = useState("");
    const [error, setError] = useState("");
-   //   const router = useRouter();
+   const router = useRouter();
 
    const handleEmailLogin = async (e: React.FormEvent) => {
       e.preventDefault();
@@ -18,6 +19,18 @@ export default function LoginPage() {
       if (!email || !password) {
          setError("Please fill in all fields.");
          return;
+      }
+
+      try {
+         const res = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/login`, {
+            email,
+            password,
+         });
+         localStorage.setItem("token", res.data.token);
+         router.push("/");
+         // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      } catch (err) {
+         alert("Invalid credentials");
       }
 
       //  Call Log In API
@@ -37,6 +50,10 @@ export default function LoginPage() {
    const handleSocialLogin = async (provider: string) => {
       //  await logIn(provider, { callbackUrl: "/edu" });
       console.log(provider);
+   };
+
+   const handleGithubLogin = () => {
+      window.location.href = `${process.env.NEXT_PUBLIC_BACKEND_URL}/oauth2/authorization/github`;
    };
 
    return (
@@ -107,7 +124,7 @@ export default function LoginPage() {
             <div className="space-y-4">
                {/* Google */}
                <button
-                  onClick={() => handleSocialLogin("google")}
+                  onClick={handleGithubLogin}
                   className="w-full flex items-center justify-center bg-white border border-gray-300 text-gray-700 font-medium py-3 px-6 rounded-full hover:bg-gray-100 transition-colors"
                   aria-label="Sign in with Google"
                >
@@ -141,7 +158,6 @@ export default function LoginPage() {
 
                {/* Facobook */}
                <button
-                  onClick={() => handleSocialLogin("facebook")}
                   className="w-full flex items-center justify-center bg-white border border-gray-300 text-gray-700 font-medium py-3 px-6 rounded-full hover:bg-gray-100 transition-colors"
                   aria-label="Sign in with Facebook"
                >
