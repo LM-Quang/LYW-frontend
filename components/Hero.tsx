@@ -16,7 +16,7 @@ const Hero = () => {
                EduLearn Academy.
             </p>
             <Link
-               href="#courses"
+               href="/courses"
                className="inline-flex items-center bg-white text-primary-500 font-medium py-3 px-6 rounded-full hover:bg-gray-100 transition-colors"
                aria-label="Explore Courses"
             >

@@ -93,7 +93,7 @@ const coursesData: Course[] = [
    },
 ];
 
-export default function CategoriesPage() {
+export default function CoursesPage() {
    //    const [categories, setCategories] = useState<string[]>([]);
    // const [courses, setCourses] = useState<Course[]>(coursesData);
 

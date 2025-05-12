@@ -22,13 +22,55 @@ import {
    Users,
    Video,
 } from "lucide-react";
+import CourseDetailModal from "@/components/CourseDetailModal";
+import { CartItem, CourseSection } from "@/types/Types";
+import { useCart } from "@/context/CourseContext";
+import { useRouter } from "next/navigation";
+
+// Test data
+const sections: CourseSection[] = [
+   {
+      id: 1,
+      title: "Introduction to Web Development",
+      lectures: "5 lectures • 1.5 hours",
+      price: 10,
+   },
+   {
+      id: 2,
+      title: "JavaScript Fundamentals",
+      lectures: "8 lectures • 3.2 hours",
+      price: 20,
+   },
+   {
+      id: 3,
+      title: "Building the Front-end with React",
+      lectures: "12 lectures • 5.8 hours",
+      price: 30,
+   },
+   {
+      id: 4,
+      title: "Node.js and Express Back-end",
+      lectures: "10 lectures • 4.5 hours",
+      price: 40,
+   },
+];
 
 export default function CoursesPage() {
+   const router = useRouter();
    const [isClicked, setIsClicked] = useState(false);
-   const [totalPrice, setTotalPrice] = useState(0);
-
-   const updatePrice = (price: number) => {
-      setTotalPrice((prevPrice) => prevPrice + price);
+   const { cart, addToCart } = useCart();
+   const handleAddToCart = (totalPrice: number) => {
+      setIsClicked(false);
+      const cartItem: CartItem = {
+         id: cart.length + 1,
+         title: "Full-Stack Development Bootcamp",
+         instructor: "Sarah Johnson",
+         price: totalPrice,
+         thumbnail: logo.src,
+         quantity: 1,
+      };
+      addToCart(cartItem);
+      router.push("/cart");
    };
    return (
       <div className="w-full min-h-screen p-0 bg-gray-50 font-sans">
@@ -250,12 +292,12 @@ export default function CoursesPage() {
                                  </summary>
                               </details>
 
-                              <div className="text-center py-3 border text-white bg-primary-500 hover:bg-primary-600 rounded-lg transition-colors cursor-pointer">
-                                 <button className="font-medium flex items-center justify-center mx-auto transition-colors">
-                                    <span>Show all 12 sections</span>
-                                    <ChevronDown className="ml-1" />
-                                 </button>
-                              </div>
+                              {/* <div> */}
+                              <button className="p-3 text-primary-500 font-medium flex items-center justify-center mx-auto transition-colors cursor-pointer hover:text-primary-600">
+                                 <span>Show all 12 sections</span>
+                                 <ChevronDown className="ml-1" />
+                              </button>
+                              {/* </div> */}
                            </div>
                         </div>
 
@@ -466,12 +508,10 @@ export default function CoursesPage() {
                               </div>
 
                               {/* Show more */}
-                              <div className="text-center py-2 text-white bg-primary-500 hover:bg-primary-600 transition-colors rounded-lg cursor-pointer">
-                                 <button className="font-medium flex items-center justify-center mx-auto">
-                                    <span>See all 3,245 reviews</span>
-                                    <ChevronDown className="ml-1" />
-                                 </button>
-                              </div>
+                              <button className="p-3 text-primary-500 font-medium flex items-center justify-center mx-auto transition-colors cursor-pointer hover:text-primary-600">
+                                 <span>See all 3,245 reviews</span>
+                                 <ChevronDown className="ml-1" />
+                              </button>
                            </div>
                         </div>
                      </div>
@@ -539,7 +579,7 @@ export default function CoursesPage() {
                                  <input
                                     type="text"
                                     placeholder="Enter Coupon"
-                                    className="w-full p-3 border border-gray-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 transition-all text-sm mr-2"
+                                    className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 transition-all text-sm mr-2"
                                     aria-label="Search courses"
                                  />
                                  <button className="p-3 rounded-lg bg-primary-500 text-white hover:bg-primary-600 transition-colors cursor-pointer">
@@ -550,11 +590,11 @@ export default function CoursesPage() {
 
                            {/* Share */}
                            <div className="flex justify-center mt-6 space-x-4">
-                              <button className="text-gray-500 hover:text-primary-500 transition-colors text-sm flex items-center">
+                              <button className="text-gray-500 hover:text-primary-500 transition-colors text-sm flex items-center cursor-pointer">
                                  <Heart className="mr-1" />
-                                 Wishlist
+                                 Like
                               </button>
-                              <button className="text-gray-500 hover:text-primary-500 transition-colors text-sm flex items-center">
+                              <button className="text-gray-500 hover:text-primary-500 transition-colors text-sm flex items-center cursor-pointer">
                                  <Share className="mr-1" />
                                  Share
                               </button>
@@ -600,183 +640,18 @@ export default function CoursesPage() {
                            Get your team access to 25,000+ top courses anytime, anywhere.
                         </p>
                      </div> */}
-
-                     {/* Modal */}
-                     <div
-                        className={`fixed inset-0 z-40 items-center justify-center ${
-                           isClicked ? "flex" : "hidden"
-                        }`}
-                        id="courseModal"
-                     >
-                        <div
-                           className="fixed top-0 left-0 right-0 bottom-0 bg-black opacity-80"
-                           onClick={() => {
-                              setIsClicked(false);
-                           }}
-                        />
-                        <div className="bg-white z-50 rounded-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6 m-4">
-                           <div className="flex justify-between items-center mb-4">
-                              <h3 className="text-xl font-bold text-gray-800">
-                                 Customize Your Course Purchase
-                              </h3>
-                              <span
-                                 className="material-symbols-outlined text-gray-500 cursor-pointer hover:text-gray-700 transition-colors"
-                                 onClick={() => {
-                                    setIsClicked(false);
-                                 }}
-                              >
-                                 close
-                              </span>
-                           </div>
-
-                           <p className="text-gray-600 mb-4">
-                              Select the sections you want to purchase. Price adjusts based on your
-                              selection.
-                           </p>
-
-                           <div className="border-t border-gray-200 py-4">
-                              <div className="flex items-center justify-between mb-3">
-                                 <div className="font-semibold">Course Sections</div>
-                                 <div
-                                    className="text-sm text-primary-600 cursor-pointer hover:text-primary-700 transition-colors"
-                                    //   onClick={()=>{document.querySelectorAll('[id^=section-checkbox]').forEach(cb => cb.checked = true)}}
-                                 >
-                                    Select All
-                                 </div>
-                              </div>
-
-                              <div className="space-y-3 max-h-[40vh] overflow-y-auto pr-2">
-                                 <label className="flex items-start py-2 px-3 rounded-lg border border-gray-200 hover:bg-gray-50 transition-colors cursor-pointer">
-                                    <input
-                                       type="checkbox"
-                                       className="mt-1 h-4 w-4 text-primary-500 rounded border-gray-300 focus:ring-primary-500"
-                                       id="section-checkbox-1"
-                                       // checked
-                                       onChange={() => {
-                                          updatePrice(10);
-                                       }}
-                                    />
-                                    <div className="ml-3">
-                                       <div className="font-medium">
-                                          Section 1: Introduction to Web Development
-                                       </div>
-                                       <div className="text-sm text-gray-500">
-                                          5 lectures • 1.5 hours
-                                       </div>
-                                    </div>
-                                    <div className="ml-auto text-gray-700">$19.99</div>
-                                 </label>
-
-                                 <label className="flex items-start py-2 px-3 rounded-lg border border-gray-200 hover:bg-gray-50 transition-colors cursor-pointer">
-                                    <input
-                                       type="checkbox"
-                                       className="mt-1 h-4 w-4 text-primary-500 rounded border-gray-300 focus:ring-primary-500"
-                                       id="section-checkbox-2"
-                                       // checked
-                                       onChange={() => {
-                                          updatePrice(20);
-                                       }}
-                                    />
-                                    <div className="ml-3">
-                                       <div className="font-medium">
-                                          Section 2: JavaScript Fundamentals
-                                       </div>
-                                       <div className="text-sm text-gray-500">
-                                          8 lectures • 3.2 hours
-                                       </div>
-                                    </div>
-                                    <div className="ml-auto text-gray-700">$24.99</div>
-                                 </label>
-
-                                 <label className="flex items-start py-2 px-3 rounded-lg border border-gray-200 hover:bg-gray-50 transition-colors cursor-pointer">
-                                    <input
-                                       type="checkbox"
-                                       className="mt-1 h-4 w-4 text-primary-500 rounded border-gray-300 focus:ring-primary-500"
-                                       id="section-checkbox-3"
-                                       // checked
-                                       onChange={() => {
-                                          updatePrice(30);
-                                       }}
-                                    />
-                                    <div className="ml-3">
-                                       <div className="font-medium">
-                                          Section 3: Building the Front-end with React
-                                       </div>
-                                       <div className="text-sm text-gray-500">
-                                          12 lectures • 5.8 hours
-                                       </div>
-                                    </div>
-                                    <div className="ml-auto text-gray-700">$29.99</div>
-                                 </label>
-
-                                 <label className="flex items-start py-2 px-3 rounded-lg border border-gray-200 hover:bg-gray-50 transition-colors cursor-pointer">
-                                    <input
-                                       type="checkbox"
-                                       className="mt-1 h-4 w-4 text-primary-500 rounded border-gray-300 focus:ring-primary-500"
-                                       id="section-checkbox-4"
-                                       // checked
-                                       onChange={() => {
-                                          updatePrice(40);
-                                       }}
-                                    />
-                                    <div className="ml-3">
-                                       <div className="font-medium">
-                                          Section 4: Node.js and Express Back-end
-                                       </div>
-                                       <div className="text-sm text-gray-500">
-                                          10 lectures • 4.5 hours
-                                       </div>
-                                    </div>
-                                    <div className="ml-auto text-gray-700">$24.99</div>
-                                 </label>
-                              </div>
-                           </div>
-
-                           <div className="border-t border-gray-200 pt-4 mt-4">
-                              <div className="flex justify-between items-center mb-2">
-                                 <div className="text-gray-600">Original Price:</div>
-                                 <div className="text-gray-600 line-through">$199.99</div>
-                              </div>
-                              <div className="flex justify-between items-center mb-2">
-                                 <div className="text-gray-600">Discount:</div>
-                                 <div className="text-green-600">-$105.00</div>
-                              </div>
-                              <div className="flex justify-between items-center text-lg font-bold">
-                                 <div>Total Price:</div>
-                                 <div id="totalPrice">${totalPrice}</div>
-                              </div>
-                              <div className="text-xs text-red-600 mt-1">
-                                 53% off - 2 days left at this price!
-                              </div>
-                           </div>
-
-                           <div className="flex space-x-3 mt-6">
-                              <button
-                                 className="flex-1 py-3 bg-primary-500 text-white rounded-lg font-medium hover:bg-primary-600 transition-colors transform hover:-translate-y-0.5 duration-300 shadow-md hover:shadow-lg flex items-center justify-center"
-                                 onClick={() => {
-                                    setIsClicked(false);
-                                 }}
-                              >
-                                 <span className="material-symbols-outlined mr-2">
-                                    shopping_cart
-                                 </span>
-                                 Add to Cart
-                              </button>
-                              <button
-                                 className="py-3 px-4 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
-                                 onClick={() => {
-                                    setIsClicked(false);
-                                 }}
-                              >
-                                 Cancel
-                              </button>
-                           </div>
-                        </div>
-                     </div>
                   </div>
                </div>
             </div>
          </div>
+
+         {/* Modal */}
+         <CourseDetailModal
+            isClicked={isClicked}
+            setIsClicked={setIsClicked}
+            sections={sections}
+            handleAddToCart={handleAddToCart}
+         />
       </div>
    );
 }

@@ -1,16 +1,82 @@
+"use client";
+
+import Link from "next/link";
 import React from "react";
 
+const faqs = [
+   {
+      question: "How do I enroll in a course?",
+      answer:
+         "To enroll in a course, simply browse our catalog, select the course you're interested in, and click the Enroll button. If the course requires payment, you'll be guided through our secure checkout process.",
+   },
+   {
+      question: "How can I become an instructor?",
+      answer:
+         "To become an instructor, click on the Teaching link in the navigation menu and follow the registration process. You'll need to provide information about your expertise, the courses you plan to teach, and submit samples of your teaching materials.",
+   },
+   {
+      question: "What payment methods do you accept?",
+      answer:
+         "We accept all major credit cards (Visa, MasterCard, American Express, Discover), PayPal, and in some regions, we also support bank transfers and mobile payment options. All transactions are secure and encrypted.",
+   },
+   {
+      question: "Can I get a refund if I'm not satisfied?",
+      answer:
+         "Yes, we offer a 30-day money-back guarantee for most courses. If you're not satisfied with your purchase, you can request a refund within 30 days of enrollment, provided you haven't completed more than 30% of the course content.",
+   },
+   {
+      question: "How do I access my courses after purchase?",
+      answer:
+         "After purchasing a course, you can access it by logging into your account and navigating to My Learning in the top navigation menu. All your enrolled courses will be listed there, and you can continue from where you left off.",
+   },
+];
+
 export default function ContactPage() {
+   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+
+      const formData = new FormData(e.currentTarget);
+      const data = {
+         name: formData.get("name"),
+         email: formData.get("email"),
+         subject: formData.get("subject"),
+         message: formData.get("message"),
+         privacy: formData.get("privacy") === "on",
+      };
+
+      try {
+         // POST request to backend API
+         // const response = await fetch("/api/contact", {
+         //    method: "POST",
+         //    headers: {
+         //       "Content-Type": "application/json",
+         //    },
+         //    body: JSON.stringify(data),
+         // });
+
+         // if (!response.ok) {
+         //    throw new Error("Something went wrong");
+         // }
+         console.log(data);
+         alert("Message sent successfully!");
+         e.currentTarget.reset(); // Clear the form
+      } catch (error) {
+         console.error("Error submitting contact form:", error);
+         alert("Failed to send message. Please try again later.");
+      }
+   };
+
    return (
       <div className="w-full min-h-screen p-0 bg-gray-50 font-sans">
          <div className="container mx-auto px-4 md:px-6 py-8">
+            {/* Contact Us */}
             <div className="bg-white rounded-xl shadow-md overflow-hidden mb-10">
                <div className="p-6 md:p-8">
                   <h1 className="text-2xl md:text-3xl font-bold mb-6 text-gray-800">Contact Us</h1>
-
-                  <div className="max-w-4xl mx-auto">
+                  <div className="max-w-4xl">
                      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-10">
-                        <div>
+                        {/* Get in touch */}
+                        {/* <div>
                            <h2 className="text-xl font-semibold mb-4 text-gray-800">
                               Get in Touch
                            </h2>
@@ -93,63 +159,59 @@ export default function ContactPage() {
                                  </a>
                               </div>
                            </div>
-                        </div>
+                        </div> */}
 
-                        <div className="bg-gray-50 p-6 rounded-lg shadow-sm">
+                        {/* Send Message */}
+                        <div
+                           id="sendMessage"
+                           className="p-6 border border-gray-200 rounded-lg shadow-sm"
+                        >
                            <h2 className="text-xl font-semibold mb-4 text-gray-800">
                               Send Us a Message
                            </h2>
-                           <form className="space-y-4">
+                           <form className="space-y-4" onSubmit={handleSubmit}>
                               <div>
-                                 <label
-                                    htmlFor="name"
-                                    className="block text-sm font-medium text-gray-700 mb-1"
-                                 >
+                                 <label htmlFor="name" className="block text-sm font-medium mb-1">
                                     Your Name
                                  </label>
                                  <input
                                     type="text"
                                     id="name"
                                     name="name"
-                                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all"
+                                    className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 transition-all"
                                     placeholder="Enter your full name"
                                     required
                                  />
                               </div>
 
                               <div>
-                                 <label
-                                    htmlFor="email"
-                                    className="block text-sm font-medium text-gray-700 mb-1"
-                                 >
+                                 <label htmlFor="email" className="block text-sm font-medium mb-1">
                                     Email Address
                                  </label>
                                  <input
                                     type="email"
                                     id="email"
                                     name="email"
-                                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all"
+                                    className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 transition-all"
                                     placeholder="Enter your email address"
                                     required
                                  />
                               </div>
 
-                              <div>
+                              <div className="relative">
                                  <label
                                     htmlFor="subject"
-                                    className="block text-sm font-medium text-gray-700 mb-1"
+                                    className="block text-sm font-medium mb-1"
                                  >
                                     Subject
                                  </label>
                                  <select
                                     id="subject"
                                     name="subject"
-                                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all"
+                                    className="w-full appearance-none p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 transition-all"
                                     required
                                  >
-                                    <option value="" disabled selected>
-                                       Select a subject
-                                    </option>
+                                    <option>Select a subject</option>
                                     <option value="general">General Inquiry</option>
                                     <option value="courses">Course Information</option>
                                     <option value="instructor">Becoming an Instructor</option>
@@ -157,12 +219,28 @@ export default function ContactPage() {
                                     <option value="billing">Billing & Payments</option>
                                     <option value="other">Other</option>
                                  </select>
+
+                                 {/* Custom dropdown icon */}
+                                 <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    strokeWidth="1.2"
+                                    stroke="currentColor"
+                                    className="h-7 w-7 ml-1 absolute top-9 right-2.5 text-gray-500"
+                                 >
+                                    <path
+                                       strokeLinecap="round"
+                                       strokeLinejoin="round"
+                                       d="M8.25 15 12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9"
+                                    />
+                                 </svg>
                               </div>
 
                               <div>
                                  <label
                                     htmlFor="message"
-                                    className="block text-sm font-medium text-gray-700 mb-1"
+                                    className="block text-sm font-medium mb-1"
                                  >
                                     Your Message
                                  </label>
@@ -170,7 +248,7 @@ export default function ContactPage() {
                                     id="message"
                                     name="message"
                                     rows={5}
-                                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all"
+                                    className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 transition-all resize-none"
                                     placeholder="Type your message here..."
                                     required
                                  ></textarea>
@@ -198,98 +276,20 @@ export default function ContactPage() {
 
                               <button
                                  type="submit"
-                                 className="w-full py-3 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors transform hover:-translate-y-1 shadow-md hover:shadow-lg"
+                                 className="w-full py-3 bg-primary-500 text-white rounded-lg hover:bg-primary-600 transition-colors transform hover:-translate-y-1 shadow-md hover:shadow-lg cursor-pointer"
                               >
                                  Send Message
                               </button>
                            </form>
                         </div>
                      </div>
-
-                     <div className="mt-12 border-t border-gray-200 pt-8">
-                        <h2 className="text-xl font-semibold mb-6 text-gray-800">
-                           Frequently Asked Questions
-                        </h2>
-
-                        <div className="space-y-4">
-                           <details className="bg-white p-4 rounded-lg border border-gray-200 hover:border-primary-300 transition-colors">
-                              <summary className="font-medium text-gray-800 cursor-pointer">
-                                 How do I enroll in a course?
-                              </summary>
-                              <div className="mt-3 text-gray-600">
-                                 <p>
-                                    To enroll in a course, simply browse our catalog, select the
-                                    course you&apos;re interested in, and click the
-                                    &quot;Enroll&quot; button. If the course requires payment,
-                                    you&apos;ll be guided through our secure checkout process.
-                                 </p>
-                              </div>
-                           </details>
-
-                           <details className="bg-white p-4 rounded-lg border border-gray-200 hover:border-primary-300 transition-colors">
-                              <summary className="font-medium text-gray-800 cursor-pointer">
-                                 How can I become an instructor?
-                              </summary>
-                              <div className="mt-3 text-gray-600">
-                                 <p>
-                                    To become an instructor, click on the &quot;Teaching&quot; link
-                                    in the navigation menu and follow the registration process.
-                                    You&apos;ll need to provide information about your expertise,
-                                    the courses you plan to teach, and submit samples of your
-                                    teaching materials.
-                                 </p>
-                              </div>
-                           </details>
-
-                           <details className="bg-white p-4 rounded-lg border border-gray-200 hover:border-primary-300 transition-colors">
-                              <summary className="font-medium text-gray-800 cursor-pointer">
-                                 What payment methods do you accept?
-                              </summary>
-                              <div className="mt-3 text-gray-600">
-                                 <p>
-                                    We accept all major credit cards (Visa, MasterCard, American
-                                    Express, Discover), PayPal, and in some regions, we also support
-                                    bank transfers and mobile payment options. All transactions are
-                                    secure and encrypted.
-                                 </p>
-                              </div>
-                           </details>
-
-                           <details className="bg-white p-4 rounded-lg border border-gray-200 hover:border-primary-300 transition-colors">
-                              <summary className="font-medium text-gray-800 cursor-pointer">
-                                 Can I get a refund if I&apos;m not satisfied?
-                              </summary>
-                              <div className="mt-3 text-gray-600">
-                                 <p>
-                                    Yes, we offer a 30-day money-back guarantee for most courses. If
-                                    you&apos;re not satisfied with your purchase, you can request a
-                                    refund within 30 days of enrollment, provided you haven&apos;t
-                                    completed more than 30% of the course content.
-                                 </p>
-                              </div>
-                           </details>
-
-                           <details className="bg-white p-4 rounded-lg border border-gray-200 hover:border-primary-300 transition-colors">
-                              <summary className="font-medium text-gray-800 cursor-pointer">
-                                 How do I access my courses after purchase?
-                              </summary>
-                              <div className="mt-3 text-gray-600">
-                                 <p>
-                                    After purchasing a course, you can access it by logging into
-                                    your account and navigating to &quot;My Learning&quot; in the
-                                    top navigation menu. All your enrolled courses will be listed
-                                    there, and you can continue from where you left off.
-                                 </p>
-                              </div>
-                           </details>
-                        </div>
-                     </div>
                   </div>
                </div>
             </div>
 
-            <div className="bg-primary-50 rounded-xl p-6 mb-10">
-               <h2 className="text-xl font-bold mb-6 text-gray-800 text-center">
+            {/* Office Location */}
+            {/* <div className="bg-primary-50 rounded-xl p-6 mb-10">
+               <h2 className="text-3xl font-bold mb-6 text-gray-800 text-center">
                   Our Global Offices
                </h2>
                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -359,10 +359,104 @@ export default function ContactPage() {
                      </p>
                   </div>
                </div>
+            </div> */}
+
+            {/* FAQ */}
+            <div className="bg-white rounded-xl p-6 shadow-md mb-10">
+               <h2 className="text-3xl font-semibold mb-6 text-gray-800">
+                  Frequently Asked Questions
+               </h2>
+
+               <div className="space-y-4">
+                  {faqs.map((faq, index) => {
+                     return (
+                        <details
+                           key={index}
+                           className="bg-white p-4 rounded-lg border border-gray-200 hover:bg-gray-50 transition-colors"
+                        >
+                           <summary className="font-medium text-gray-800 cursor-pointer">
+                              {faq.question}
+                           </summary>
+                           <div className="mt-3 text-gray-600">
+                              <p>{faq.answer}</p>
+                           </div>
+                        </details>
+                     );
+                  })}
+                  {/* <details className="bg-white p-4 rounded-lg border border-gray-200 hover:bg-gray-50 transition-colors">
+                     <summary className="font-medium text-gray-800 cursor-pointer">
+                        How do I enroll in a course?
+                     </summary>
+                     <div className="mt-3 text-gray-600">
+                        <p>
+                           To enroll in a course, simply browse our catalog, select the course
+                           you&apos;re interested in, and click the &quot;Enroll&quot; button. If
+                           the course requires payment, you&apos;ll be guided through our secure
+                           checkout process.
+                        </p>
+                     </div>
+                  </details>
+
+                  <details className="bg-white p-4 rounded-lg border border-gray-200 hover:bg-gray-50  transition-colors">
+                     <summary className="font-medium text-gray-800 cursor-pointer">
+                        How can I become an instructor?
+                     </summary>
+                     <div className="mt-3 text-gray-600">
+                        <p>
+                           To become an instructor, click on the &quot;Teaching&quot; link in the
+                           navigation menu and follow the registration process. You&apos;ll need to
+                           provide information about your expertise, the courses you plan to teach,
+                           and submit samples of your teaching materials.
+                        </p>
+                     </div>
+                  </details>
+
+                  <details className="bg-white p-4 rounded-lg border border-gray-200 hover:bg-gray-50  transition-colors">
+                     <summary className="font-medium text-gray-800 cursor-pointer">
+                        What payment methods do you accept?
+                     </summary>
+                     <div className="mt-3 text-gray-600">
+                        <p>
+                           We accept all major credit cards (Visa, MasterCard, American Express,
+                           Discover), PayPal, and in some regions, we also support bank transfers
+                           and mobile payment options. All transactions are secure and encrypted.
+                        </p>
+                     </div>
+                  </details>
+
+                  <details className="bg-white p-4 rounded-lg border border-gray-200 hover:bg-gray-50  transition-colors">
+                     <summary className="font-medium text-gray-800 cursor-pointer">
+                        Can I get a refund if I&apos;m not satisfied?
+                     </summary>
+                     <div className="mt-3 text-gray-600">
+                        <p>
+                           Yes, we offer a 30-day money-back guarantee for most courses. If
+                           you&apos;re not satisfied with your purchase, you can request a refund
+                           within 30 days of enrollment, provided you haven&apos;t completed more
+                           than 30% of the course content.
+                        </p>
+                     </div>
+                  </details>
+
+                  <details className="bg-white p-4 rounded-lg border border-gray-200 hover:bg-gray-50  transition-colors">
+                     <summary className="font-medium text-gray-800 cursor-pointer">
+                        How do I access my courses after purchase?
+                     </summary>
+                     <div className="mt-3 text-gray-600">
+                        <p>
+                           After purchasing a course, you can access it by logging into your account
+                           and navigating to &quot;My Learning&quot; in the top navigation menu. All
+                           your enrolled courses will be listed there, and you can continue from
+                           where you left off.
+                        </p>
+                     </div>
+                  </details> */}
+               </div>
             </div>
 
+            {/* Feedback */}
             <div className="bg-white rounded-xl p-6 shadow-md">
-               <h2 className="text-xl font-bold mb-6 text-gray-800 text-center">
+               <h2 className="text-3xl font-bold mb-6 text-gray-800 text-center">
                   We&apos;d Love to Hear From You
                </h2>
                <p className="text-center text-gray-600 max-w-2xl mx-auto mb-8">
@@ -371,27 +465,33 @@ export default function ContactPage() {
                </p>
 
                <div className="flex flex-col md:flex-row items-center justify-center gap-4">
-                  <a
+                  <Link
+                     href="#sendMessage"
+                     className="px-6 py-3 bg-primary-500 text-white rounded-lg hover:bg-primary-600 transition-colors transform hover:-translate-y-1 shadow-md hover:shadow-lg flex items-center"
+                  >
+                     Send Us a Message
+                  </Link>
+                  {/* <Link
                      href="#"
                      className="px-6 py-3 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors transform hover:-translate-y-1 shadow-md hover:shadow-lg flex items-center"
                   >
                      <span className="material-symbols-outlined mr-2">forum</span>
                      Start Live Chat
-                  </a>
-                  <a
+                  </Link>
+                  <Link
                      href="#"
                      className="px-6 py-3 bg-white border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors flex items-center"
                   >
                      <span className="material-symbols-outlined mr-2">support_agent</span>
                      Schedule a Call
-                  </a>
-                  <a
+                  </Link>
+                  <Link
                      href="#"
                      className="px-6 py-3 bg-white border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors flex items-center"
                   >
                      <span className="material-symbols-outlined mr-2">help</span>
                      Visit Help Center
-                  </a>
+                  </Link> */}
                </div>
             </div>
          </div>

@@ -5,13 +5,15 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import logo from "@/assets/logo-1.png";
 import Image from "next/image";
-import { Search } from "lucide-react";
+import { Search, ShoppingCart } from "lucide-react";
 import { useUser } from "@/context/UserContext";
+import { useCart } from "@/context/CourseContext";
 
 export default function Header() {
    const searchParams = useSearchParams();
    const query = searchParams.get("q") || "";
    const { user, setUserInfo } = useUser();
+   const { cart } = useCart();
 
    const handleLogout = async () => {
       setUserInfo(null);
@@ -54,10 +56,10 @@ export default function Header() {
 
             {/* Navbar */}
             <nav className="w-full md:w-auto">
-               <ul className="flex flex-wrap justify-center items-center gap-2 text-sm">
+               <ul className="flex flex-wrap justify-center items-center gap-2">
                   <li>
                      <Link
-                        href="/categories"
+                        href="/courses"
                         className="px-3 py-1 font-medium rounded-full hover:bg-primary-500 hover:text-white transition-colors"
                      >
                         Categories
@@ -69,6 +71,19 @@ export default function Header() {
                         className="px-3 py-1 font-medium rounded-full hover:bg-primary-500 hover:text-white transition-colors"
                      >
                         Teaching
+                     </Link>
+                  </li>
+                  <li className="ml-3 mr-5">
+                     <Link
+                        href="/cart"
+                        className="px-3 py-1 font-medium hover:text-primary-600 transition-colors relative"
+                     >
+                        <ShoppingCart />
+                        {cart.length > 0 && (
+                           <span className="absolute top-4 -right-5 bg-primary-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                              {cart.length}
+                           </span>
+                        )}
                      </Link>
                   </li>
                   {user ? (

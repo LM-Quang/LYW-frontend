@@ -1,37 +1,53 @@
 "use client";
 
+import { CartItem } from "@/types/Types";
 import { createContext, useContext, useState } from "react";
 
-interface CartItem {
-   id: string;
-   title: string;
-   instructor: string;
-   price: number;
-   thumbnail: string;
-   quantity: number;
-}
-
+const initialCart: CartItem[] = [
+   {
+      id: 1,
+      title: "Complete JavaScript Bootcamp: From Zero to Hero",
+      instructor: "John Smith",
+      price: 49.99,
+      thumbnail:
+         "https://images.unsplash.com/photo-1633356122544-f1348a13f899?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80",
+      quantity: 1,
+   },
+   {
+      id: 2,
+      title: "Python for Data Science and Machine Learning",
+      instructor: "Sarah Johnson",
+      price: 79.99,
+      thumbnail:
+         "https://images.unsplash.com/photo-1551288049-b1f3a0a1c7f1?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80",
+      quantity: 1,
+   },
+];
 interface CartContextType {
    cart: CartItem[];
    addToCart: (course: Omit<CartItem, "quantity">) => void;
-   removeFromCart: (id: string) => void;
-   updateQuantity: (id: string, quantity: number) => void;
+   removeFromCart: (id: number) => void;
+   updateQuantity: (id: number, quantity: number) => void;
+   clearCart: () => void;
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export function CartProvider({ children }: { children: React.ReactNode }) {
-   const [cart, setCart] = useState<CartItem[]>([]);
+   const [cart, setCart] = useState<CartItem[]>(initialCart);
 
    const addToCart = (course: Omit<CartItem, "quantity">) => {
+      console.log("Add to cart");
       const existingItem = cart.find((item) => item.id === course.id);
       if (existingItem) {
+         console.log("item already existing");
          setCart(
             cart.map((item) =>
                item.id === course.id ? { ...item, quantity: item.quantity + 1 } : item
             )
          );
       } else {
+         console.log("item not existing");
          setCart([...cart, { ...course, quantity: 1 }]);
       }
 
@@ -52,17 +68,21 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
    //    };
    //    fetchCart();
    // }, []);
-   const removeFromCart = (id: string) => {
+   const removeFromCart = (id: number) => {
       setCart(cart.filter((item) => item.id !== id));
    };
 
-   const updateQuantity = (id: string, quantity: number) => {
+   const updateQuantity = (id: number, quantity: number) => {
       if (quantity < 1) return;
       setCart(cart.map((item) => (item.id === id ? { ...item, quantity } : item)));
    };
 
+   const clearCart = () => {
+      setCart([]);
+   };
+
    return (
-      <CartContext.Provider value={{ cart, addToCart, removeFromCart, updateQuantity }}>
+      <CartContext.Provider value={{ cart, addToCart, removeFromCart, updateQuantity, clearCart }}>
          {children}
       </CartContext.Provider>
    );
