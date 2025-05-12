@@ -5,6 +5,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { UserProvider } from "@/context/UserContext"; // Adjust path as needed
 import { CartProvider } from "@/context/CourseContext"; // Adjust path as needed
+import { Toaster } from "react-hot-toast";
 
 // const geistSans = Geist({
 //    variable: "--font-geist-sans",
@@ -30,6 +31,7 @@ export default function RootLayout({
       <html lang="en">
          {/* <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}> */}
          <body>
+            <Toaster />
             <UserProvider>
                <CartProvider>
                   <Header />

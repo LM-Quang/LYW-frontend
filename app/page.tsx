@@ -1,9 +1,9 @@
 import React from "react";
-import Hero from "@/components/Hero";
-import FeaturedCourse from "@/components/FeaturedCourse";
-import PopularCategory from "@/components/PopularCategory";
-import WhyChooseUs from "@/components/WhyChooseUs";
-import Testimonials from "@/components/Testimonials";
+import Hero from "@/components/homePage/Hero";
+import FeaturedCourse from "@/components/homePage/FeaturedCourse";
+import PopularCategory from "@/components/homePage/PopularCategory";
+import WhyChooseUs from "@/components/homePage/WhyChooseUs";
+import Testimonials from "@/components/homePage/Testimonials";
 
 export default function HomePage() {
    return (

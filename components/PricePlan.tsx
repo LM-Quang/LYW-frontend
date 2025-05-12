@@ -1,6 +1,7 @@
 import { Check } from "lucide-react";
 import React from "react";
 
+// Hasn't been decided where to put
 const PricePlan = () => {
    return (
       <section className="mb-16 container mx-auto">

@@ -22,7 +22,7 @@ import {
    Users,
    Video,
 } from "lucide-react";
-import CourseDetailModal from "@/components/CourseDetailModal";
+import CourseDetailModal from "@/components/courseDetailPage/CourseDetailModal";
 import { CartItem, CourseSection } from "@/types/Types";
 import { useCart } from "@/context/CourseContext";
 import { useRouter } from "next/navigation";
