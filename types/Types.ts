@@ -39,7 +39,7 @@ export interface Course {
    sections: Section[];
 }
 
-export interface CartItem {
+export interface CartItemProps {
    id: number;
    title: string;
    instructor: string;

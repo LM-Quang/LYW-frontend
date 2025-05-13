@@ -1,9 +1,9 @@
 "use client";
 
-import { CartItem } from "@/types/Types";
+import { CartItemProps } from "@/types/Types";
 import { createContext, useContext, useState } from "react";
 
-const initialCart: CartItem[] = [
+const initialCart: CartItemProps[] = [
    {
       id: 1,
       title: "Complete JavaScript Bootcamp: From Zero to Hero",
@@ -24,8 +24,8 @@ const initialCart: CartItem[] = [
    },
 ];
 interface CartContextType {
-   cart: CartItem[];
-   addToCart: (course: Omit<CartItem, "quantity">) => void;
+   cart: CartItemProps[];
+   addToCart: (course: Omit<CartItemProps, "quantity">) => void;
    removeFromCart: (id: number) => void;
    updateQuantity: (id: number, quantity: number) => void;
    clearCart: () => void;
@@ -34,9 +34,9 @@ interface CartContextType {
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export function CartProvider({ children }: { children: React.ReactNode }) {
-   const [cart, setCart] = useState<CartItem[]>(initialCart);
+   const [cart, setCart] = useState<CartItemProps[]>(initialCart);
 
-   const addToCart = (course: Omit<CartItem, "quantity">) => {
+   const addToCart = (course: Omit<CartItemProps, "quantity">) => {
       console.log("Add to cart");
       const existingItem = cart.find((item) => item.id === course.id);
       if (existingItem) {
