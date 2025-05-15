@@ -130,7 +130,8 @@ export default function CoursesPage() {
    // Handle adding to cart
    const handleAddToCart = (course: Course) => {
       addToCart({
-         id: course.id,
+         // id: course.id,
+         id: 1,
          title: course.title,
          instructor: course.instructor,
          price: course.price,

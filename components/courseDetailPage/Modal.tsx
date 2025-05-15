@@ -1,16 +1,16 @@
 import { useState } from "react";
 import { ShoppingCart, X } from "lucide-react";
-import { CourseSection } from "@/types/Types";
+import { Section } from "@/types/Types";
 
 interface CourseModalProps {
    isClicked: boolean;
    setIsClicked: React.Dispatch<React.SetStateAction<boolean>>;
-   sections: CourseSection[];
+   sections: Section[];
    // eslint-disable-next-line @typescript-eslint/no-explicit-any
    handleAddToCart: any;
 }
 
-const CourseDetailModal: React.FC<CourseModalProps> = ({
+const Modal: React.FC<CourseModalProps> = ({
    isClicked,
    setIsClicked,
    sections,
@@ -18,7 +18,7 @@ const CourseDetailModal: React.FC<CourseModalProps> = ({
 }) => {
    const [totalPrice, setTotalPrice] = useState(0);
    const [allSelected, setAllSelected] = useState(false);
-   const [selectedSections, setSelectedSections] = useState<number[]>([]);
+   const [selectedSections, setSelectedSections] = useState<string[]>([]);
 
    const handleToggleAll = () => {
       if (allSelected) {
@@ -33,7 +33,7 @@ const CourseDetailModal: React.FC<CourseModalProps> = ({
       setAllSelected(!allSelected);
    };
 
-   const toggleSection = (id: number, price: number): void => {
+   const toggleSection = (id: string, price: number): void => {
       if (selectedSections.includes(id)) {
          setSelectedSections((prev) => prev.filter((sectionId) => sectionId !== id));
          setTotalPrice((prevPrice) => prevPrice - price);
@@ -68,6 +68,7 @@ const CourseDetailModal: React.FC<CourseModalProps> = ({
                Select the sections you want to purchase. Price adjusts based on your selection.
             </p>
 
+            {/* Course Sections */}
             <div className="border-t border-gray-200 py-4">
                <div className="flex items-center justify-between mb-3">
                   <div className="font-semibold">Course Sections</div>
@@ -95,7 +96,7 @@ const CourseDetailModal: React.FC<CourseModalProps> = ({
                            <div className="font-medium">
                               Section {section.id}: {section.title}
                            </div>
-                           <div className="text-sm text-gray-500">{section.lectures}</div>
+                           <div className="text-sm text-gray-500">17 hours</div>
                         </div>
                         <div className="ml-auto text-gray-700">${section.price.toFixed(2)}</div>
                      </label>
@@ -103,6 +104,7 @@ const CourseDetailModal: React.FC<CourseModalProps> = ({
                </div>
             </div>
 
+            {/* Price */}
             <div className="border-t border-gray-200 pt-4 mt-4">
                <div className="flex justify-between items-center mb-2">
                   <div className="text-gray-600">Original Price:</div>
@@ -119,6 +121,7 @@ const CourseDetailModal: React.FC<CourseModalProps> = ({
                <div className="text-xs text-red-600 mt-1">53% off - 2 days left at this price!</div>
             </div>
 
+            {/* Actions */}
             <div className="flex space-x-3 mt-6">
                <button
                   className="flex-1 py-3 bg-primary-500 text-white rounded-lg font-medium hover:bg-primary-600 flex items-center justify-center cursor-pointer transition-colors"
@@ -141,4 +144,4 @@ const CourseDetailModal: React.FC<CourseModalProps> = ({
    );
 };
 
-export default CourseDetailModal;
+export default Modal;

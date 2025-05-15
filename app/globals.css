@@ -42,6 +42,16 @@
    --color-primary: #1cf624;
 }
 
-.swiper-wrapper {
-   padding-bottom: 2px;
+.avatar {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   border-radius: 50%;
+   font-weight: bold;
+   text-transform: uppercase;
+   overflow: hidden;
+   user-select: none;
+   color: white;
+   background-color: black;
+   font-weight: bold;
 }

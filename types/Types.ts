@@ -1,3 +1,8 @@
+export interface Student {
+   email: string;
+   username: string;
+}
+
 export interface User {
    avatar: string;
    username: string;
@@ -8,15 +13,18 @@ export interface Lecture {
    title: string;
    fileType: "video" | "pdf";
    fileUrl: string;
-   duration?: string;
+   durationMinute?: number;
+   durationSecond?: number;
    isWatched: boolean;
+   sectionId: string;
+   courseId: string;
 }
 
 export interface Section {
    id: string;
    title: string;
    price: number;
-   lectures: Lecture[];
+   courseId: string;
 }
 
 export interface Category {
@@ -36,7 +44,6 @@ export interface Course {
    isBestSeller: boolean;
    updated: string;
    progress: number;
-   sections: Section[];
 }
 
 export interface CartItemProps {

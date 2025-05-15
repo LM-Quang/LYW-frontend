@@ -7,7 +7,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { featuredCourses } from "@/utils/data";
+import { courses } from "@/utils/data";
 import CourseCard from "../CourseCard";
 
 const RelatedCourses = () => {
@@ -38,7 +38,7 @@ const RelatedCourses = () => {
                setIsEnd(false);
             }}
          >
-            {featuredCourses.map((course, index) => (
+            {courses.map((course, index) => (
                <SwiperSlide key={index}>
                   <CourseCard course={course} />
                </SwiperSlide>
