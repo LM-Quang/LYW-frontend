@@ -1,21 +1,15 @@
-// import Image from "next/image";
+"use client";
+
 import React from "react";
-// import avatar from "@/assets/avatar.jpg";
+import Image from "next/image";
+import avatar from "@/assets/avatar.jpg";
 import { Camera, Pencil, ShieldCheck } from "lucide-react";
+import DefaultAvatar from "@/components/DefaultAvatar";
+import { useUser } from "@/context/UserContext";
 
 const ProfilePage = () => {
-   // Get initials from name (e.g., "John Doe" -> "JD")
-   const getInitials = (name: string) => {
-      const names = name.trim().split(" ");
-      const initials = names
-         .map((n) => n.charAt(0))
-         .join("")
-         .toUpperCase()
-         .slice(0, 2); // Limit to 2 characters
-      return initials;
-   };
+   const { user } = useUser();
 
-   const initials = getInitials("Le Minh Quang");
    return (
       <div className="container mx-auto px-4 md:px-6 py-8">
          <div className="bg-white rounded-xl shadow-md overflow-hidden mb-10">
@@ -27,27 +21,24 @@ const ProfilePage = () => {
                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                   <div className="lg:col-span-1">
                      <div className="mb-6 flex flex-col items-center">
-                        {/* <div className="w-32 h-32 rounded-full overflow-hidden bg-gray-100 mb-4 border-4 border-primary-500 shadow-lg hover:shadow-xl transition-all duration-300"> */}
-                        {/* <Image
-                              className=" inset-0 w-full h-full object-cover"
-                              src={avatar}
-                              alt="Profile"
-                              width={50}
-                              height={50}
-                           /> */}
-                        <div
-                           className="avatar mb-2"
-                           style={{
-                              width: 120,
-                              height: 120,
-                              fontSize: 40,
-                           }}
-                        >
-                           {initials}
+                        <div className="rounded-full overflow-hidden mb-2">
+                           {user ? (
+                              <Image
+                                 className=" inset-0 object-cover"
+                                 src={avatar}
+                                 alt="Profile"
+                                 width={120}
+                                 height={120}
+                              />
+                           ) : (
+                              <DefaultAvatar
+                                 width={120}
+                                 height={120}
+                                 fontSize={40}
+                                 name="Le Minh Quang"
+                              />
+                           )}
                         </div>
-                        {/* </div> */}
-                        <h2 className="text-xl font-semibold text-gray-800">John Smith</h2>
-                        <p className="text-gray-600">Web Developer</p>
                         <button className="mt-2 px-4 py-2 bg-primary-500 text-white rounded-lg hover:bg-primary-600 transition-colors transform duration-300 shadow-md hover:shadow-lg flex items-center justify-center cursor-pointer">
                            <Camera className="mr-2" />
                            Edit Profile Photo
@@ -121,12 +112,10 @@ const ProfilePage = () => {
                            <div className="border-l-4 border-primary-500 pl-4 py-2">
                               <p className="font-medium">Bachelor of Science in Computer Science</p>
                               <p className="text-sm text-gray-600">Stanford University</p>
-                              <p className="text-xs text-gray-500">2005 - 2009</p>
                            </div>
                            <div className="border-l-4 border-primary-500 pl-4 py-2">
                               <p className="font-medium">Master&apos;s in Web Development</p>
                               <p className="text-sm text-gray-600">MIT</p>
-                              <p className="text-xs text-gray-500">2010 - 2012</p>
                            </div>
                            <button className="mt-2 text-primary-600 hover:text-primary-700 text-sm flex items-center transition-colors">
                               + Add Another Education
@@ -144,13 +133,15 @@ const ProfilePage = () => {
                         <div className="p-4 space-y-4">
                            <div className="border-l-4 border-primary-500 pl-4 py-2">
                               <p className="font-medium">Senior Web Developer</p>
-                              <p className="text-sm text-gray-600">Google</p>
-                              <p className="text-xs text-gray-500">2018 - Present</p>
+                              <p className="text-sm text-gray-600">
+                                 10 years working at Google as Web Developer
+                              </p>
                            </div>
                            <div className="border-l-4 border-primary-500 pl-4 py-2">
                               <p className="font-medium">Frontend Developer</p>
-                              <p className="text-sm text-gray-600">Facebook</p>
-                              <p className="text-xs text-gray-500">2013 - 2018</p>
+                              <p className="text-sm text-gray-600">
+                                 5 years working at Facebook as Frontend Developer with React
+                              </p>
                            </div>
                            <button className="mt-2 text-primary-600 hover:text-primary-700 text-sm flex items-center transition-colors">
                               + Add Another Experience

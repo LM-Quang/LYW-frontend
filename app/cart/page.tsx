@@ -8,12 +8,10 @@ import CartContent from "@/components/cartPage/CartContent";
 
 export default function CartDetailsPage() {
    const { cart } = useCart();
-   // Calculate total price
-   const totalPrice = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+   const totalPrice = cart.reduce((sum, item) => sum + item.price, 0);
 
    return (
       <div className="w-full min-h-screen p-0 bg-gray-50 font-sans">
-         {/* Main Content: Cart Details */}
          <div className="container mx-auto px-4 md:px-6 py-8">
             {cart.length > 0 ? (
                <div className="flex flex-col lg:flex-row gap-8">

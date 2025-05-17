@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { ShoppingCart, X } from "lucide-react";
-import { Section } from "@/types/Types";
+import { Section } from "@/utils/dataTypes";
 
 interface CourseModalProps {
    isClicked: boolean;

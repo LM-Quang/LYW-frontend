@@ -1,7 +1,6 @@
 import React from "react";
 import Image from "next/image";
 import logo from "@/assets/img-1.jpg";
-import renderRatingStars from "@/utils/ratingStars";
 import {
    Check,
    ChevronDown,
@@ -13,6 +12,7 @@ import {
    ScrollText,
    Users,
 } from "lucide-react";
+import renderStars from "../RenderStars";
 
 const CourseDetail = () => {
    return (
@@ -314,7 +314,7 @@ const CourseDetail = () => {
                         <div className="flex flex-col items-center justify-center bg-gray-50 p-6 rounded-lg">
                            <div className="text-5xl font-bold text-primary-500">4.8</div>
                            <div className="flex items-center my-2 space-x-1">
-                              {renderRatingStars(4.8)}
+                              {renderStars(4.8)}
                            </div>
                            <div className="text-gray-600">Course Rating</div>
                            <div className="text-sm text-gray-500 mt-1">3,245 Reviews</div>
@@ -391,7 +391,7 @@ const CourseDetail = () => {
                                  <h4 className="font-semibold">Michael Johnson</h4>
                                  <span className="text-gray-500 text-sm">2 weeks ago</span>
                               </div>
-                              <div className="flex items-center my-1">{renderRatingStars(5)}</div>
+                              <div className="flex items-center my-1">{renderStars(5)}</div>
                               <p className="text-gray-700">
                                  This course exceeded my expectations. The instructor explains
                                  complex concepts clearly and the projects are practical and
@@ -413,7 +413,7 @@ const CourseDetail = () => {
                                  <h4 className="font-semibold">Amanda Peterson</h4>
                                  <span className="text-gray-500 text-sm">1 month ago</span>
                               </div>
-                              <div className="flex items-center my-1">{renderRatingStars(4.5)}</div>
+                              <div className="flex items-center my-1">{renderStars(4.5)}</div>
                               <p className="text-gray-700">
                                  Great course with a lot of valuable content. My only suggestion
                                  would be to update some of the Node.js sections as a few packages

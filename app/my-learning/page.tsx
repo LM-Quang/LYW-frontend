@@ -3,10 +3,11 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { GraduationCap, Search, ChevronDown, Star, ArrowRight } from "lucide-react";
+import { GraduationCap, Search, ChevronDown, ArrowRight } from "lucide-react";
 import Link from "next/link";
 import avatar from "@/assets/avatar.jpg";
 import img1 from "@/assets/img-1.jpg";
+import renderStars from "@/components/RenderStars";
 
 // Hard-coded user data (same as in the source code)
 interface User {
@@ -112,33 +113,6 @@ export default function MyCoursesPage() {
    //    .then((res) => res.json())
    //    .then((data) => setFavorites(data));
    // }, []);
-
-   // Function to render rating stars (reused from the source code)
-   const renderRatingStars = (rating: number) => {
-      const fullStars = Math.floor(rating);
-      const hasHalfStar = rating % 1 >= 0.5;
-      const stars = [];
-
-      for (let i = 0; i < fullStars; i++) {
-         stars.push(
-            <Star key={`star-${i}`} className="text-yellow-400 w-4 h-4" aria-label="Full star" />
-         );
-      }
-
-      if (hasHalfStar) {
-         stars.push(
-            <Star
-               key="star-half"
-               className="text-yellow-400 w-4 h-4"
-               fill="currentColor"
-               stroke="none"
-               aria-label="Half star"
-            />
-         );
-      }
-
-      return stars;
-   };
 
    // Function to unlike a course
    const handleUnlike = (courseLink: string) => {
@@ -327,7 +301,7 @@ export default function MyCoursesPage() {
                               <p className="text-gray-600 mb-4">{course.description}</p>
                               <div className="flex items-center mb-4">
                                  <span className="text-sm text-gray-600 mr-2">{course.rating}</span>
-                                 <div className="flex">{renderRatingStars(course.rating)}</div>
+                                 <div className="flex">{renderStars(course.rating)}</div>
                                  <span className="text-sm text-gray-600 ml-2">
                                     ({course.ratingsCount.toLocaleString()} ratings)
                                  </span>
@@ -408,7 +382,7 @@ export default function MyCoursesPage() {
                               <p className="text-gray-600 mb-4">{course.description}</p>
                               <div className="flex items-center mb-4">
                                  <span className="text-sm text-gray-600 mr-2">{course.rating}</span>
-                                 <div className="flex">{renderRatingStars(course.rating)}</div>
+                                 <div className="flex">{renderStars(course.rating)}</div>
                                  <span className="text-sm text-gray-600 ml-2">
                                     ({course.ratingsCount.toLocaleString()} ratings)
                                  </span>

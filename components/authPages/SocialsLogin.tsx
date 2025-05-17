@@ -1,18 +1,15 @@
 "use client";
 
+import { handleOAuth2LoginAPI, OAuth2Provider } from "@/app/api/auth/route";
 import React from "react";
 
 const SocialsLogin = () => {
-   const handleLogin = (provider: string) => {
-      window.location.href = `${process.env.NEXT_PUBLIC_BACKEND_URL}/oauth2/authorization/${provider}`;
-   };
-
    return (
       <div className="space-y-4">
          {/* Github */}
          <button
             onClick={() => {
-               handleLogin("github");
+               handleOAuth2LoginAPI(OAuth2Provider.GITHUB);
             }}
             className="w-full flex items-center justify-center bg-white border border-gray-300 text-gray-700 font-medium py-3 px-6 rounded-full hover:bg-gray-100 transition-colors cursor-pointer"
             aria-label="Sign in with GitHub"
@@ -34,7 +31,7 @@ const SocialsLogin = () => {
          {/* Google */}
          <button
             onClick={() => {
-               handleLogin("google");
+               handleOAuth2LoginAPI(OAuth2Provider.GOOGLE);
             }}
             className="w-full flex items-center justify-center bg-white border border-gray-300 text-gray-700 font-medium py-3 px-6 rounded-full hover:bg-gray-100 transition-colors cursor-pointer"
             aria-label="Sign in with Google"
@@ -70,7 +67,7 @@ const SocialsLogin = () => {
          {/* Facobook */}
          <button
             onClick={() => {
-               handleLogin("facebook");
+               handleOAuth2LoginAPI(OAuth2Provider.FACEBOOK);
             }}
             className="w-full flex items-center justify-center bg-white border border-gray-300 text-gray-700 font-medium py-3 px-6 rounded-full hover:bg-gray-100 transition-colors cursor-pointer"
             aria-label="Sign in with Facebook"
@@ -92,7 +89,7 @@ const SocialsLogin = () => {
          {/* Apple */}
          {/* <button
                   onClick={() => {
-                     handleLogin("apple");
+                     handleOAuth2LoginAPI(OAuth2Provider.APPLE)
                   }}
                   className="w-full flex items-center justify-center bg-white border border-gray-300 text-gray-700 font-medium py-3 px-6 rounded-full hover:bg-gray-100 transition-colors cursor-pointer"
                   aria-label="Sign in with Apple"

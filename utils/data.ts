@@ -1,5 +1,5 @@
-import { Course, Lecture, Section } from "@/types/Types";
 import img1 from "@/assets/img-1.jpg";
+import { CartItemProps, Course, Lecture, Role, Section, Student, Teacher, User } from "./dataTypes";
 
 export const lectures: Lecture[] = [
    // Lectures for Frontend Foundations (Section ID: "1-1", Course ID: "1")
@@ -357,5 +357,227 @@ export const faqs = [
       question: "How do I access my courses after purchase?",
       answer:
          "After purchasing a course, you can access it by logging into your account and navigating to My Learning in the top navigation menu. All your enrolled courses will be listed there, and you can continue from where you left off.",
+   },
+];
+
+export const ADMIN: User = {
+   id: "admin-1",
+   email: "admin@gmail.com",
+   username: "Admin M",
+   role: Role.ADMIN,
+};
+
+export const STUDENT: User = {
+   id: "student-1",
+   email: "student@gmail.com",
+   username: "Student D",
+   role: Role.STUDENT,
+};
+
+export const TEACHER: User = {
+   id: "teacher-1",
+   email: "teacher@gmail.com",
+   username: "Teacher C",
+   role: Role.TEACHER,
+};
+
+export const STUDENT_INFO: Student = {
+   id: "student",
+   userId: "student-1",
+   myCourses: courses,
+};
+
+export const TEACHER_INFO: Teacher = {
+   id: "teacher",
+   userId: "teacher-1",
+   paymentInfo: "1234-1244-1241 SMBC Bank",
+   courses: courses,
+};
+
+// ========================= Interface for a Course =========================
+interface Course_A {
+   id: string;
+   title: string;
+   instructor: string;
+   category: string;
+   level: string;
+   price: number;
+   rating: number;
+   description: string;
+   thumbnail: string;
+   students: number;
+}
+
+// Sample course data (same as previous components)
+export const coursesData: Course_A[] = [
+   {
+      id: "1",
+      title: "Complete JavaScript Bootcamp: From Zero to Hero",
+      instructor: "John Smith",
+      category: "Web Development",
+      level: "All Levels",
+      price: 49.99,
+      rating: 4.8,
+      description:
+         "Learn JavaScript from scratch and build real-world projects in this comprehensive course.",
+      thumbnail:
+         "https://images.unsplash.com/photo-1633356122544-f1348a13f899?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80",
+      students: 12000,
+   },
+   {
+      id: "2",
+      title: "Python for Data Science and Machine Learning",
+      instructor: "Sarah Johnson",
+      category: "Data Science",
+      level: "Intermediate",
+      price: 79.99,
+      rating: 4.6,
+      description:
+         "Master Python for data science, including pandas, numpy, and machine learning basics.",
+      thumbnail:
+         "https://images.unsplash.com/photo-1551288049-b1f3a0a1c7f1?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80",
+      students: 8500,
+   },
+   {
+      id: "3",
+      title: "Introduction to Web Development",
+      instructor: "Michael Brown",
+      category: "Web Development",
+      level: "Beginner",
+      price: 0,
+      rating: 4.2,
+      description: "A beginner-friendly course covering HTML, CSS, and basic JavaScript.",
+      thumbnail:
+         "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80",
+      students: 15000,
+   },
+   {
+      id: "4",
+      title: "Advanced React and Redux",
+      instructor: "Emily Davis",
+      category: "Web Development",
+      level: "Advanced",
+      price: 99.99,
+      rating: 4.9,
+      description: "Deep dive into React and Redux for building scalable web applications.",
+      thumbnail:
+         "https://images.unsplash.com/photo-1593642532973-d31b6557fa68?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80",
+      students: 4500,
+   },
+   {
+      id: "5",
+      title: "Digital Marketing Masterclass",
+      instructor: "Lisa Green",
+      category: "Marketing",
+      level: "All Levels",
+      price: 59.99,
+      rating: 4.5,
+      description:
+         "Learn SEO, social media marketing, and email marketing in this all-in-one course.",
+      thumbnail:
+         "https://images.unsplash.com/photo-1557426272-fc759fdf7a8d?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80",
+      students: 9500,
+   },
+];
+
+// Interface for a Course
+interface Course_B {
+   id: string;
+   title: string;
+   instructor: string;
+   category: string;
+   level: string;
+   price: number; // 0 for free courses
+   rating: number; // Out of 5
+   description: string;
+   thumbnail: string;
+   students: number; // Number of enrolled students
+}
+
+// Sample course data (replace with API data in a real app)
+export const coursesData_A: Course_B[] = [
+   {
+      id: "1",
+      title: "Complete JavaScript Bootcamp: From Zero to Hero",
+      instructor: "John Smith",
+      category: "Web Development",
+      level: "All Levels",
+      price: 49.99,
+      rating: 4.8,
+      description:
+         "Learn JavaScript from scratch and build real-world projects in this comprehensive course.",
+      thumbnail: "/assets/img-1.jpg",
+      students: 12000,
+   },
+   {
+      id: "2",
+      title: "Python for Data Science and Machine Learning",
+      instructor: "Sarah Johnson",
+      category: "Data Science",
+      level: "Intermediate",
+      price: 79.99,
+      rating: 4.6,
+      description:
+         "Master Python for data science, including pandas, numpy, and machine learning basics.",
+      thumbnail: "/assets/img-1.jpg",
+      students: 8500,
+   },
+   {
+      id: "3",
+      title: "Introduction to Web Development",
+      instructor: "Michael Brown",
+      category: "Web Development",
+      level: "Beginner",
+      price: 0,
+      rating: 4.2,
+      description: "A beginner-friendly course covering HTML, CSS, and basic JavaScript.",
+      thumbnail: "/assets/img-1.jpg",
+      students: 15000,
+   },
+   {
+      id: "4",
+      title: "Advanced React and Redux",
+      instructor: "Emily Davis",
+      category: "Web Development",
+      level: "Advanced",
+      price: 99.99,
+      rating: 4.9,
+      description: "Deep dive into React and Redux for building scalable web applications.",
+      thumbnail: "/assets/img-1.jpg",
+      students: 4500,
+   },
+   {
+      id: "5",
+      title: "Digital Marketing Masterclass",
+      instructor: "Lisa Green",
+      category: "Marketing",
+      level: "All Levels",
+      price: 59.99,
+      rating: 4.5,
+      description:
+         "Learn SEO, social media marketing, and email marketing in this all-in-one course.",
+      thumbnail: "/assets/img-1.jpg",
+      students: 9500,
+   },
+];
+
+export const initialCart: CartItemProps[] = [
+   {
+      id: 1,
+      title: "Complete JavaScript Bootcamp: From Zero to Hero",
+      instructor: "John Smith",
+      price: 49.99,
+      thumbnail:
+         "https://images.unsplash.com/photo-1633356122544-f1348a13f899?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80",
+      isBestseller: true,
+   },
+   {
+      id: 2,
+      title: "Python for Data Science and Machine Learning",
+      instructor: "Sarah Johnson",
+      price: 79.99,
+      thumbnail:
+         "https://images.unsplash.com/photo-1551288049-b1f3a0a1c7f1?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80",
+      isBestseller: false,
    },
 ];

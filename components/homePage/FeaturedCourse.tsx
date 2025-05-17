@@ -7,17 +7,11 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import Image from "next/image";
-import renderRatingStars from "@/utils/ratingStars";
 import Link from "next/link";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { courses } from "@/utils/data";
-
-function truncateText(text: string, maxLength: number): string {
-   if (text.length <= maxLength) {
-      return text;
-   }
-   return text.slice(0, maxLength - 2) + "..";
-}
+import truncateText from "@/utils/utils";
+import renderStars from "../RenderStars";
 
 const FeaturedCourse = () => {
    // State to track if carousel is at the beginning or end
@@ -26,7 +20,7 @@ const FeaturedCourse = () => {
 
    return (
       <section className="mb-12 container mx-auto">
-         <h2 className="p-2 flex justify-center text-4xl font-bold mb-3">Featured Courses</h2>
+         <h2 className="p-2 flex justify-center text-4xl font-bold mb-3">Popular Courses</h2>
          <Swiper
             modules={[Navigation]}
             spaceBetween={20}
@@ -76,9 +70,7 @@ const FeaturedCourse = () => {
                         </div>
                         <div className="flex items-center mb-4">
                            <span className="text-sm text-gray-600 mr-2">{course.rating}</span>
-                           <div className="flex space-x-0.5">
-                              {renderRatingStars(course.rating)}
-                           </div>
+                           <div className="flex space-x-0.5">{renderStars(course.rating)}</div>
                            <span className="text-sm text-gray-600 ml-2">
                               ({course.ratingsCount.toLocaleString()} ratings)
                            </span>

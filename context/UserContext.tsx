@@ -1,36 +1,31 @@
 "use client";
 
-import { User } from "@/types/Types";
-import { createContext, useContext, useEffect, useState } from "react";
+import { Student, Teacher, User } from "@/utils/dataTypes";
+import { createContext, useContext, useState } from "react";
 
 interface UserContextType {
    user: User | null;
-   setUserInfo: (user: User | null) => void;
-   getUserInfo: () => User | null;
+   userInfo: Student | Teacher | null;
+   updateUser: (user: User | null) => void;
+   updateUserInfo: (info: Student | Teacher | null) => void;
 }
 
 const UserContext = createContext<UserContextType | undefined>(undefined);
 
 export function UserProvider({ children }: { children: React.ReactNode }) {
    const [user, setUser] = useState<User | null>(null);
-   const setUserInfo = (user: User | null) => {
-      localStorage.setItem("LYW", JSON.stringify(user));
+   const [userInfo, setUserInfo] = useState<Student | Teacher | null>(null);
+
+   const updateUser = (user: User | null) => {
       setUser(user);
    };
-   const getUserInfo = () => {
-      return user;
+
+   const updateUserInfo = (info: Student | Teacher | null) => {
+      setUserInfo(info);
    };
-   useEffect(() => {
-      const fetchUser = () => {
-         const data = localStorage.getItem("LYW");
-         if (data) {
-            setUser(JSON.parse(data));
-         }
-      };
-      fetchUser();
-   }, []);
+
    return (
-      <UserContext.Provider value={{ user, getUserInfo, setUserInfo }}>
+      <UserContext.Provider value={{ user, userInfo, updateUser, updateUserInfo }}>
          {children}
       </UserContext.Provider>
    );

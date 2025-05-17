@@ -38,7 +38,7 @@ const CartSummary = ({ totalPrice }: { totalPrice: number }) => {
                         type="text"
                         id="coupon"
                         placeholder="Enter code"
-                        className="p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all"
+                        className="p-2 border w-full border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all"
                      />
                      <button className="bg-primary-500 text-white p-2 rounded-lg hover:bg-primary-600 transition-colors text-sm cursor-pointer">
                         Apply

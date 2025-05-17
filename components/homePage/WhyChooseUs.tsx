@@ -45,7 +45,6 @@ const WhyChooseUs = () => {
                nextEl: ".featured-course-next",
             }}
             pagination={{ clickable: true }}
-            className="relative"
             onSlideChange={(swiper) => {
                setIsBeginning(swiper.isBeginning);
                setIsEnd(swiper.isEnd);
@@ -59,7 +58,7 @@ const WhyChooseUs = () => {
          >
             {whyChooseItems.map((item, index) => (
                <SwiperSlide key={index}>
-                  <div className="bg-white shadow-md rounded-lg p-6 text-center">
+                  <div className="bg-white rounded-lg p-6 text-center border border-gray-200 hover:shadow-md transition-colors">
                      {item.icon}
                      <h3 className="text-lg font-semibold text-gray-800 mb-2">{item.title}</h3>
                      <p className="text-sm text-gray-600">{item.description}</p>

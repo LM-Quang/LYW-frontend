@@ -31,7 +31,10 @@ const Testimonials = () => {
          </h2>
          <div className="flex gap-5">
             {testimonials.map((testimonial, index) => (
-               <div key={index} className="bg-white border border-gray-100 rounded-lg p-6">
+               <div
+                  key={index}
+                  className="bg-white border border-gray-200 rounded-lg p-6 hover:shadow-md transition-colors"
+               >
                   <p className="text-gray-700 mb-4">&quot;{testimonial.text}&quot;</p>
                   <div className="flex items-center justify-start gap-1">
                      <Image

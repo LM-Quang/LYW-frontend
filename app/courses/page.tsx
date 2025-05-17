@@ -1,11 +1,12 @@
 "use client";
 
-import React, { useState } from "react";
-import { useCart } from "@/context/CourseContext"; // Assuming CartContext is set up
-import { useRouter } from "next/navigation";
-import logo1 from "@/assets/logo-1.png";
-import Link from "next/link";
+import React, { useState, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 import Image from "next/image";
+import logo1 from "@/assets/logo-1.png";
+import renderStars from "@/components/RenderStars";
+import Link from "next/link";
+import { QUERY_PARAMS } from "@/utils/constant";
 
 // Interface for a Course
 interface Course {
@@ -14,14 +15,14 @@ interface Course {
    instructor: string;
    category: string;
    level: string;
-   price: number;
-   rating: number;
+   price: number; // 0 for free courses
+   rating: number; // Out of 5
    description: string;
    thumbnail: string;
-   students: number;
+   students: number; // Number of enrolled students
 }
 
-// Sample course data (same as previous components)
+// Sample course data (replace with API data in a real app)
 const coursesData: Course[] = [
    {
       id: "1",
@@ -33,8 +34,7 @@ const coursesData: Course[] = [
       rating: 4.8,
       description:
          "Learn JavaScript from scratch and build real-world projects in this comprehensive course.",
-      thumbnail:
-         "https://images.unsplash.com/photo-1633356122544-f1348a13f899?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80",
+      thumbnail: "/assets/img-1.jpg",
       students: 12000,
    },
    {
@@ -47,8 +47,7 @@ const coursesData: Course[] = [
       rating: 4.6,
       description:
          "Master Python for data science, including pandas, numpy, and machine learning basics.",
-      thumbnail:
-         "https://images.unsplash.com/photo-1551288049-b1f3a0a1c7f1?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80",
+      thumbnail: "/assets/img-1.jpg",
       students: 8500,
    },
    {
@@ -60,8 +59,7 @@ const coursesData: Course[] = [
       price: 0,
       rating: 4.2,
       description: "A beginner-friendly course covering HTML, CSS, and basic JavaScript.",
-      thumbnail:
-         "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80",
+      thumbnail: "/assets/img-1.jpg",
       students: 15000,
    },
    {
@@ -73,8 +71,7 @@ const coursesData: Course[] = [
       price: 99.99,
       rating: 4.9,
       description: "Deep dive into React and Redux for building scalable web applications.",
-      thumbnail:
-         "https://images.unsplash.com/photo-1593642532973-d31b6557fa68?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80",
+      thumbnail: "/assets/img-1.jpg",
       students: 4500,
    },
    {
@@ -87,404 +84,338 @@ const coursesData: Course[] = [
       rating: 4.5,
       description:
          "Learn SEO, social media marketing, and email marketing in this all-in-one course.",
-      thumbnail:
-         "https://images.unsplash.com/photo-1557426272-fc759fdf7a8d?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80",
+      thumbnail: "/assets/img-1.jpg",
       students: 9500,
    },
 ];
 
 export default function CoursesPage() {
-   //    const [categories, setCategories] = useState<string[]>([]);
-   // const [courses, setCourses] = useState<Course[]>(coursesData);
+   const searchParams = useSearchParams();
+   const query = searchParams.get(QUERY_PARAMS) || "";
 
-   // useEffect(() => {
-   //    const fetchData = async () => {
-   //       // Fetch Courses Data API
-   //       const categoriesRes = await fetch("/api/categories");
-   //       const categoriesData = await categoriesRes.json();
-   //       setCategories(categoriesData);
+   // State for filters
+   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+   const [selectedLevels, setSelectedLevels] = useState<string[]>([]);
+   const [priceFilter, setPriceFilter] = useState<string>("all");
+   const [minRating, setMinRating] = useState<number>(0);
+   const [filteredCourses, setFilteredCourses] = useState<Course[]>(coursesData);
+   const [isSidebarOpen, setIsSidebarOpen] = useState(false); // For mobile toggle
 
-   //       const coursesRes = await fetch("/api/courses");
-   //       const coursesData = await coursesRes.json();
-   //       setCourses(coursesData);
-   //    };
-   //    fetchData();
-   // }, []);
+   // Filter courses based on selected filters
+   useEffect(() => {
+      let filtered = coursesData.filter(
+         (course) =>
+            course.title.toLowerCase().includes(query.toLowerCase()) ||
+            course.description.toLowerCase().includes(query.toLowerCase()) ||
+            course.category.toLowerCase().includes(query.toLowerCase())
+      );
 
-   // const filteredCourses = courses.filter(
-   //    (course) => course.category === selectedCategory
-   // );
+      // Apply category filter
+      if (selectedCategories.length > 0) {
+         filtered = filtered.filter((course) => selectedCategories.includes(course.category));
+      }
 
-   const { cart, addToCart } = useCart();
-   const router = useRouter();
+      // Apply level filter
+      if (selectedLevels.length > 0) {
+         filtered = filtered.filter((course) => selectedLevels.includes(course.level));
+      }
 
-   // List of categories (derived from course data)
-   const categories = Array.from(new Set(coursesData.map((course) => course.category)));
+      // Apply price filter
+      if (priceFilter === "free") {
+         filtered = filtered.filter((course) => course.price === 0);
+      } else if (priceFilter === "paid") {
+         filtered = filtered.filter((course) => course.price > 0);
+      }
 
-   // State for selected category
-   const [selectedCategory, setSelectedCategory] = useState(categories[0] || "Web Development");
+      // Apply rating filter
+      filtered = filtered.filter((course) => course.rating >= minRating);
 
-   // Filter courses by selected category
-   const filteredCourses = coursesData.filter((course) => course.category === selectedCategory);
+      setFilteredCourses(filtered);
+   }, [query, selectedCategories, selectedLevels, priceFilter, minRating]);
 
-   // Handle adding to cart
-   const handleAddToCart = (course: Course) => {
-      addToCart({
-         // id: course.id,
-         id: 1,
-         title: course.title,
-         instructor: course.instructor,
-         price: course.price,
-         thumbnail: course.thumbnail,
-      });
-      router.push("/cart");
+   // Clear all filters
+   const clearFilters = () => {
+      setSelectedCategories([]);
+      setSelectedLevels([]);
+      setPriceFilter("all");
+      setMinRating(0);
    };
 
+   // Categories and levels for filter options
+   const categories = ["Web Development", "Data Science", "Marketing", "Design"];
+   const levels = ["Beginner", "Intermediate", "Advanced", "All Levels"];
+
+   // Replace the hard-coded coursesData with an API call to fetch courses based on the search query and filters
+   // useEffect(() => {
+   //    const fetchCourses = async () => {
+   //       const response = await fetch(
+   //          `/api/courses?query=${query}&categories=${selectedCategories.join(",")}&levels=${selectedLevels.join(",")}&price=${priceFilter}&minRating=${minRating}`
+   //       );
+   //       const data = await response.json();
+   //       setFilteredCourses(data);
+   //    };
+   //    fetchCourses();
+   // }, [query, selectedCategories, selectedLevels, priceFilter, minRating]);
+
+   // Implement proper pagination instead of a "Load More" button
    const [page, setPage] = useState(1);
-   const coursesPerPage = 2;
-   const paginatedCourses = filteredCourses.slice(
-      (page - 1) * coursesPerPage,
-      page * coursesPerPage
-   );
+   const coursesPerPage = 5;
+   const paginatedCourses = filteredCourses.slice(0, page * coursesPerPage);
 
    return (
       <div className="w-full min-h-screen p-0 bg-gray-50 font-sans">
-         {/* Header */}
-         <header className="bg-white shadow-md p-4 sticky top-0 z-10">
-            <div className="container mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
-               <div className="flex items-center">
-                  <div className="bg-primary-500 text-white p-2 rounded-full mr-2">
-                     <span className="material-symbols-outlined text-lg">school</span>
+         <main className="container mx-auto px-4 md:px-6 py-8 flex flex-col lg:flex-row gap-8">
+            {/* Left Sidebar: Filters */}
+            <div className={`lg:w-1/4 ${isSidebarOpen ? "block" : "hidden"} lg:block`}>
+               <div className="bg-white rounded-lg shadow-md p-6 sticky top-24 max-h-[calc(100vh-100px)] overflow-y-auto">
+                  <div className="flex justify-between items-center mb-6">
+                     <h2 className="text-xl font-semibold text-gray-800">Filters</h2>
+                     <button
+                        onClick={clearFilters}
+                        className="text-primary-600 hover:text-primary-700 text-sm"
+                     >
+                        Clear All
+                     </button>
                   </div>
-                  <div className="text-2xl font-bold text-primary-500">EduLearn Academy</div>
-               </div>
-               <div className="flex-1 max-w-xl mx-auto md:mx-0">
-                  <div className="relative">
-                     <input
-                        type="text"
-                        placeholder="Search courses, topics, instructors..."
-                        className="w-full p-2 pl-9 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-primary-500 transition-all text-sm"
-                        onKeyDown={(e) => {
-                           if (e.key === "Enter") {
-                              window.location.href = `/search?q=${e.currentTarget.value}`;
-                           }
-                        }}
-                     />
-                     <span className="material-symbols-outlined absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 text-sm">
-                        search
-                     </span>
-                  </div>
-               </div>
-               <nav className="w-full md:w-auto">
-                  <ul className="flex flex-wrap justify-center gap-2 text-sm">
-                     <li>
-                        <Link
-                           href="/"
-                           className="px-3 py-1 font-medium hover:text-primary-600 transition-colors"
-                        >
-                           Home
-                        </Link>
-                     </li>
-                     <li>
-                        <a
-                           href="/search"
-                           className="px-3 py-1 font-medium hover:text-primary-600 transition-colors"
-                        >
-                           Courses
-                        </a>
-                     </li>
-                     <li>
-                        <a
-                           href="/categories"
-                           className="px-3 py-1 font-medium bg-primary-50 text-primary-600 rounded hover:bg-primary-100 transition-colors"
-                        >
-                           Categories
-                        </a>
-                     </li>
-                     <li>
-                        <a
-                           href="#"
-                           className="px-3 py-1 font-medium hover:text-primary-600 transition-colors"
-                        >
-                           Teaching
-                        </a>
-                     </li>
-                     <li>
-                        <a
-                           href="#"
-                           className="px-3 py-1 font-medium hover:text-primary-600 transition-colors"
-                        >
-                           My Learning
-                        </a>
-                     </li>
-                     <li>
-                        <a
-                           href="#"
-                           className="px-3 py-1 font-medium hover:text-primary-600 transition-colors"
-                        >
-                           Wishlist
-                        </a>
-                     </li>
-                     <li>
-                        <a
-                           href="/cart"
-                           className="px-3 py-1 font-medium hover:text-primary-600 transition-colors relative"
-                        >
-                           <span className="material-symbols-outlined">shopping_cart</span>
-                           {cart.length > 0 && (
-                              <span className="absolute -top-1 -right-1 bg-primary-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
-                                 {cart.length}
-                              </span>
-                           )}
-                        </a>
-                     </li>
-                     <li>
-                        <a
-                           href="#"
-                           className="px-3 py-1 rounded-full bg-primary-500 text-white hover:bg-primary-600 transition-colors"
-                        >
-                           Sign In
-                        </a>
-                     </li>
-                  </ul>
-               </nav>
-            </div>
-         </header>
 
-         {/* Main Content: Categories and Courses */}
-         <main className="container mx-auto px-4 md:px-6 py-8">
-            <h1 className="text-2xl md:text-3xl font-bold mb-6 text-gray-800">
-               Browse by Category
-            </h1>
-
-            <div className="flex flex-col lg:flex-row gap-8">
-               {/* Category Sidebar */}
-               <div className="lg:w-1/4">
-                  <div className="hidden lg:block bg-white rounded-lg shadow-md p-6 sticky top-24">
-                     <h2 className="text-xl font-semibold text-gray-800 mb-4">Categories</h2>
-                     <ul className="space-y-2">
+                  {/* Category Filter */}
+                  <div className="mb-6">
+                     <h3 className="text-sm font-medium text-gray-700 mb-3">Category</h3>
+                     <div className="space-y-2">
                         {categories.map((category) => (
-                           <li key={category}>
-                              <button
-                                 onClick={() => setSelectedCategory(category)}
-                                 className={`w-full text-left px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-                                    selectedCategory === category
-                                       ? "bg-primary-50 text-primary-600"
-                                       : "text-gray-700 hover:bg-gray-100"
-                                 }`}
+                           <div key={category} className="flex items-center">
+                              <input
+                                 type="checkbox"
+                                 id={`category-${category}`}
+                                 checked={selectedCategories.includes(category)}
+                                 onChange={() => {
+                                    setSelectedCategories((prev) =>
+                                       prev.includes(category)
+                                          ? prev.filter((c) => c !== category)
+                                          : [...prev, category]
+                                    );
+                                 }}
+                                 className="w-4 h-4 text-primary-600 rounded focus:ring-primary-500"
+                              />
+                              <label
+                                 htmlFor={`category-${category}`}
+                                 className="ml-2 text-sm text-gray-700"
                               >
                                  {category}
-                              </button>
-                           </li>
+                              </label>
+                           </div>
                         ))}
-                     </ul>
+                     </div>
+                  </div>
+
+                  {/* Level Filter */}
+                  <div className="mb-6">
+                     <h3 className="text-sm font-medium text-gray-700 mb-3">Level</h3>
+                     <div className="space-y-2">
+                        {levels.map((level) => (
+                           <div key={level} className="flex items-center">
+                              <input
+                                 type="checkbox"
+                                 id={`level-${level}`}
+                                 checked={selectedLevels.includes(level)}
+                                 onChange={() => {
+                                    setSelectedLevels((prev) =>
+                                       prev.includes(level)
+                                          ? prev.filter((l) => l !== level)
+                                          : [...prev, level]
+                                    );
+                                 }}
+                                 className="w-4 h-4 text-primary-600 rounded focus:ring-primary-500"
+                              />
+                              <label
+                                 htmlFor={`level-${level}`}
+                                 className="ml-2 text-sm text-gray-700"
+                              >
+                                 {level}
+                              </label>
+                           </div>
+                        ))}
+                     </div>
+                  </div>
+
+                  {/* Price Filter */}
+                  <div className="mb-6">
+                     <h3 className="text-sm font-medium text-gray-700 mb-3">Price</h3>
+                     <div className="space-y-2">
+                        <div className="flex items-center">
+                           <input
+                              type="radio"
+                              id="price-all"
+                              name="price"
+                              value="all"
+                              checked={priceFilter === "all"}
+                              onChange={() => setPriceFilter("all")}
+                              className="w-4 h-4 text-primary-600 focus:ring-primary-500"
+                           />
+                           <label htmlFor="price-all" className="ml-2 text-sm text-gray-700">
+                              All
+                           </label>
+                        </div>
+                        <div className="flex items-center">
+                           <input
+                              type="radio"
+                              id="price-free"
+                              name="price"
+                              value="free"
+                              checked={priceFilter === "free"}
+                              onChange={() => setPriceFilter("free")}
+                              className="w-4 h-4 text-primary-600 focus:ring-primary-500"
+                           />
+                           <label htmlFor="price-free" className="ml-2 text-sm text-gray-700">
+                              Free
+                           </label>
+                        </div>
+                        <div className="flex items-center">
+                           <input
+                              type="radio"
+                              id="price-paid"
+                              name="price"
+                              value="paid"
+                              checked={priceFilter === "paid"}
+                              onChange={() => setPriceFilter("paid")}
+                              className="w-4 h-4 text-primary-600 focus:ring-primary-500"
+                           />
+                           <label htmlFor="price-paid" className="ml-2 text-sm text-gray-700">
+                              Paid
+                           </label>
+                        </div>
+                     </div>
+                  </div>
+
+                  {/* Rating Filter */}
+                  <div>
+                     <h3 className="text-sm font-medium text-gray-700 mb-3">Minimum Rating</h3>
+                     <div className="flex items-center space-x-2">
+                        <input
+                           type="range"
+                           min="0"
+                           max="5"
+                           step="0.5"
+                           value={minRating}
+                           onChange={(e) => setMinRating(Number(e.target.value))}
+                           className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
+                        />
+                        <span className="text-sm text-gray-700">{minRating} stars</span>
+                     </div>
                   </div>
                </div>
+            </div>
 
-               {/* Courses List */}
-               <div className="lg:w-3/4">
-                  <h2 className="text-2xl font-semibold text-gray-800 mb-4">
-                     {selectedCategory} Courses
-                  </h2>
-                  {filteredCourses.length > 0 ? (
-                     <div className="space-y-6">
-                        {filteredCourses.map((course) => (
-                           <div
-                              key={course.id}
-                              className="bg-white rounded-lg shadow-md p-4 flex flex-col md:flex-row gap-4 hover:shadow-lg transition-shadow"
-                           >
-                              {/* Thumbnail */}
-                              <div className="md:w-1/4">
-                                 <Image
-                                    src={logo1}
-                                    alt={course.title}
-                                    className="w-full h-32 object-cover rounded-lg"
-                                    width={128}
-                                    height={128}
-                                 />
-                              </div>
+            {/* Main Content: Course List */}
+            <div className="lg:w-3/4">
+               {/* Toggle Button for Sidebar on Mobile */}
+               <button
+                  className="lg:hidden mb-4 p-2 bg-primary-500 text-white rounded-lg flex items-center"
+                  onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+               >
+                  <span className="material-symbols-outlined mr-2">filter_list</span>
+                  {isSidebarOpen ? "Hide Filters" : "Show Filters"}
+               </button>
 
-                              {/* Course Details */}
-                              <div className="flex-1">
+               {/* Search Results Header */}
+               <div className="mb-6">
+                  <h1 className="text-2xl font-bold text-gray-800">
+                     Results for &quot;{query || "All Courses"}&quot;
+                  </h1>
+                  <p className="text-gray-600">{filteredCourses.length} courses found</p>
+               </div>
+
+               {/* Course List */}
+               {filteredCourses.length > 0 ? (
+                  <div className="space-y-6">
+                     {filteredCourses.map((course) => (
+                        <div
+                           key={course.id}
+                           className="bg-white rounded-lg shadow-md p-4 flex flex-col md:flex-row gap-4 hover:shadow-lg transition-shadow"
+                        >
+                           {/* Thumbnail */}
+                           <div className="md:w-1/4 relative">
+                              <Image
+                                 src={logo1}
+                                 alt={course.title}
+                                 className="w-full h-32 object-cover rounded-lg"
+                                 width={128}
+                                 height={128}
+                              />
+                              <p className="absolute left-0 top-0 p-1 rounded-lg bg-primary-500 text-white">
+                                 Bestseller
+                              </p>
+                           </div>
+
+                           {/* Course Details */}
+                           <div className="flex-1">
+                              <div className="flex items-center justify-between">
                                  <h2 className="text-lg font-semibold text-gray-800">
                                     {course.title}
                                  </h2>
-                                 <p className="text-sm text-gray-600 mb-2">
-                                    By {course.instructor}
-                                 </p>
-                                 <div className="flex items-center mb-2">
-                                    <span className="text-sm font-medium text-yellow-500 mr-1">
-                                       {course.rating}
+                              </div>
+                              <p className="text-sm text-gray-600 mb-2">By {course.instructor}</p>
+                              <div className="flex items-center mb-2">
+                                 <span className="text-sm font-medium text-yellow-500 mr-1">
+                                    {course.rating}
+                                 </span>
+                                 {renderStars(course.rating)}
+                                 <span className="text-sm text-gray-600 ml-2">
+                                    ({course.students.toLocaleString()} students)
+                                 </span>
+                              </div>
+                              <p className="text-gray-600 text-sm mb-2 line-clamp-2">
+                                 {course.description}
+                              </p>
+                              <div className="flex items-center justify-between">
+                                 <span className="text-sm text-gray-700">
+                                    {course.level} • {course.category}
+                                 </span>
+                                 <div>
+                                    <span className="text-lg font-semibold text-gray-800">
+                                       {course.price === 0 ? "Free" : `$${course.price}`}
                                     </span>
-                                    <span className="text-yellow-500">★</span>
-                                    <span className="text-sm text-gray-600 ml-2">
-                                       ({course.students.toLocaleString()} students)
-                                    </span>
-                                 </div>
-                                 <p className="text-gray-600 text-sm mb-2 line-clamp-2">
-                                    {course.description}
-                                 </p>
-                                 <div className="flex items-center justify-between">
-                                    <span className="text-sm text-gray-700">
-                                       {course.level} • {course.category}
-                                    </span>
-                                    <div className="flex items-center gap-2">
-                                       <span className="text-lg font-semibold text-gray-800">
-                                          {course.price === 0 ? "Free" : `$${course.price}`}
-                                       </span>
-                                       <button
-                                          onClick={() => handleAddToCart(course)}
-                                          className="px-4 py-2 bg-primary-500 text-white rounded-lg hover:bg-primary-600 transition-colors"
-                                       >
-                                          Add to Cart
-                                       </button>
-                                    </div>
+                                    <Link
+                                       className="ml-3 p-2 bg-primary-500 text-white rounded-lg"
+                                       href={`/course-detail/${course.id}`}
+                                    >
+                                       Add to Cart
+                                    </Link>
                                  </div>
                               </div>
                            </div>
-                        ))}
-                        <div className="mt-8 flex justify-center space-x-2">
-                           <button
-                              onClick={() => setPage((p) => Math.max(1, p - 1))}
-                              disabled={page === 1}
-                              className="px-4 py-2 bg-gray-200 rounded-lg disabled:opacity-50"
-                           >
-                              Prev
-                           </button>
-                           <span className="px-4 py-2">Page {page}</span>
-                           <button
-                              onClick={() => setPage((p) => p + 1)}
-                              disabled={paginatedCourses.length < coursesPerPage}
-                              className="px-4 py-2 bg-primary-500 text-white rounded-lg disabled:opacity-50"
-                           >
-                              Next
-                           </button>
                         </div>
-                     </div>
-                  ) : (
-                     <div className="text-center py-10">
-                        <h2 className="text-xl font-semibold text-gray-800">
-                           No Courses Available
-                        </h2>
-                        <p className="text-gray-600">
-                           There are currently no courses in this category.
-                        </p>
-                     </div>
-                  )}
-               </div>
+                     ))}
+                  </div>
+               ) : (
+                  <div className="text-center py-10">
+                     <h2 className="text-xl font-semibold text-gray-800">No courses found</h2>
+                     <p className="text-gray-600">Try adjusting your search query or filters.</p>
+                  </div>
+               )}
+
+               {/* Pagination (Simplified) */}
+               {filteredCourses.length > 0 && (
+                  <div className="mt-8 flex justify-center space-x-2">
+                     <button
+                        onClick={() => setPage((p) => Math.max(1, p - 1))}
+                        disabled={page === 1}
+                        className="px-4 py-2 bg-gray-200 rounded-lg disabled:opacity-50"
+                     >
+                        Previous
+                     </button>
+                     <span className="px-4 py-2">Page {page}</span>
+                     <button
+                        onClick={() => setPage((p) => p + 1)}
+                        disabled={paginatedCourses.length >= filteredCourses.length}
+                        className="px-4 py-2 bg-primary-500 text-white rounded-lg disabled:opacity-50"
+                     >
+                        Next
+                     </button>
+                  </div>
+               )}
             </div>
          </main>
-
-         {/* Footer */}
-         <footer className="bg-gray-800 text-white py-10 mt-10">
-            <div className="container mx-auto px-4">
-               <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-                  <div>
-                     <div className="flex items-center mb-4">
-                        <div className="bg-white p-2 rounded-full mr-2">
-                           <span className="material-symbols-outlined text-primary-500">
-                              school
-                           </span>
-                        </div>
-                        <div className="text-xl font-bold">EduLearn Academy</div>
-                     </div>
-                     <p className="text-gray-300 text-sm">
-                        Empowering educators to share knowledge and transform lives through online
-                        education.
-                     </p>
-                  </div>
-
-                  <div>
-                     <h4 className="font-bold text-lg mb-4">Teach</h4>
-                     <ul className="space-y-2 text-gray-300 text-sm">
-                        <li>
-                           <a href="#" className="hover:text-white transition-colors">
-                              Become an Instructor
-                           </a>
-                        </li>
-                        <li>
-                           <a href="#" className="hover:text-white transition-colors">
-                              Instructor Resources
-                           </a>
-                        </li>
-                        <li>
-                           <a href="#" className="hover:text-white transition-colors">
-                              Course Standards
-                           </a>
-                        </li>
-                        <li>
-                           <a href="#" className="hover:text-white transition-colors">
-                              Success Stories
-                           </a>
-                        </li>
-                     </ul>
-                  </div>
-
-                  <div>
-                     <h4 className="font-bold text-lg mb-4">Support</h4>
-                     <ul className="space-y-2 text-gray-300 text-sm">
-                        <li>
-                           <a href="#" className="hover:text-white transition-colors">
-                              Help Center
-                           </a>
-                        </li>
-                        <li>
-                           <a href="#" className="hover:text-white transition-colors">
-                              Contact Us
-                           </a>
-                        </li>
-                        <li>
-                           <a href="#" className="hover:text-white transition-colors">
-                              Privacy Policy
-                           </a>
-                        </li>
-                        <li>
-                           <a href="#" className="hover:text-white transition-colors">
-                              Terms of Service
-                           </a>
-                        </li>
-                     </ul>
-                  </div>
-
-                  <div>
-                     <h4 className="font-bold text-lg mb-4">Stay Connected</h4>
-                     <p className="text-gray-300 text-sm mb-4">
-                        Subscribe to get updates on new teaching resources and opportunities.
-                     </p>
-                     <div className="flex">
-                        <input
-                           type="email"
-                           placeholder="Your email"
-                           className="px-3 py-2 rounded-l-lg text-gray-800 w-full text-sm focus:outline-none"
-                        />
-                        <button className="bg-primary-500 hover:bg-primary-600 px-4 py-2 rounded-r-lg transition-colors text-sm">
-                           Subscribe
-                        </button>
-                     </div>
-                  </div>
-               </div>
-
-               <div className="border-t border-gray-700 mt-8 pt-6 flex flex-col md:flex-row justify-between items-center">
-                  <div className="text-gray-400 text-sm mb-4 md:mb-0">
-                     © 2023 EduLearn Academy. All rights reserved.
-                  </div>
-                  <div className="flex space-x-4">
-                     <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                        <span className="material-symbols-outlined">facebook</span>
-                     </a>
-                     <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                        <span className="material-symbols-outlined">twitter</span>
-                     </a>
-                     <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                        <span className="material-symbols-outlined">youtube</span>
-                     </a>
-                     <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                        <span className="material-symbols-outlined">language</span>
-                     </a>
-                  </div>
-               </div>
-            </div>
-         </footer>
       </div>
    );
 }

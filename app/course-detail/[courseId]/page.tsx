@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import logo from "@/assets/img-1.jpg";
 import Modal from "@/components/courseDetailPage/Modal";
-import { CartItemProps } from "@/types/Types";
+import { CartItemProps } from "@/utils/dataTypes";
 import { useCart } from "@/context/CourseContext";
 import { useRouter } from "next/navigation";
 import { sections } from "@/utils/data";
@@ -23,7 +23,7 @@ export default function CoursesPage() {
          instructor: "Sarah Johnson",
          price: totalPrice,
          thumbnail: logo.src,
-         quantity: 1,
+         isBestseller: false,
       };
       addToCart(cartItem);
       router.push("/cart");

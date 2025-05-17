@@ -7,7 +7,7 @@ import Image from "next/image";
 const Hero = () => {
    return (
       <section className="bg-gradient-to-r from-primary-500 to-primary-700 text-white rounded-lg shadow-lg p-8 mb-12 flex flex-col md:flex-row items-center">
-         <div className="md:w-1/2 mb-6 md:mb-0">
+         <div className="md:w-1/2 mb-6 md:mb-0 pr-2">
             <h1 className="text-4xl md:text-5xl font-bold mb-4">
                Learn from Experts, Anytime, Anywhere
             </h1>

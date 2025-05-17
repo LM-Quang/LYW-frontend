@@ -1,8 +1,8 @@
-import { Course } from "@/types/Types";
-import renderRatingStars from "@/utils/ratingStars";
-import truncateText from "@/utils/truncateText";
+import { Course } from "@/utils/dataTypes";
+import truncateText from "@/utils/utils";
 import Image from "next/image";
 import Link from "next/link";
+import renderStars from "./RenderStars";
 
 const CourseCard = ({ course }: { course: Course }) => {
    return (
@@ -32,7 +32,7 @@ const CourseCard = ({ course }: { course: Course }) => {
             </div>
             <div className="flex items-center mb-4">
                <span className="text-sm text-gray-600 mr-2">{course.rating}</span>
-               <div className="flex space-x-0.5">{renderRatingStars(course.rating)}</div>
+               <div className="flex space-x-0.5">{renderStars(course.rating)}</div>
                <span className="text-sm text-gray-600 ml-2">
                   ({course.ratingsCount.toLocaleString()} ratings)
                </span>

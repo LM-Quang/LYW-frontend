@@ -1,10 +1,10 @@
 import React from "react";
 import { Save, Trash2 } from "lucide-react";
-import renderRatingStars from "@/utils/ratingStars";
 import Image from "next/image";
 import logo1 from "@/assets/logo-1.png";
-import { CartItemProps } from "@/types/Types";
 import { useCart } from "@/context/CourseContext";
+import renderStars from "../RenderStars";
+import { CartItemProps } from "@/utils/dataTypes";
 
 const CartItem = ({ item }: { item: CartItemProps }) => {
    const { removeFromCart } = useCart();
@@ -27,7 +27,7 @@ const CartItem = ({ item }: { item: CartItemProps }) => {
                <h2 className="text-lg font-semibold text-gray-800">{item.title}</h2>
                <p className="text-sm text-gray-600 mb-2">By {item.instructor}</p>
                <div className="mb-2 space-x-1">
-                  <span>{renderRatingStars(4.5)} 4.5</span>
+                  <span>{renderStars(4.5)} 4.5</span>
                   <span>(12,000 reviews)</span>
                </div>
                <p className="text-lg font-semibold text-gray-800">

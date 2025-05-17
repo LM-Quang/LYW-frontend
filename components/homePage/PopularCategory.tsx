@@ -44,7 +44,7 @@ const PopularCategory = () => {
    const [isEnd, setIsEnd] = useState(false);
 
    return (
-      <section className="mb-12 container mx-auto">
+      <section id="popularCategories" className="mb-12 container mx-auto">
          <h2 className=" flex items-center justify-center p-2 rounded-lg text-4xl font-bold gradient-to-r mb-3">
             Popular Categories
          </h2>
@@ -57,7 +57,6 @@ const PopularCategory = () => {
                nextEl: ".featured-course-next",
             }}
             pagination={{ clickable: true }}
-            className="relative"
             onSlideChange={(swiper) => {
                setIsBeginning(swiper.isBeginning);
                setIsEnd(swiper.isEnd);
@@ -73,7 +72,7 @@ const PopularCategory = () => {
                <SwiperSlide key={index}>
                   <Link
                      href={category.link}
-                     className="bg-white rounded-lg p-6 border border-gray-100 flex flex-col items-center hover:shadow-lg transition-shadow"
+                     className="bg-white rounded-lg p-6 border border-gray-200 flex flex-col items-center hover:shadow-md transition-colors"
                      aria-label={`${category.title} Courses`}
                   >
                      {category.icon}

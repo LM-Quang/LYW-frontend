@@ -103,20 +103,20 @@ const Footer = () => {
             {/* Bottom Bar */}
             <div className="mt-8 pt-8 border-t border-gray-700 flex flex-col md:flex-row justify-between items-center text-sm">
                <div className="mb-4 md:mb-0">
-                  <a
-                     href="#"
+                  <Link
+                     href="/privacy"
                      className="hover:text-primary-400 transition-colors mr-4"
                      aria-label="Privacy Policy"
                   >
                      Privacy Policy
-                  </a>
-                  <a
-                     href="#"
+                  </Link>
+                  <Link
+                     href="/tos"
                      className="hover:text-primary-400 transition-colors"
                      aria-label="Terms of Service"
                   >
                      Terms of Service
-                  </a>
+                  </Link>
                </div>
                <div>
                   &copy; {new Date().getFullYear()}{" "}
