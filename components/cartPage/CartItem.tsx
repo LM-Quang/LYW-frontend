@@ -6,7 +6,7 @@ import { useCart } from "@/context/CourseContext";
 import renderStars from "../RenderStars";
 import { CartItemProps } from "@/utils/dataTypes";
 
-const CartItem = ({ item }: { item: CartItemProps }) => {
+const CartItems = ({ item }: { item: CartItemProps }) => {
    const { removeFromCart } = useCart();
    return (
       <div className="bg-white border border-gray-300 rounded-lg p-4 flex flex-col md:flex-row gap-4 hover:shadow-md transition-all">
@@ -60,4 +60,4 @@ const CartItem = ({ item }: { item: CartItemProps }) => {
    );
 };
 
-export default CartItem;
+export default CartItems;
