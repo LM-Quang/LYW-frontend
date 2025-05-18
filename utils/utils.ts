@@ -16,3 +16,41 @@ export default function truncateText(text: string, maxLength: number): string {
    }
    return text.slice(0, maxLength - 2) + "..";
 }
+
+export const percentageCalculate = (part: number, total: number) => {
+   if (total === 0) return 0; // Avoid division by zero
+   const percentage = (part / total) * 100;
+   return Math.ceil(percentage);
+};
+
+export const formatDuration = (seconds: number): string => {
+   const hours = Math.floor(seconds / 3600);
+   const minutes = Math.floor((seconds % 3600) / 60);
+
+   const hourStr = hours > 0 ? `${hours}hours ` : "";
+   const minuteStr = minutes > 0 ? `${minutes}mins ` : "";
+
+   return `${hourStr}${minuteStr}` || "0m";
+};
+
+export const timeFromNow = (input: Date | string): string => {
+   const now = new Date();
+   const past = new Date(input);
+   const diffMs = now.getTime() - past.getTime();
+
+   const seconds = Math.floor(diffMs / 1000);
+   const minutes = Math.floor(seconds / 60);
+   const hours = Math.floor(minutes / 60);
+   const days = Math.floor(hours / 24);
+   const months = Math.floor(days / 30);
+   const years = Math.floor(days / 365);
+
+   if (years > 0) return `${years} year${years > 1 ? "s" : ""} ago`;
+   if (months > 0) return `${months} month${months > 1 ? "s" : ""} ago`;
+   if (days > 0) return `${days} day${days > 1 ? "s" : ""} ago`;
+   if (hours > 0) return `${hours} hour${hours > 1 ? "s" : ""} ago`;
+   if (minutes > 0) return `${minutes} minute${minutes > 1 ? "s" : ""} ago`;
+   if (seconds > 0) return `${seconds} second${seconds > 1 ? "s" : ""} ago`;
+
+   return "just now";
+};

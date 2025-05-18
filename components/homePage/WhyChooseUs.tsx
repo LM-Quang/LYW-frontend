@@ -1,12 +1,5 @@
-"use client";
-
-import React, { useState } from "react";
-import { Award, ChevronLeft, ChevronRight, Video, Infinity } from "lucide-react";
-import { Navigation } from "swiper/modules";
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
+import React from "react";
+import { Award, Video, Infinity } from "lucide-react";
 
 const whyChooseItems = [
    {
@@ -27,60 +20,23 @@ const whyChooseItems = [
 ];
 
 const WhyChooseUs = () => {
-   // State to track if carousel is at the beginning or end
-   const [isBeginning, setIsBeginning] = useState(true);
-   const [isEnd, setIsEnd] = useState(false);
-
    return (
       <section className="mb-12 container mx-auto">
          <h2 className=" flex items-center justify-center p-2 rounded-lg text-4xl font-bold gradient-to-r mb-3">
             Why Choose EduLearn Academy?
          </h2>
-         <Swiper
-            modules={[Navigation]}
-            spaceBetween={20}
-            slidesPerView={2}
-            navigation={{
-               prevEl: ".featured-course-prev",
-               nextEl: ".featured-course-next",
-            }}
-            pagination={{ clickable: true }}
-            onSlideChange={(swiper) => {
-               setIsBeginning(swiper.isBeginning);
-               setIsEnd(swiper.isEnd);
-            }}
-            onReachBeginning={() => setIsBeginning(true)}
-            onReachEnd={() => setIsEnd(true)}
-            onFromEdge={() => {
-               setIsBeginning(false);
-               setIsEnd(false);
-            }}
-         >
+
+         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {whyChooseItems.map((item, index) => (
-               <SwiperSlide key={index}>
+               <div key={index} className="lg:col-span-1">
                   <div className="bg-white rounded-lg p-6 text-center border border-gray-200 hover:shadow-md transition-colors">
                      {item.icon}
                      <h3 className="text-lg font-semibold text-gray-800 mb-2">{item.title}</h3>
                      <p className="text-sm text-gray-600">{item.description}</p>
                   </div>
-               </SwiperSlide>
+               </div>
             ))}
-            <button
-               className={`featured-course-prev absolute left-0 top-1/2 border-gray-200 shadow-md bg-white rounded-full p-2.5 transform -translate-y-1/2 z-30 cursor-pointer hover:bg-gray-100 ${
-                  isBeginning ? "hidden" : ""
-               }`}
-               aria-label="Previous course"
-            >
-               <ChevronLeft className="w-6 h-6" />
-            </button>
-            <button
-               className={`featured-course-next absolute right-0 top-1/2 border-gray-200 shadow-md bg-white rounded-full p-2.5 transform -translate-y-1/2 z-10 cursor-pointer hover:bg-gray-100
-                                       ${isEnd ? "hidden" : ""}`}
-               aria-label="Next course"
-            >
-               <ChevronRight className="w-6 h-6" />
-            </button>
-         </Swiper>
+         </div>
       </section>
    );
 };

@@ -9,7 +9,7 @@ import { useUser } from "@/context/UserContext";
 import { useCart } from "@/context/CourseContext";
 import AuthActions from "./AuthActions";
 import Searchbar from "./Searchbar";
-import { Role } from "@/utils/dataTypes";
+import { Role } from "@/utils/types";
 import StudentNavbar from "./StudentNavbar";
 import AdminNavbar from "./AdminNavbar";
 import TeacherNavbar from "./TeacherNavbar";
@@ -66,9 +66,9 @@ export default function Header() {
                   </li>
                   {user ? (
                      <>
-                        {user.role == Role.ADMIN && <AdminNavbar />}
-                        {user.role == Role.STUDENT && <StudentNavbar />}
-                        {user.role == Role.TEACHER && <TeacherNavbar />}
+                        {user.roles[0] == Role.ADMIN && <AdminNavbar />}
+                        {user.roles[0] == Role.STUDENT && <StudentNavbar />}
+                        {user.roles[0] == Role.TEACHER && <TeacherNavbar />}
                      </>
                   ) : (
                      <AuthActions />

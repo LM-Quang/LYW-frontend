@@ -4,17 +4,23 @@ import logo from "@/assets/img-1.jpg";
 import {
    Check,
    ChevronDown,
+   ChevronRight,
    CirclePlay,
    Clock3,
    FileQuestion,
+   FileTerminal,
    FileText,
    Folder,
    ScrollText,
    Users,
 } from "lucide-react";
 import renderStars from "../RenderStars";
+import { CourseDetailProps } from "@/libs/courseAPIs";
+import { formatDuration, percentageCalculate, timeFromNow } from "@/utils/utils";
+import DefaultAvatar from "../DefaultAvatar";
+import { LectureFileType } from "@/utils/types";
 
-const CourseDetail = () => {
+const CourseDetail = ({ course }: { course: CourseDetailProps }) => {
    return (
       <div className="lg:col-span-2">
          <div className="bg-white shadow-md rounded-lg border border-gray-200 overflow-hidden">
@@ -25,50 +31,51 @@ const CourseDetail = () => {
                   className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
                   fill
                />
-               <div className="absolute top-4 right-4 flex space-x-2">
-                  <span className="px-3 py-1 bg-primary-500 text-white rounded-full text-sm font-medium shadow-lg">
-                     Bestseller
-                  </span>
-                  <span className="px-3 py-1 bg-blue-500 text-white rounded-full text-sm font-medium shadow-lg">
-                     Updated 2023
-                  </span>
-               </div>
             </div>
 
             <div className="p-6">
-               <h2 className="text-3xl font-bold mb-3">Full-Stack Development Bootcamp</h2>
-               <p className="mb-4">
-                  Master modern web development with this comprehensive bootcamp. Learn front-end,
-                  back-end, databases, and deployment - everything you need to become a professional
-                  developer.
-               </p>
+               <h2 className="text-3xl font-bold mb-3">{course.title}</h2>
+               <p className="mb-4">{course.description}</p>
 
                <div className="flex items-center mb-6">
                   <div className="flex items-center mr-6">
+                     {course.isBestSeller && (
+                        <span className="p-2 bg-primary-500 text-white rounded-lg mr-2 font-medium shadow-lg">
+                           Bestseller
+                        </span>
+                     )}
                      <span className="mr-2">
                         <i
                            className="fa-solid fa-star text-yellow-400 w-4 h-4"
                            aria-label="Full star"
                         ></i>
                      </span>
-                     <span className="font-semibold">4.8</span>
-                     <span className="text-gray-500 ml-1">(3,245 reviews)</span>
+                     <span className="font-semibold">{course.rating}</span>
+                     <span className="text-gray-500 ml-1">({course.reviewsCount} reviews)</span>
                   </div>
                   <div className="flex items-center mr-6">
                      <Users className="mr-1 text-gray-600" />
-                     <span className="text-gray-600">12,879 students</span>
+                     <span className="text-gray-600">{course.enrolledStudents} students</span>
                   </div>
                   <div className="flex items-center">
                      <Clock3 className="mr-1 text-gray-600" />
-                     <span className="text-gray-600">Last updated: Oct 2023</span>
+                     <span className="text-gray-600">Last updated: {course.updatedAt}</span>
                   </div>
                </div>
 
                {/* What will you learn */}
                <div className="border-t border-gray-200 pt-6">
                   <h3 className="text-xl font-semibold mb-4">What You will Learn</h3>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                     <div className="flex items-start">
+                  <div className="space-y-4">
+                     {course.summary.map((item, index) => {
+                        return (
+                           <div key={index} className="flex items-start">
+                              <Check className="text-green-500 mr-2 mt-0.5" />
+                              <p className="text-gray-700">{item.name}</p>
+                           </div>
+                        );
+                     })}
+                     {/* <div className="flex items-start">
                         <Check className="text-green-500 mr-2 mt-0.5" />
                         <p className="text-gray-700">
                            Build responsive websites with HTML, CSS and JavaScript
@@ -97,7 +104,7 @@ const CourseDetail = () => {
                      <div className="flex items-start">
                         <Check className="text-green-500 mr-2 mt-0.5" />
                         <p className="text-gray-700">Work with RESTful and GraphQL APIs</p>
-                     </div>
+                     </div> */}
                   </div>
                </div>
 
@@ -106,7 +113,7 @@ const CourseDetail = () => {
                   <h3 className="text-3xl font-semibold mb-4">Course Content</h3>
                   <div className="space-y-3">
                      {/* Section 1 */}
-                     <details className="bg-gray-50 rounded-lg overflow-hidden border border-gray-200 transition-all duration-300 hover:shadow-md group">
+                     {/* <details className="bg-gray-50 rounded-lg overflow-hidden border border-gray-200 transition-all duration-300 hover:shadow-md group">
                         <summary className="px-4 py-3 cursor-pointer flex justify-between items-center font-medium hover:bg-gray-100 transition-colors">
                            <div className="flex items-center">
                               <Folder className="mr-2" />
@@ -156,10 +163,10 @@ const CourseDetail = () => {
                               </li>
                            </ul>
                         </div>
-                     </details>
+                     </details> */}
 
                      {/* Section 2 */}
-                     <details className="bg-gray-50 rounded-lg overflow-hidden border border-gray-200 transition-all duration-300 hover:shadow-md group">
+                     {/* <details className="bg-gray-50 rounded-lg overflow-hidden border border-gray-200 transition-all duration-300 hover:shadow-md group">
                         <summary className="px-4 py-3 cursor-pointer flex justify-between items-center font-medium hover:bg-gray-100 transition-colors">
                            <div className="flex items-center">
                               <Folder className="mr-2" />
@@ -195,10 +202,10 @@ const CourseDetail = () => {
                               </li>
                            </ul>
                         </div>
-                     </details>
+                     </details> */}
 
                      {/* Section 3 */}
-                     <details className="bg-gray-50 rounded-lg overflow-hidden border border-gray-200 transition-all duration-300 hover:shadow-md group">
+                     {/* <details className="bg-gray-50 rounded-lg overflow-hidden border border-gray-200 transition-all duration-300 hover:shadow-md group">
                         <summary className="px-4 py-3 cursor-pointer flex justify-between items-center font-medium hover:bg-gray-100 transition-colors">
                            <div className="flex items-center">
                               <Folder className="mr-2" />
@@ -209,10 +216,10 @@ const CourseDetail = () => {
                               <ChevronDown className="ml-2 group-open:rotate-180 transition-transform" />
                            </div>
                         </summary>
-                     </details>
+                     </details> */}
 
                      {/* Section 4 */}
-                     <details className="bg-gray-50 rounded-lg overflow-hidden border border-gray-200 transition-all duration-300 hover:shadow-md group">
+                     {/* <details className="bg-gray-50 rounded-lg overflow-hidden border border-gray-200 transition-all duration-300 hover:shadow-md group">
                         <summary className="px-4 py-3 cursor-pointer flex justify-between items-center font-medium hover:bg-gray-100 transition-colors">
                            <div className="flex items-center">
                               <Folder className="mr-2" />
@@ -223,14 +230,68 @@ const CourseDetail = () => {
                               <ChevronDown className="ml-2 group-open:rotate-180 transition-transform" />
                            </div>
                         </summary>
-                     </details>
+                     </details> */}
 
-                     {/* <div> */}
+                     {course.sections.map((section, index) => {
+                        return (
+                           <details
+                              key={section.id}
+                              className="bg-gray-50 rounded-lg overflow-hidden border border-gray-200 transition-all duration-300 hover:shadow-md group"
+                           >
+                              <summary className="px-4 py-3 cursor-pointer flex justify-between items-center font-medium hover:bg-gray-100 transition-colors">
+                                 <div className="flex items-center">
+                                    <Folder className="mr-2" />
+                                    Section {index + 1}: {section.title}
+                                 </div>
+                                 <div className="flex items-center text-sm text-gray-500">
+                                    <span>
+                                       {section.lectures.length} lectures •{" "}
+                                       {formatDuration(
+                                          section.lectures.reduce(
+                                             (sum, curr) => sum + curr.duration,
+                                             0
+                                          )
+                                       )}
+                                    </span>
+                                    <ChevronDown className="ml-2 group-open:rotate-180 transition-transform" />
+                                 </div>
+                              </summary>
+                              <div className="px-4 py-2 border-t border-gray-200">
+                                 <ul className="divide-y divide-gray-100">
+                                    {section.lectures.map((lecture) => {
+                                       return (
+                                          <li
+                                             key={lecture.id}
+                                             className="py-2 flex justify-between items-center"
+                                          >
+                                             <div className="flex items-center">
+                                                {lecture.fileType == LectureFileType.VIDEO && (
+                                                   <CirclePlay className="mr-2 text-primary-500" />
+                                                )}
+                                                {lecture.fileType == LectureFileType.PDF && (
+                                                   <FileText className="mr-2 text-primary-500" />
+                                                )}
+                                                {lecture.fileType == LectureFileType.QUIZ && (
+                                                   <FileQuestion className="mr-2 text-primary-500" />
+                                                )}
+                                                {lecture.fileType == LectureFileType.PRACTICE && (
+                                                   <FileTerminal className="mr-2 text-primary-500" />
+                                                )}
+                                                <span>{lecture.title}</span>
+                                             </div>
+                                             <span className="text-sm text-gray-500">15:20</span>
+                                          </li>
+                                       );
+                                    })}
+                                 </ul>
+                              </div>
+                           </details>
+                        );
+                     })}
                      <button className="p-3 text-primary-500 font-medium flex items-center justify-center mx-auto transition-colors cursor-pointer hover:text-primary-600">
-                        <span>Show all 12 sections</span>
+                        <span>Show all {course.sections.length} sections</span>
                         <ChevronDown className="ml-1" />
                      </button>
-                     {/* </div> */}
                   </div>
                </div>
 
@@ -238,25 +299,14 @@ const CourseDetail = () => {
                <div className="border-t border-gray-200 pt-6 mt-6">
                   <h3 className="text-3xl font-semibold mb-4">Requirements</h3>
                   <ul className="space-y-2">
-                     <li className="flex items-start">
-                        <Check className="text-primary-500 mr-2 mt-0.5" />
-                        <p className="text-gray-700">
-                           Basic computer knowledge and familiarity with using the internet
-                        </p>
-                     </li>
-                     <li className="flex items-start">
-                        <Check className="text-primary-500 mr-2 mt-0.5" />
-                        <p className="text-gray-700">
-                           No prior programming experience required - we will start from the basics
-                        </p>
-                     </li>
-                     <li className="flex items-start">
-                        <Check className="text-primary-500 mr-2 mt-0.5" />
-                        <p className="text-gray-700">
-                           A computer with at least 8GB RAM and 10GB free disk space (Windows, Mac,
-                           or Linux)
-                        </p>
-                     </li>
+                     {course.requirements.map((requirement, index) => {
+                        return (
+                           <li key={index} className="flex items-start">
+                              <ChevronRight className="text-primary-500 mr-2 mt-0.5" />
+                              <p className="text-gray-700">{requirement.name}</p>
+                           </li>
+                        );
+                     })}
                   </ul>
                </div>
 
@@ -276,10 +326,7 @@ const CourseDetail = () => {
                         </div>
                      </div>
                      <div>
-                        <h4 className="font-semibold text-lg">Sarah Johnson</h4>
-                        <p className="text-gray-600 text-sm mb-2">
-                           Senior Software Engineer & Educator
-                        </p>
+                        <h4 className="font-semibold text-lg">{course.instructor.username}</h4>
                         <div className="flex items-center mb-2">
                            <span className="mr-2">
                               <i
@@ -287,20 +334,21 @@ const CourseDetail = () => {
                                  aria-label="Full star"
                               ></i>
                            </span>
-                           <span className="text-sm ml-1">4.9 Instructor Rating</span>
+                           <span className="text-sm ml-1">
+                              {course.instructor.rating} Instructor Rating
+                           </span>
                            <span className="mx-2 text-gray-300">|</span>
                            <Users className="text-gray-500 text-sm" />
-                           <span className="text-sm ml-1">43,120 Students</span>
+                           <span className="text-sm ml-1">
+                              {course.instructor.studentsCount?.toLocaleString()} Students
+                           </span>
                            <span className="mx-2 text-gray-300">|</span>
                            <ScrollText className="text-gray-500 text-sm" />
-                           <span className="text-sm ml-1">15 Courses</span>
+                           <span className="text-sm ml-1">
+                              {course.instructor.coursesCount?.toLocaleString()} Courses
+                           </span>
                         </div>
-                        <p className="text-gray-700">
-                           Full-stack developer with 10+ years of experience in building web
-                           applications. I have worked with companies like Google and Amazon, and I
-                           am passionate about teaching programming in a practical, project-based
-                           way.
-                        </p>
+                        <p className="text-gray-700">{course.instructor.bio}</p>
                      </div>
                   </div>
                </div>
@@ -312,12 +360,16 @@ const CourseDetail = () => {
                      {/* Ratings */}
                      <div className="md:col-span-1">
                         <div className="flex flex-col items-center justify-center bg-gray-50 p-6 rounded-lg">
-                           <div className="text-5xl font-bold text-primary-500">4.8</div>
+                           <div className="text-5xl font-bold text-primary-500">
+                              {course.rating}
+                           </div>
                            <div className="flex items-center my-2 space-x-1">
                               {renderStars(4.8)}
                            </div>
                            <div className="text-gray-600">Course Rating</div>
-                           <div className="text-sm text-gray-500 mt-1">3,245 Reviews</div>
+                           <div className="text-sm text-gray-500 mt-1">
+                              {course.reviewsCount} Reviews
+                           </div>
                         </div>
                      </div>
 
@@ -329,50 +381,85 @@ const CourseDetail = () => {
                               <div className="flex-1 h-2 bg-gray-200 rounded-full overflow-hidden">
                                  <div
                                     className="bg-primary-500 h-full rounded-full"
-                                    style={{ width: "78%" }}
+                                    style={{
+                                       width: `${percentageCalculate(
+                                          course.fiveStarsCount,
+                                          course.reviewsCount
+                                       )}%`,
+                                    }}
                                  ></div>
                               </div>
-                              <div className="w-10 text-right pl-3 text-sm text-gray-500">78%</div>
+                              <div className="w-10 text-right pl-3 text-sm text-gray-500">
+                                 {percentageCalculate(course.fiveStarsCount, course.reviewsCount)}%
+                              </div>
                            </div>
                            <div className="flex items-center">
                               <div className="w-20 text-right pr-3">4 stars</div>
                               <div className="flex-1 h-2 bg-gray-200 rounded-full overflow-hidden">
                                  <div
                                     className="bg-primary-500 h-full rounded-full"
-                                    style={{ width: "15%" }}
+                                    style={{
+                                       width: `${percentageCalculate(
+                                          course.fourStarsCount,
+                                          course.reviewsCount
+                                       )}%`,
+                                    }}
                                  ></div>
                               </div>
-                              <div className="w-10 text-right pl-3 text-sm text-gray-500">15%</div>
+                              <div className="w-10 text-right pl-3 text-sm text-gray-500">
+                                 {percentageCalculate(course.fourStarsCount, course.reviewsCount)}%
+                              </div>
                            </div>
                            <div className="flex items-center">
                               <div className="w-20 text-right pr-3">3 stars</div>
                               <div className="flex-1 h-2 bg-gray-200 rounded-full overflow-hidden">
                                  <div
                                     className="bg-primary-500 h-full rounded-full"
-                                    style={{ width: "5%" }}
+                                    style={{
+                                       width: `${percentageCalculate(
+                                          course.threeStarsCount,
+                                          course.reviewsCount
+                                       )}%`,
+                                    }}
                                  ></div>
                               </div>
-                              <div className="w-10 text-right pl-3 text-sm text-gray-500">5%</div>
+                              <div className="w-10 text-right pl-3 text-sm text-gray-500">
+                                 {percentageCalculate(course.threeStarsCount, course.reviewsCount)}%
+                              </div>
                            </div>
                            <div className="flex items-center">
                               <div className="w-20 text-right pr-3">2 stars</div>
                               <div className="flex-1 h-2 bg-gray-200 rounded-full overflow-hidden">
                                  <div
                                     className="bg-primary-500 h-full rounded-full"
-                                    style={{ width: "1%" }}
+                                    style={{
+                                       width: `${percentageCalculate(
+                                          course.twoStarsCount,
+                                          course.reviewsCount
+                                       )}%`,
+                                    }}
                                  ></div>
                               </div>
-                              <div className="w-10 text-right pl-3 text-sm text-gray-500">1%</div>
+                              <div className="w-10 text-right pl-3 text-sm text-gray-500">
+                                 {percentageCalculate(course.twoStarsCount, course.reviewsCount)}%
+                              </div>
                            </div>
                            <div className="flex items-center">
                               <div className="w-20 text-right pr-3">1 star</div>
                               <div className="flex-1 h-2 bg-gray-200 rounded-full overflow-hidden">
                                  <div
                                     className="bg-primary-500 h-full rounded-full"
-                                    style={{ width: "1%" }}
+                                    style={{
+                                       width: `${percentageCalculate(
+                                          course.oneStarsCount,
+                                          course.reviewsCount
+                                       )}%`,
+                                    }}
                                  ></div>
                               </div>
-                              <div className="w-10 text-right pl-3 text-sm text-gray-500">1%</div>
+                              <div className="w-10 text-right pl-3 text-sm text-gray-500">
+                                 {percentageCalculate(course.oneStarsCount, course.reviewsCount)}%
+                              </div>
                            </div>
                         </div>
                      </div>
@@ -380,53 +467,48 @@ const CourseDetail = () => {
 
                   {/* Comment */}
                   <div className="mt-6 space-y-4">
-                     {/* Comment 1 */}
-                     <div className="bg-gray-50 p-4 rounded-lg">
-                        <div className="flex items-start">
-                           <div className="w-10 h-10 rounded-full overflow-hidden mr-3 bg-blue-100 flex items-center justify-center text-blue-500 font-semibold">
-                              MJ
-                           </div>
-                           <div className="flex-1">
-                              <div className="flex items-center justify-between">
-                                 <h4 className="font-semibold">Michael Johnson</h4>
-                                 <span className="text-gray-500 text-sm">2 weeks ago</span>
+                     {course.comments.slice(0, 2).map((comment) => {
+                        return (
+                           <div key={comment.id} className="bg-gray-50 p-4 rounded-lg">
+                              <div className="flex items-start justify-center">
+                                 {comment.userAvatar ? (
+                                    <div className="w-10 h-10 rounded-full overflow-hidden mr-3">
+                                       <Image
+                                          src={comment.userAvatar}
+                                          width={40}
+                                          height={40}
+                                          alt={comment.username}
+                                       />
+                                    </div>
+                                 ) : (
+                                    <div className="mr-3">
+                                       <DefaultAvatar
+                                          name={comment.username}
+                                          width={40}
+                                          height={40}
+                                          fontSize={16}
+                                       />
+                                    </div>
+                                 )}
+                                 <div className="flex-1">
+                                    <div className="flex items-center justify-between">
+                                       <h4 className="font-semibold">{comment.username}</h4>
+                                       <span className="text-gray-500 text-sm">
+                                          {timeFromNow(comment.updatedAt)}
+                                       </span>
+                                    </div>
+                                    <div className="flex items-center my-1">
+                                       {renderStars(comment.rating)}
+                                    </div>
+                                    <p className="text-gray-700">{comment.content}</p>
+                                 </div>
                               </div>
-                              <div className="flex items-center my-1">{renderStars(5)}</div>
-                              <p className="text-gray-700">
-                                 This course exceeded my expectations. The instructor explains
-                                 complex concepts clearly and the projects are practical and
-                                 engaging. I went from knowing nothing about web development to
-                                 building full-stack applications. Highly recommended!
-                              </p>
                            </div>
-                        </div>
-                     </div>
-
-                     {/* Comment 2 */}
-                     <div className="bg-gray-50 p-4 rounded-lg">
-                        <div className="flex items-start">
-                           <div className="w-10 h-10 rounded-full overflow-hidden mr-3 bg-blue-100 flex items-center justify-center text-blue-500 font-semibold">
-                              AP
-                           </div>
-                           <div className="flex-1">
-                              <div className="flex items-center justify-between">
-                                 <h4 className="font-semibold">Amanda Peterson</h4>
-                                 <span className="text-gray-500 text-sm">1 month ago</span>
-                              </div>
-                              <div className="flex items-center my-1">{renderStars(4.5)}</div>
-                              <p className="text-gray-700">
-                                 Great course with a lot of valuable content. My only suggestion
-                                 would be to update some of the Node.js sections as a few packages
-                                 are now deprecated. Otherwise, this was exactly what I needed to
-                                 transition into web development.
-                              </p>
-                           </div>
-                        </div>
-                     </div>
-
+                        );
+                     })}
                      {/* Show more */}
                      <button className="p-3 text-primary-500 font-medium flex items-center justify-center mx-auto transition-colors cursor-pointer hover:text-primary-600">
-                        <span>See all 3,245 reviews</span>
+                        <span>See all {course.comments.length} reviews</span>
                         <ChevronDown className="ml-1" />
                      </button>
                   </div>

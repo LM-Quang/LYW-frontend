@@ -1,4 +1,4 @@
-import { Course } from "@/utils/dataTypes";
+import { Course } from "@/utils/types";
 import truncateText from "@/utils/utils";
 import Image from "next/image";
 import Link from "next/link";
@@ -21,20 +21,22 @@ const CourseCard = ({ course }: { course: Course }) => {
             <h3 className="text-xl font-bold text-gray-800 h-14">
                {truncateText(course.title, 45)}
             </h3>
-            <p className="text-gray-600 mb-2 text-sm">By {course.instructor}</p>
+            <p className="text-gray-600 mb-2 text-sm">By {course.instructorId}</p>
             <div className="flex items-center mb-2 h-7">
                {course.isBestSeller && (
                   <span className="bg-primary-500 text-white p-1 mr-2 rounded-lg text-sm font-medium">
                      Best Seller
                   </span>
                )}
-               <span className="text-sm text-gray-500">Updated {course.updated}</span>
+               <span className="text-sm text-gray-500">
+                  Updated {course.updatedAt.toISOString()}
+               </span>
             </div>
             <div className="flex items-center mb-4">
                <span className="text-sm text-gray-600 mr-2">{course.rating}</span>
                <div className="flex space-x-0.5">{renderStars(course.rating)}</div>
                <span className="text-sm text-gray-600 ml-2">
-                  ({course.ratingsCount.toLocaleString()} ratings)
+                  ({course.reviewsCount.toLocaleString()} ratings)
                </span>
             </div>
             <span className="text-lg font-semibold">

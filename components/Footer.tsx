@@ -5,7 +5,7 @@ import Image from "next/image";
 
 const quickLinks = [
    { name: "Home", href: "/" },
-   { name: "Categories", href: "/categories" },
+   { name: "Courses", href: "/courses" },
    { name: "Teaching", href: "/teaching" },
    { name: "About", href: "/about" },
    { name: "Contact", href: "/contact" },
@@ -91,6 +91,7 @@ const Footer = () => {
                               target="_blank"
                               rel="noopener noreferrer"
                               aria-label={media.name}
+                              className="hover:text-primary-500 transition-colors"
                            >
                               {media.tag}
                            </a>

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { ShoppingCart, X } from "lucide-react";
-import { Section } from "@/utils/dataTypes";
+import { Section } from "@/utils/types";
 
 interface CourseModalProps {
    isClicked: boolean;
@@ -26,7 +26,7 @@ const Modal: React.FC<CourseModalProps> = ({
          setTotalPrice(0);
       } else {
          const allIds = sections.map((section) => section.id);
-         const total = sections.reduce((sum, section) => sum + section.price, 0);
+         const total = sections.reduce((sum, section) => sum + section.basePrice, 0);
          setSelectedSections(allIds);
          setTotalPrice(total);
       }
@@ -90,7 +90,7 @@ const Modal: React.FC<CourseModalProps> = ({
                            type="checkbox"
                            className="mt-1 h-4 w-4 text-primary-500 rounded border-gray-300 focus:ring-primary-500"
                            checked={selectedSections.includes(section.id)}
-                           onChange={() => toggleSection(section.id, section.price)}
+                           onChange={() => toggleSection(section.id, section.basePrice)}
                         />
                         <div className="ml-3">
                            <div className="font-medium">
@@ -98,7 +98,7 @@ const Modal: React.FC<CourseModalProps> = ({
                            </div>
                            <div className="text-sm text-gray-500">17 hours</div>
                         </div>
-                        <div className="ml-auto text-gray-700">${section.price.toFixed(2)}</div>
+                        <div className="ml-auto text-gray-700">${section.basePrice.toFixed(2)}</div>
                      </label>
                   ))}
                </div>

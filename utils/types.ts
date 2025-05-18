@@ -1,8 +1,8 @@
 // Base entity shared by all, this interface will not be stored in DB so updatedBy is uneccessay
 export interface BaseEntity {
    id: string;
-   createdAt: Date;
-   updatedAt: Date;
+   createdAt: string;
+   updatedAt: string;
 }
 
 export enum DescriptionType {
@@ -15,8 +15,8 @@ export interface DescriptionBlock {
    title: string;
    description: string;
    type: DescriptionType;
-   startDate?: Date; // Runtime validation, Must be before endDate
-   endDate?: Date; // Runtime validation. Must be after startDate
+   startDate?: string; // Runtime validation, Must be before endDate
+   endDate?: string; // Runtime validation. Must be after startDate
 }
 
 export enum Role {
@@ -69,7 +69,7 @@ export interface User extends BaseEntity {
    subscriptionStatus?: {
       active: boolean;
       billingCycle: BillingCycle;
-      renewalDate?: Date;
+      renewalDate?: string;
    };
    teamIds?: string[]; // References Team.id
 }
@@ -120,7 +120,9 @@ export enum Category {
 
 export enum LectureFileType {
    VIDEO,
-   PDF, // Easier for adding more type later
+   PDF,
+   QUIZ,
+   PRACTICE,
 }
 
 export enum CourseRelatedStatus {
@@ -146,8 +148,8 @@ export interface PricingRule {
       subscriptionTier?: SubscriptionTier; // e.g., PREMIUM_INDIVIDUAL
       teamSize?: number; // e.g., 5+ members
       isEnterprise?: boolean; // For BUSINESS_ENTERPRISE discounts
-      startDate?: Date; // Promotion start date
-      validUntil?: Date; // Time-based: e.g., expires May 30, 2025
+      startDate?: string; // Promotion start date
+      validUntil?: string; // Time-based: e.g., expires May 30, 2025
       enrollmentThreshold?: number; // Demand-based: e.g., 100 students
    };
    discount: {
@@ -205,7 +207,7 @@ export interface Course extends BaseEntity {
    status: CourseRelatedStatus;
    sectionIds: string[];
    commentIds: string[];
-   publishedAt?: Date;
+   publishedAt?: string;
 }
 
 export interface StudentCourseEnrollment extends BaseEntity {
@@ -214,7 +216,7 @@ export interface StudentCourseEnrollment extends BaseEntity {
    sectionIds: string[]; // Enrolled sections
    pricePaid: number; // Actual price paid after discounts
    appliedRules: PricingRule[]; // Rules applied at enrollment
-   enrolledAt: Date;
+   enrolledAt: string;
    subscriptionTierAtEnrollment: SubscriptionTier; // Tier at time of enrollment
 }
 

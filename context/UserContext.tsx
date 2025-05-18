@@ -1,6 +1,6 @@
 "use client";
 
-import { Student, Teacher, User } from "@/utils/dataTypes";
+import { Student, Teacher, User } from "@/utils/types";
 import { createContext, useContext, useState } from "react";
 
 interface UserContextType {

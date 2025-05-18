@@ -8,7 +8,7 @@ import CartContent from "@/components/cartPage/CartContent";
 
 export default function CartDetailsPage() {
    const { cart } = useCart();
-   const totalPrice = cart.reduce((sum, item) => sum + item.price, 0);
+   const totalPrice = cart.reduce((sum, item) => sum + item.finalPrice, 0);
 
    return (
       <div className="w-full min-h-screen p-0 bg-gray-50 font-sans">

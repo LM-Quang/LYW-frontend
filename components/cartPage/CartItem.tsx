@@ -4,9 +4,9 @@ import Image from "next/image";
 import logo1 from "@/assets/logo-1.png";
 import { useCart } from "@/context/CourseContext";
 import renderStars from "../RenderStars";
-import { CartItemProps } from "@/utils/dataTypes";
+import { CartItem } from "@/utils/types";
 
-const CartItems = ({ item }: { item: CartItemProps }) => {
+const CartItems = ({ item }: { item: CartItem }) => {
    const { removeFromCart } = useCart();
    return (
       <div className="bg-white border border-gray-300 rounded-lg p-4 flex flex-col md:flex-row gap-4 hover:shadow-md transition-all">
@@ -14,7 +14,7 @@ const CartItems = ({ item }: { item: CartItemProps }) => {
          <div className="md:w-1/4">
             <Image
                src={logo1}
-               alt={item.title}
+               alt={item.courseId}
                className="w-full h-32 object-cover rounded-lg"
                width={128}
                height={128}
@@ -24,8 +24,15 @@ const CartItems = ({ item }: { item: CartItemProps }) => {
          {/* Item Details */}
          <div className="flex-1 flex flex-col justify-between">
             <div>
-               <h2 className="text-lg font-semibold text-gray-800">{item.title}</h2>
-               <p className="text-sm text-gray-600 mb-2">By {item.instructor}</p>
+               <h2 className="text-lg font-semibold text-gray-800">
+                  {/* Course name */}
+                  {item.courseId}
+               </h2>
+               <p className="text-sm text-gray-600 mb-2">
+                  By
+                  {/* Instructor */}
+                  {item.courseId}
+               </p>
                <div className="mb-2 space-x-1">
                   <span>{renderStars(4.5)} 4.5</span>
                   <span>(12,000 reviews)</span>
@@ -34,7 +41,7 @@ const CartItems = ({ item }: { item: CartItemProps }) => {
                   <span className="bg-primary-500 text-white p-1 mr-2 rounded-lg text-sm font-medium">
                      Best Seller
                   </span>
-                  ${item.price.toFixed(2)}
+                  ${item.finalPrice.toFixed(2)}
                </p>
             </div>
          </div>

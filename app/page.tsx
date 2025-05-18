@@ -2,25 +2,25 @@
 
 import React from "react";
 import Hero from "@/components/homePage/Hero";
-import FeaturedCourse from "@/components/homePage/FeaturedCourse";
+import PopularCourse from "@/components/homePage/PopularCourse";
 import PopularCategory from "@/components/homePage/PopularCategory";
 import WhyChooseUs from "@/components/homePage/WhyChooseUs";
 import { useUser } from "@/context/UserContext";
-import { ADMIN, STUDENT, STUDENT_INFO, TEACHER, TEACHER_INFO } from "@/utils/data";
+import { USERS, TEACHERS, STUDENTS } from "@/utils/data";
 
 export default function HomePage() {
    const { updateUser, updateUserInfo } = useUser();
    const handleClickAdmin = () => {
-      updateUser(ADMIN);
+      updateUser(USERS[0]);
       updateUserInfo(null);
    };
    const handleClickStudent = () => {
-      updateUser(STUDENT);
-      updateUserInfo(STUDENT_INFO);
+      updateUser(USERS[3]);
+      updateUserInfo(STUDENTS[1]);
    };
    const handleClickTeacher = () => {
-      updateUser(TEACHER);
-      updateUserInfo(TEACHER_INFO);
+      updateUser(USERS[6]);
+      updateUserInfo(TEACHERS[1]);
    };
    return (
       <div className="w-full min-h-screen font-sans bg-gray-50">
@@ -39,8 +39,8 @@ export default function HomePage() {
             {/* Hero Section */}
             <Hero />
 
-            {/* Featured Course Carousel */}
-            <FeaturedCourse />
+            {/* Popular Course Carousel */}
+            <PopularCourse />
 
             {/* Popular Categories Carousel */}
             <PopularCategory />

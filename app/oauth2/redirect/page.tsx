@@ -10,7 +10,7 @@ export default function OAuth2RedirectPage() {
    const router = useRouter();
    const searchParams = useSearchParams();
    const token = searchParams.get("token");
-   const { setUserInfo } = useUser();
+   const { updateUserInfo } = useUser();
 
    useEffect(() => {
       async function fetchData() {
@@ -23,7 +23,7 @@ export default function OAuth2RedirectPage() {
                   withCredentials: true,
                }
             );
-            setUserInfo(response.data);
+            updateUserInfo(response.data);
             router.push("/");
          } catch (err: unknown) {
             if (axios.isAxiosError(err)) {
@@ -35,7 +35,7 @@ export default function OAuth2RedirectPage() {
       }
 
       fetchData();
-   }, [router, setUserInfo, token]);
+   }, [router, updateUserInfo, token]);
 
    return <p>Redirecting...</p>;
 }
