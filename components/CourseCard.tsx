@@ -3,6 +3,7 @@ import truncateText from "@/utils/utils";
 import Image from "next/image";
 import Link from "next/link";
 import renderStars from "./RenderStars";
+import img from "@/assets/img-1.jpg";
 
 const CourseCard = ({ course }: { course: Course }) => {
    return (
@@ -11,7 +12,8 @@ const CourseCard = ({ course }: { course: Course }) => {
          className="bg-white rounded-lg overflow-hidden flex flex-col md:flex-col border border-gray-200 hover:opacity-90"
       >
          <Image
-            src={course.thumbnail}
+            // src={course.thumbnail}
+            src={img}
             alt={course.title}
             className="w-full h-48 object-cover"
             width={360}
@@ -28,9 +30,7 @@ const CourseCard = ({ course }: { course: Course }) => {
                      Best Seller
                   </span>
                )}
-               <span className="text-sm text-gray-500">
-                  Updated {course.updatedAt.toISOString()}
-               </span>
+               <span className="text-sm text-gray-500">Updated {course.updatedAt.toString()}</span>
             </div>
             <div className="flex items-center mb-4">
                <span className="text-sm text-gray-600 mr-2">{course.rating}</span>

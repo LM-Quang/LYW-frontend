@@ -7,6 +7,7 @@ import PopularCategory from "@/components/homePage/PopularCategory";
 import WhyChooseUs from "@/components/homePage/WhyChooseUs";
 import { useUser } from "@/context/UserContext";
 import { USERS, TEACHERS, STUDENTS } from "@/utils/data";
+import Testimonials from "@/components/homePage/Testimonials";
 
 export default function HomePage() {
    const { updateUser, updateUserInfo } = useUser();
@@ -49,7 +50,7 @@ export default function HomePage() {
             <WhyChooseUs />
 
             {/* Testimonials Carousel  (For Future)*/}
-            {/* <Testimonials /> */}
+            <Testimonials />
 
             {/* Price Plans Section (For Future)*/}
             {/* <PricePlan /> */}

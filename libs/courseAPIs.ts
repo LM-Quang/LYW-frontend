@@ -290,7 +290,7 @@ const lecturesDetail1: LectureDetail[] = [
       createdAt: "2025-03-01",
       updatedAt: "2025-05-10",
       title: "JavaScript Basics",
-      fileType: LectureFileType.VIDEO,
+      fileType: LectureFileType.PRACTICE,
       fileUrl: "https://example.com/videos/js_basics.mp4",
       duration: 1500, // 25m
       status: CourseRelatedStatus.PUBLISHED,

@@ -53,7 +53,7 @@ export default function CoursesPage() {
                      <CourseDetail course={course} />
 
                      {/* Sidebar */}
-                     <Sidebar setIsClicked={setIsClicked} />
+                     <Sidebar setIsClicked={setIsClicked} course={course} />
                   </div>
                </div>
 

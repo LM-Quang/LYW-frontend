@@ -38,7 +38,7 @@ const PopularCategory = () => {
          <div>
             <button
                ref={prevRef}
-               className={`absolute left-[-10px] top-[72%] border border-gray-200 shadow-md bg-white rounded-full p-2.5 transform -translate-y-1/2 z-30 cursor-pointer hover:bg-gray-100 transition-opacity duration-200 
+               className={`absolute left-0 top-[72%] border border-gray-200 shadow-md bg-white rounded-full p-2.5 transform -translate-y-1/2 z-30 cursor-pointer hover:bg-gray-100 transition-opacity duration-200 
                               ${isBeginning ? "hidden" : ""}
                               `}
                aria-label="Previous course"
@@ -48,7 +48,7 @@ const PopularCategory = () => {
 
             <button
                ref={nextRef}
-               className={`absolute right-[-10px] top-[72%] border border-gray-200 shadow-md bg-white rounded-full p-2.5 transform -translate-y-1/2 z-30 cursor-pointer hover:bg-gray-100 transition-opacity duration-200 
+               className={`absolute right-0 top-[72%] border border-gray-200 shadow-md bg-white rounded-full p-2.5 transform -translate-y-1/2 z-30 cursor-pointer hover:bg-gray-100 transition-opacity duration-200 
                            ${isEnd ? "hidden" : ""}`}
                aria-label="Next course"
             >

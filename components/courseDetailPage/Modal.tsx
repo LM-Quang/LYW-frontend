@@ -55,7 +55,7 @@ const Modal: React.FC<CourseModalProps> = ({
             onClick={() => setIsClicked(false)}
          />
 
-         <div className="bg-white z-50 rounded-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6 m-4">
+         <div className="bg-white z-50 rounded-xl max-w-2xl w-full max-h-[95vh] overflow-y-auto p-6 m-4">
             <div className="flex justify-between items-center mb-4">
                <h3 className="text-xl font-bold text-gray-800">Customize Your Course Purchase</h3>
                <X

@@ -9,11 +9,15 @@ import {
    SquareTerminal,
    Video,
 } from "lucide-react";
+import { CourseDetailProps } from "@/libs/courseAPIs";
+import { formatDuration } from "@/utils/utils";
 
 const Sidebar = ({
    setIsClicked,
+   course,
 }: {
    setIsClicked: React.Dispatch<React.SetStateAction<boolean>>;
+   course: CourseDetailProps;
 }) => {
    return (
       <div className="lg:col-span-1">
@@ -22,7 +26,7 @@ const Sidebar = ({
             <div className="bg-white border border-gray-200 rounded-lg overflow-hidden shadow-lg mb-6">
                <div className="p-5">
                   <div className="flex justify-between items-center mb-4">
-                     <div className="text-3xl font-bold">$94.99</div>
+                     <div className="text-3xl font-bold">${course.totalPrice}</div>
                      <div className="text-sm text-gray-500 line-through">$199.99</div>
                   </div>
                   <div className="text-sm text-red-600 font-medium mb-4">
@@ -44,11 +48,11 @@ const Sidebar = ({
                   </div>
 
                   <div className="mb-2">
-                     <h4 className="font-semibold">This course includes:</h4>
+                     <h4 className="font-semibold text-lg">This course includes:</h4>
                      <ul className="space-y-2">
                         <li className="flex items-center text-sm">
                            <Video className="text-gray-500 mr-2" />
-                           <span>42 hours on-demand video</span>
+                           <span>{formatDuration(course.duration)} on-demand video</span>
                         </li>
                         <li className="flex items-center text-sm">
                            <FileText className="text-gray-500 mr-2" />
@@ -71,7 +75,7 @@ const Sidebar = ({
 
                   {/* Coupon */}
                   <div>
-                     <h4 className="font-semibold mb-2">Coupon:</h4>
+                     <h4 className="font-semibold mb-2 text-lg">Coupon:</h4>
                      <div className="flex">
                         <input
                            type="text"
@@ -99,44 +103,13 @@ const Sidebar = ({
                </div>
             </div>
 
-            {/* Course Statistics */}
-            <div className="bg-white border border-gray-200 rounded-lg overflow-hidden shadow-lg mb-6">
-               <div className="p-5">
-                  <h3 className="font-semibold text-lg mb-3">Course Statistics</h3>
-                  <div className="space-y-3">
-                     <div className="flex items-center justify-between">
-                        <span className="text-gray-600">Enrollment Status</span>
-                        <span className="bg-green-100 text-green-700 px-2 py-1 rounded-full text-xs font-medium">
-                           Active
-                        </span>
-                     </div>
-                     <div className="flex items-center justify-between">
-                        <span className="text-gray-600">Last Updated</span>
-                        <span className="text-gray-700">October 15, 2023</span>
-                     </div>
-                     <div className="flex items-center justify-between">
-                        <span className="text-gray-600">Language</span>
-                        <span className="text-gray-700">English</span>
-                     </div>
-                     <div className="flex items-center justify-between">
-                        <span className="text-gray-600">Skill Level</span>
-                        <span className="text-gray-700">All Levels</span>
-                     </div>
-                     <div className="flex items-center justify-between">
-                        <span className="text-gray-600">Students</span>
-                        <span className="text-gray-700">12,879</span>
-                     </div>
-                  </div>
-               </div>
-            </div>
-
             {/* Train 5 or More people */}
             {/* <div className="bg-primary-100 rounded-lg shadow-lg p-5">
-                        <h3 className="font-semibold text-lg mb-3">Training 5 or more people?</h3>
-                        <p className="text-gray-600 text-sm mb-4">
-                           Get your team access to 25,000+ top courses anytime, anywhere.
-                        </p>
-                     </div> */}
+               <h3 className="font-semibold text-lg mb-3">Training 5 or more people?</h3>
+               <p className="text-gray-600 text-sm mb-4">
+                  Get your team access to 25,000+ top courses anytime, anywhere.
+               </p>
+            </div> */}
          </div>
       </div>
    );

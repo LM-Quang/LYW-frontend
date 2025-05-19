@@ -15,8 +15,8 @@ const RelatedCourses = () => {
    const [isBeginning, setIsBeginning] = useState(true);
    const [isEnd, setIsEnd] = useState(false);
    return (
-      <div className="mt-8 p-6 bg-white shadow-md rounded-lg">
-         <h2 className="text-3xl mb-6">Related Courses</h2>
+      <>
+         <h2 className="text-3xl font-semibold mb-6">Related Courses</h2>
          <Swiper
             modules={[Navigation]}
             spaceBetween={20}
@@ -61,7 +61,7 @@ const RelatedCourses = () => {
                <ChevronRight className="w-6 h-6" />
             </button>
          </Swiper>
-      </div>
+      </>
    );
 };
 
