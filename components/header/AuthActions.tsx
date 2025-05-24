@@ -7,7 +7,7 @@ const AuthActions = () => {
          <li>
             <Link
                href="/auth/login"
-               className="px-3 py-1 rounded-full border border-primary-500 text-primary-600 hover:bg-primary-100 transition-colors"
+               className="px-3 py-2 rounded-lg border-2 border-primary-500 text-white hover:bg-white hover:text-primary-500 transition-colors"
                aria-label="Sign In"
             >
                Log In
@@ -16,7 +16,7 @@ const AuthActions = () => {
          <li>
             <Link
                href="/auth/signup"
-               className="px-3 py-1 rounded-full bg-primary-500 text-white hover:bg-primary-600 transition-colors"
+               className="px-3 py-2 rounded-lg bg-primary-500 text-white hover:bg-primary-600 transition-colors"
             >
                Sign Up
             </Link>

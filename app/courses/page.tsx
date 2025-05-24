@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import Image from "next/image";
 import logo1 from "@/assets/logo-1.png";
-import renderStars from "@/components/RenderStars";
+import renderStars from "@/components/common/RenderStars";
 import Link from "next/link";
 import { QUERY_PARAMS } from "@/utils/constant";
 

@@ -25,15 +25,15 @@ const testimonials = [
 
 const Testimonials = () => {
    return (
-      <section className="mb-12 container mx-auto">
+      <section className="bg-white rounded-lg shadow-md p-8 mb-8">
          <h2 className=" flex items-center justify-center p-2 rounded-lg text-4xl font-bold gradient-to-r mb-3">
             What Our Students Say
          </h2>
-         <div className="flex gap-5">
+         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {testimonials.map((testimonial, index) => (
                <div
                   key={index}
-                  className="bg-white border border-gray-200 rounded-lg p-6 hover:shadow-md transition-colors"
+                  className="lg:col-span-1 bg-white border-2 border-gray-200 rounded-lg p-6 hover:shadow-md transition-colors"
                >
                   <p className="text-gray-700 mb-4">&quot;{testimonial.text}&quot;</p>
                   <div className="flex items-center justify-start gap-1">

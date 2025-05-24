@@ -6,8 +6,7 @@ interface CourseModalProps {
    isClicked: boolean;
    setIsClicked: React.Dispatch<React.SetStateAction<boolean>>;
    sections: Section[];
-   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-   handleAddToCart: any;
+   handleAddToCart: (price: number) => void;
 }
 
 const Modal: React.FC<CourseModalProps> = ({

@@ -1,5 +1,6 @@
 "use client";
 
+import { CART_ITEMS } from "@/utils/data";
 import { CartItem } from "@/utils/types";
 import { createContext, useContext, useState } from "react";
 
@@ -13,7 +14,7 @@ interface CartContextType {
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export function CartProvider({ children }: { children: React.ReactNode }) {
-   const [cart, setCart] = useState<CartItem[]>([]);
+   const [cart, setCart] = useState<CartItem[]>(CART_ITEMS);
 
    const addToCart = (course: CartItem) => {
       const existingItem = cart.find((item) => item.id === course.id);

@@ -45,3 +45,11 @@
 .swiper.swiper-initialized.swiper-horizontal {
    padding-bottom: 5px !important;
 }
+
+.scrollbar-hide::-webkit-scrollbar {
+   display: none;
+}
+.scrollbar-hide {
+   -ms-overflow-style: none;
+   scrollbar-width: none;
+}

@@ -17,7 +17,7 @@ const AdminNavbar = () => {
          <li>
             <Link
                href="/admin"
-               className="px-3 py-1 font-medium rounded-full hover:bg-primary-500 hover:text-white transition-colors"
+               className="px-3 py-2 font-medium rounded-lg hover:bg-primary-500 text-white transition-colors"
             >
                Dashboard
             </Link>
@@ -25,7 +25,7 @@ const AdminNavbar = () => {
          <li>
             <button
                onClick={handleLogout}
-               className="cursor-pointer px-3 py-1 font-medium rounded-full hover:bg-primary-500 hover:text-white transition-colors"
+               className="cursor-pointer px-3 py-2 font-medium rounded-lg hover:bg-primary-500 text-white transition-colors"
             >
                Logout
             </button>

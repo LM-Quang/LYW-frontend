@@ -1,5 +1,5 @@
-import DefaultAvatar from "@/components/DefaultAvatar";
-import renderStars from "@/components/RenderStars";
+import DefaultAvatar from "@/components/common/DefaultAvatar";
+import renderStars from "@/components/common/RenderStars";
 import {
    Banknote,
    ChartColumn,

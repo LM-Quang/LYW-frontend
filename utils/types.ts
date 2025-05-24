@@ -232,9 +232,13 @@ export interface StudentLectureProgress extends BaseEntity {
    lectureId: string;
    isWatched: boolean;
 }
-
 export interface CartItem {
    id: string;
+   name: string;
+   instructorName: string;
+   rating: number;
+   student: number;
+   duration: number;
    courseId: string;
    sectionIds: string[]; // Selected sections for enrollment
    basePrice: number; // Sum of Section.price for sectionIds
