@@ -1,15 +1,14 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import img from "@/assets/avatar.jpg";
 import img1 from "@/assets/img-1.jpg";
 import { Award, Infinity, ListChecks, ScrollText, Users } from "lucide-react";
 import { useUser } from "@/context/UserContext";
-import { ALL_COURSES, Category, STUDENTS, Tag, TEACHERS, USERS } from "@/utils/data";
+import { STUDENTS, TEACHERS, USERS } from "@/utils/data";
 import { useRouter } from "next/navigation";
-import { CATEGORY_PARAMS, TAG_PARAMS } from "@/utils/constant";
-import CourseCard from "@/components/common/CourseCard";
+import { TAG_PARAMS } from "@/utils/constant";
 import RenderStars from "@/components/common/RenderStars";
 
 const whyChooseItems = [
@@ -49,9 +48,9 @@ export default function HomePage() {
       router.push("/teaching/dashboard");
    };
 
-   const [selectedCategory, setSelectedCategory] = useState(Category.PROGRAMMING);
-   const filteredCourses = ALL_COURSES.filter((course) => course.category === selectedCategory);
-   const trendingCourse = ALL_COURSES.filter((course) => course.tag?.name === Tag.TREND);
+   // const [selectedCategory, setSelectedCategory] = useState(Category.PROGRAMMING);
+   // const filteredCourses = ALL_COURSES.filter((course) => course.category === selectedCategory);
+   // const trendingCourse = ALL_COURSES.filter((course) => course.tag?.name === Tag.TREND);
 
    return (
       <div className="w-full min-h-screen font-sans">
@@ -157,7 +156,7 @@ export default function HomePage() {
                </div>
 
                {/* Nav List */}
-               <div className="relative mb-8">
+               {/* <div className="relative mb-8">
                   <div className="overflow-x-auto scrollbar-hide border-b border-gray-200 px-1">
                      {Object.entries(Category).map(([key, value]) => {
                         return (
@@ -181,20 +180,20 @@ export default function HomePage() {
                         All Category
                      </Link>
                   </div>
-               </div>
+               </div> */}
 
                {/* Course List */}
-               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+               {/* <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                   {filteredCourses.slice(0, 4).map((course) => (
                      <CourseCard key={course.id} course={course} />
                   ))}
-               </div>
+               </div> */}
 
                {/* Actions */}
                <div className="mt-10 text-center">
                   <button
                      className="px-6 py-3 text-white rounded-lg bg-primary-500 hover:bg-primary-600 transition-colors cursor-pointer"
-                     onClick={() => router.push(`/courses?${CATEGORY_PARAMS}=${selectedCategory}`)}
+                     // onClick={() => router.push(`/courses?${CATEGORY_PARAMS}=${selectedCategory}`)}
                   >
                      View More Courses
                   </button>
@@ -211,11 +210,11 @@ export default function HomePage() {
                </div>
 
                {/* Course List */}
-               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+               {/* <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                   {trendingCourse.slice(0, 4).map((course) => (
                      <CourseCard key={course.id} course={course} />
                   ))}
-               </div>
+               </div> */}
 
                <div className="mt-10 text-center">
                   <button

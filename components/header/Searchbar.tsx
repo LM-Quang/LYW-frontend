@@ -3,22 +3,22 @@
 import React from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Search, X } from "lucide-react";
-import { QUERY_PARAMS } from "@/utils/constant";
+import { KEYWORD_PARAMS } from "@/utils/constant";
 
 const Searchbar = () => {
    const searchParams = useSearchParams();
-   const query = searchParams.get(QUERY_PARAMS);
+   const query = searchParams.get(KEYWORD_PARAMS);
    const router = useRouter();
 
    const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
       if (e.key === "Enter") {
-         window.location.href = `/courses?${QUERY_PARAMS}=${e.currentTarget.value}`;
+         window.location.href = `/courses?${KEYWORD_PARAMS}=${e.currentTarget.value}`;
       }
    };
 
    const handleClearSearch = () => {
       const params = new URLSearchParams(searchParams.toString());
-      params.delete(QUERY_PARAMS);
+      params.delete(KEYWORD_PARAMS);
       router.push(`?${params.toString()}`);
    };
 
