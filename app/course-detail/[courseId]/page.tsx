@@ -30,7 +30,7 @@ import { courseDetails } from "@/libs/courseAPIs";
 import truncateText, { formatDuration } from "@/utils/utils";
 import { LectureFileType } from "@/utils/types";
 import Link from "next/link";
-import renderStars from "@/components/common/RenderStars";
+import RenderStars from "@/components/common/RenderStars";
 
 export default function CourseDetailPage() {
    // const params = useParams<{ courseId: string }>();
@@ -381,7 +381,6 @@ export default function CourseDetailPage() {
                         <div className="flex flex-col md:flex-row gap-6">
                            <div className="w-full md:w-1/3 flex flex-col items-center justify-center">
                               <div className="text-5xl font-bold text-primary-500">4.8</div>
-                              <div className="flex gap-1 my-2">{renderStars(4.8)}</div>
                               <div className="text-gray-500">Course Rating</div>
                               <div className="text-xs text-gray-400 mt-1">(2,458 reviews)</div>
                            </div>
@@ -397,7 +396,8 @@ export default function CourseDetailPage() {
                                  ].map((item) => (
                                     <div key={item.rating} className="flex items-center gap-2">
                                        <div className="flex gap-0.5 w-30">
-                                          {renderStars(item.rating)}
+                                          {/* {renderStars(item.rating)} */}
+                                          <RenderStars rating={item.rating} />
                                        </div>
                                        <div className="w-full bg-gray-200 rounded-full h-2">
                                           <div
@@ -531,7 +531,7 @@ export default function CourseDetailPage() {
                      {/* Related Courses */}
                      <div className="bg-white rounded-xl shadow-sm mb-6">
                         <div className="p-4 border-b border-gray-100">
-                           <h2 className="text-3xl font-bold text-gray-800">Similar Courses</h2>
+                           <h2 className="text-3xl font-bold text-gray-800">Related Courses</h2>
                         </div>
 
                         <div className="p-4">

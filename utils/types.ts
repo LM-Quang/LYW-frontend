@@ -1,3 +1,5 @@
+import { Category } from "./data";
+
 // Base entity shared by all, this interface will not be stored in DB so updatedBy is uneccessay
 export interface BaseEntity {
    id: string;
@@ -96,26 +98,6 @@ export interface Teacher extends BaseEntity {
    courseIds?: string[];
    background?: DescriptionBlock[];
    experience?: DescriptionBlock[];
-}
-
-// export enum CategoryGroup {
-//    TECHNOLOGY = "Technology",
-//    DESIGN = "Design",
-// }
-
-// Keep it this way for simplicity
-export enum Category {
-   CLOUD = "Cloud Computing",
-   CYBERSECURITY = "Cybersecurity",
-   UI_UX = "UI/UX Design",
-   DATABASE = "Database Management",
-   MACHINE_LEARNING = "Machine Learning",
-   GRAPHIC = "Graphic Design",
-   PROGRAMMING = "Programming",
-   DATA_SCIENCE = "Data Science",
-   WEB_DEV = "Web Development",
-   MARKETING = "Marketing",
-   GAME_DEV = "Game Development",
 }
 
 export enum LectureFileType {
@@ -253,3 +235,5 @@ export interface Cart extends BaseEntity {
    items: CartItem[];
    totalPrice: number; // Sum of CartItem.finalPrice
 }
+
+export { Category };

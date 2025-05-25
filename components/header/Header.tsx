@@ -24,7 +24,7 @@ export default function Header() {
             {/* Logo */}
             <Link href="/" className="flex items-center">
                <Image className="rounded-full mr-2" src={logo} alt="Logo" width={65} height={65} />
-               <h1 className="text-3xl font-bold text-primary-500">
+               <h1 className="text-3xl font-bold text-white">
                   Learn <br /> Your Way
                </h1>
             </Link>

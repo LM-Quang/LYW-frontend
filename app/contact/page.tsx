@@ -2,7 +2,7 @@ import React from "react";
 import ContactUs from "@/components/contactPage/ContactUs";
 import FAQ from "@/components/contactPage/FAQ";
 import Feedback from "@/components/contactPage/Feedback";
-// import OfficeLocation from "@/components/contactPage/OfficeLocation";
+import OfficeLocation from "@/components/contactPage/OfficeLocation";
 
 export default function ContactPage() {
    return (
@@ -12,7 +12,7 @@ export default function ContactPage() {
             <ContactUs />
 
             {/* Office Location */}
-            {/* <OfficeLocation /> */}
+            <OfficeLocation />
 
             {/* FAQ */}
             <FAQ />

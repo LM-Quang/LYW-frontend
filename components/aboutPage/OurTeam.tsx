@@ -3,26 +3,6 @@ import Image from "next/image";
 import logo from "@/assets/logo-1.png";
 
 // Placeholder team member images (replace with real images in a real app)
-const teamMembers = [
-   {
-      name: "John Smith",
-      role: "Founder & CEO",
-      bio: "John has over 15 years of experience in education technology and is passionate about making learning accessible to everyone.",
-      image: logo,
-   },
-   {
-      name: "Sarah Johnson",
-      role: "Head of Education",
-      bio: "Sarah is an expert in curriculum design and has worked with top universities to develop online learning programs.",
-      image: logo,
-   },
-   {
-      name: "Michael Brown",
-      role: "Lead Developer",
-      bio: "Michael leads the tech team at EduLearn Academy, ensuring a seamless and engaging user experience for all learners.",
-      image: logo,
-   },
-];
 
 const OurTeam = () => {
    return (

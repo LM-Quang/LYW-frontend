@@ -42,3 +42,5 @@ next-env.d.ts
 
 NOTE.MD
 *.sql
+*.drawio
+Interfaces.png

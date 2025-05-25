@@ -7,7 +7,7 @@ import { GraduationCap, Search, ChevronDown, ArrowRight } from "lucide-react";
 import Link from "next/link";
 import avatar from "@/assets/avatar.jpg";
 import img1 from "@/assets/img-1.jpg";
-import renderStars from "@/components/RenderStars";
+import RenderStars from "@/components/common/RenderStars";
 
 // Hard-coded user data (same as in the source code)
 interface User {
@@ -121,150 +121,6 @@ export default function MyCoursesPage() {
 
    return (
       <div className="w-full min-h-screen bg-gray-50 font-sans">
-         {/* Header (same as in HomePage with hover dropdown) */}
-         <header className="bg-white shadow-md p-4 sticky top-0 z-10">
-            <div className="container mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
-               {/* Logo */}
-               <div className="flex items-center">
-                  <div className="mr-2">
-                     <Image
-                        className="rounded-full"
-                        src={avatar}
-                        alt="Logo"
-                        width={65}
-                        height={65}
-                     />
-                  </div>
-                  <div className="text-2xl font-bold text-primary-500">
-                     Learn <br /> Your Way
-                  </div>
-               </div>
-
-               {/* Search bar */}
-               <div className="flex-1 max-w-xl mx-auto md:mx-0">
-                  <div className="relative">
-                     <input
-                        type="text"
-                        placeholder="Search courses, topics, instructors..."
-                        className="w-full p-3 pl-9 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-primary-500 transition-all"
-                        aria-label="Search courses"
-                     />
-                     <Search
-                        className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5"
-                        aria-hidden="true"
-                     />
-                  </div>
-               </div>
-
-               {/* Navbar */}
-               <nav className="w-full md:w-auto">
-                  <ul className="flex flex-wrap justify-center items-center gap-2 text-sm">
-                     <li>
-                        <Link
-                           href="/"
-                           className="px-3 py-1 font-medium rounded-full hover:bg-primary-500 hover:text-white transition-colors"
-                        >
-                           Home
-                        </Link>
-                     </li>
-                     <li>
-                        <Link
-                           href="#"
-                           className="px-3 py-1 font-medium rounded-full hover:bg-primary-500 hover:text-white transition-colors"
-                        >
-                           Courses
-                        </Link>
-                     </li>
-                     <li>
-                        <Link
-                           href="#"
-                           className="px-3 py-1 font-medium rounded-full hover:bg-primary-500 hover:text-white transition-colors"
-                        >
-                           Categories
-                        </Link>
-                     </li>
-                     <li>
-                        <Link
-                           href="#"
-                           className="px-3 py-1 font-medium rounded-full hover:bg-primary-500 hover:text-white transition-colors"
-                        >
-                           Teaching
-                        </Link>
-                     </li>
-                     {user ? (
-                        <li className="relative group">
-                           <div className="flex items-center cursor-pointer">
-                              <Image
-                                 className="rounded-full"
-                                 src={user.avatar || "/default-avatar.png"}
-                                 alt={user.username || "User avatar"}
-                                 width={40}
-                                 height={40}
-                              />
-                              <ChevronDown className="ml-1 w-4 h-4 text-gray-600 transition-transform group-hover:rotate-180" />
-                           </div>
-
-                           {/* Dropdown Menu */}
-                           <div className="absolute right-0 w-48 bg-white shadow-md rounded-lg z-20 transition-opacity duration-200 hidden group-hover:block group-focus-within:block">
-                              <div className="p-4 border-b border-gray-200">
-                                 <p className="text-sm font-semibold text-gray-800">
-                                    {user.username || "User"}
-                                 </p>
-                                 <p className="text-xs text-gray-600 truncate">
-                                    {user.email || "user@example.com"}
-                                 </p>
-                              </div>
-                              <div className="py-1">
-                                 <Link
-                                    href="/profile"
-                                    className="block px-4 py-2 text-sm text-gray-800 hover:bg-gray-100"
-                                 >
-                                    Profile
-                                 </Link>
-                                 <Link
-                                    href="/my-courses"
-                                    className="block px-4 py-2 text-sm text-gray-800 hover:bg-gray-100"
-                                 >
-                                    My Courses
-                                 </Link>
-                                 <button
-                                    onClick={() => {
-                                       setUser(null);
-                                       router.push("/"); // Redirect to homepage after logout
-                                    }}
-                                    className="cursor-pointer block w-full text-left px-4 py-2 text-sm text-gray-800 hover:bg-gray-100"
-                                 >
-                                    Logout
-                                 </button>
-                              </div>
-                           </div>
-                        </li>
-                     ) : (
-                        <>
-                           <li>
-                              <Link
-                                 href="/auth/login"
-                                 className="px-3 py-1 rounded-full border border-primary-500 text-primary-600 hover:bg-primary-100 transition-colors"
-                                 aria-label="Sign In"
-                              >
-                                 Log In
-                              </Link>
-                           </li>
-                           <li>
-                              <Link
-                                 href="/auth/signup"
-                                 className="px-3 py-1 rounded-full bg-primary-500 text-white hover:bg-primary-600 transition-colors"
-                              >
-                                 Sign Up
-                              </Link>
-                           </li>
-                        </>
-                     )}
-                  </ul>
-               </nav>
-            </div>
-         </header>
-
          {/* Main Content: My Courses Page */}
          <main className="container mx-auto px-4 md:px-5 py-10">
             {/* Courses I'm Learning Section */}
@@ -277,20 +133,8 @@ export default function MyCoursesPage() {
                            key={index}
                            className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow"
                         >
-                           <Image
-                              src={course.image}
-                              alt={course.title}
-                              className="w-full h-48 object-cover"
-                              width={360}
-                              height={190}
-                           />
                            <div className="p-6">
                               <div className="flex items-center mb-2 h-7">
-                                 {course.isBestSeller && (
-                                    <span className="bg-primary-500 text-white p-1 mr-2 rounded-lg text-sm font-medium">
-                                       Best Seller
-                                    </span>
-                                 )}
                                  <span className="text-sm text-gray-500">
                                     Updated {course.updated}
                                  </span>
@@ -299,13 +143,6 @@ export default function MyCoursesPage() {
                                  {course.title}
                               </h3>
                               <p className="text-gray-600 mb-4">{course.description}</p>
-                              <div className="flex items-center mb-4">
-                                 <span className="text-sm text-gray-600 mr-2">{course.rating}</span>
-                                 <div className="flex">{renderStars(course.rating)}</div>
-                                 <span className="text-sm text-gray-600 ml-2">
-                                    ({course.ratingsCount.toLocaleString()} ratings)
-                                 </span>
-                              </div>
                               {/* Progress Bar */}
                               {course.progress !== undefined && (
                                  <div className="mb-4">
@@ -321,9 +158,6 @@ export default function MyCoursesPage() {
                                  </div>
                               )}
                               <div className="flex items-center justify-between">
-                                 <span className="text-lg font-semibold text-primary-500">
-                                    ${course.price.toFixed(2)}
-                                 </span>
                                  <Link
                                     href={`/course/${course.id}`}
                                     className="inline-flex items-center bg-primary-500 text-white font-medium py-2 px-4 rounded-full hover:bg-primary-600 transition-colors"
@@ -358,13 +192,6 @@ export default function MyCoursesPage() {
                            key={index}
                            className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow"
                         >
-                           <Image
-                              src={course.image}
-                              alt={course.title}
-                              className="w-full h-48 object-cover"
-                              width={360}
-                              height={190}
-                           />
                            <div className="p-6">
                               <div className="flex items-center mb-2 h-7">
                                  {course.isBestSeller && (
@@ -380,13 +207,6 @@ export default function MyCoursesPage() {
                                  {course.title}
                               </h3>
                               <p className="text-gray-600 mb-4">{course.description}</p>
-                              <div className="flex items-center mb-4">
-                                 <span className="text-sm text-gray-600 mr-2">{course.rating}</span>
-                                 <div className="flex">{renderStars(course.rating)}</div>
-                                 <span className="text-sm text-gray-600 ml-2">
-                                    ({course.ratingsCount.toLocaleString()} ratings)
-                                 </span>
-                              </div>
                               <div className="flex items-center justify-between">
                                  <span className="text-lg font-semibold text-primary-500">
                                     ${course.price.toFixed(2)}

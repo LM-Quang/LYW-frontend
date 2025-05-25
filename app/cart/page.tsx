@@ -9,7 +9,6 @@ import {
    CircleHelp,
    CircleUser,
    Clock3,
-   Dot,
    Save,
    Trash2,
 } from "lucide-react";
@@ -52,21 +51,24 @@ export default function CartNewPage() {
                                        {item.name}
                                     </h3>
                                     <p className="text-sm text-gray-600 mb-2">
-                                       {item.instructorName}
+                                       Created by: {item.instructorName}
                                     </p>
                                     <div className="flex items-center mb-2">
+                                       <span className="p-1 bg-primary-500 text-white rounded-full text-xs mr-2">
+                                          Bestseller
+                                       </span>
                                        <span className="text-yellow-500 font-bold text-sm mr-1">
                                           {item.rating}
                                        </span>
                                        <i
-                                          className="fa-solid fa-star text-yellow-400 w-4 h-4 mr-2"
+                                          className="fa-solid fa-star text-yellow-400 w-4 h-4"
                                           aria-label="Full star"
                                        />
-                                       <Dot className="mx-1" />
-                                       <span className="text-xs text-gray-500 ml-1">
-                                          ({item.student} students)
+                                       <div className="bg-gray-400 w-0.5 h-4 mx-3" />
+                                       <span className="text-xs text-gray-500">
+                                          {item.student} students
                                        </span>
-                                       <Dot className="mx-1" />
+                                       <div className="bg-gray-400 w-0.5 h-4 mx-3" />
                                        <span className="flex items-center mr-2 text-xs text-gray-500">
                                           <Clock3 className="mr-1 w-4 h-4" />
                                           {formatDuration(item.duration)}
