@@ -1,15 +1,16 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import img from "@/assets/avatar.jpg";
 import img1 from "@/assets/img-1.jpg";
 import { Award, Infinity, ListChecks, ScrollText, Users } from "lucide-react";
 import { useUser } from "@/context/UserContext";
-import { STUDENTS, TEACHERS, USERS } from "@/utils/data";
+import { ALL_COURSES, Category, STUDENTS, Tag, TEACHERS, USERS } from "@/utils/data";
 import { useRouter } from "next/navigation";
-import { TAG_PARAMS } from "@/utils/constant";
+import { createSearchUrl } from "@/utils/utils";
 import RenderStars from "@/components/common/RenderStars";
+import CourseCard from "@/components/common/CourseCard";
 
 const whyChooseItems = [
    {
@@ -26,6 +27,45 @@ const whyChooseItems = [
       title: "Lifetime Access",
       description: "Learn at your own pace with full lifetime access.",
       icon: <Infinity className="w-12 h-12 text-primary-500 mx-auto mb-4" />,
+   },
+];
+
+const userAvatarSrcs = [img, img, img];
+
+const learnerImgSrcs = [
+   "https://images.unsplash.com/photo-1522202176988-66273c2fd55f",
+   "https://images.unsplash.com/photo-1571260899304-425eee4c7efc",
+   "https://images.unsplash.com/photo-1503428593586-e225b39bddfe",
+   "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d",
+];
+
+const testimonials = [
+   {
+      userImgSrc: "https://images.unsplash.com/photo-1494790108377-be9c29b29330",
+      userName: "Emily Johnson",
+      userJobTitle: "Frontend Developer",
+      rating: 5,
+      content:
+         "The Advanced JavaScript course completely transformed my understanding of the language. The instructor explained complex concepts in a way that was easy to grasp. Within a month of completing the course,I landed my dream job!",
+      courseTitle: "Advanced JavaScript Concepts",
+   },
+   {
+      userImgSrc: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e",
+      userName: "Michael Rodriguez",
+      userJobTitle: "Full Stack Developer",
+      rating: 5,
+      content:
+         "The Node.js Developer Course provided an excellent foundation for backend development. The projects were practical and relevant to real-world scenarios. I've used what I learned to build my own startup's backend infrastructure.",
+      courseTitle: "Complete Node.js Developer Course",
+   },
+   {
+      userImgSrc: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e",
+      userName: "Sarah Chang",
+      userJobTitle: "UX/UI Designer",
+      rating: 4,
+      content:
+         "The Responsive Web Design course was incredibly comprehensive. I especially appreciated the focus on accessibility and modern design principles. The instructor's feedback on my projects was invaluable to my growth as a designer.",
+      courseTitle: "Responsive Web Design with HTML5 and CSS3",
    },
 ];
 
@@ -48,9 +88,9 @@ export default function HomePage() {
       router.push("/teaching/dashboard");
    };
 
-   // const [selectedCategory, setSelectedCategory] = useState(Category.PROGRAMMING);
-   // const filteredCourses = ALL_COURSES.filter((course) => course.category === selectedCategory);
-   // const trendingCourse = ALL_COURSES.filter((course) => course.tag?.name === Tag.TREND);
+   const [selectedCategory, setSelectedCategory] = useState(Category.AI);
+   const filteredCourses = ALL_COURSES.filter((course) => course.category === selectedCategory);
+   const trendingCourse = ALL_COURSES.filter((course) => course.tag?.name === Tag.TREND);
 
    return (
       <div className="w-full min-h-screen font-sans">
@@ -86,29 +126,18 @@ export default function HomePage() {
                      </div>
                      <div className="flex items-center gap-4 pt-4">
                         <div className="flex -space-x-3">
-                           <Image
-                              width={40}
-                              height={40}
-                              src={img}
-                              alt="User"
-                              className="rounded-full border-2 border-white"
-                           />
-
-                           <Image
-                              width={40}
-                              height={40}
-                              src={img}
-                              alt="User"
-                              className="rounded-full border-2 border-white"
-                           />
-
-                           <Image
-                              width={40}
-                              height={40}
-                              src={img}
-                              alt="User"
-                              className="rounded-full border-2 border-white"
-                           />
+                           {userAvatarSrcs.map((src, index) => {
+                              return (
+                                 <Image
+                                    key={index}
+                                    width={40}
+                                    height={40}
+                                    src={src}
+                                    alt="User"
+                                    className="rounded-full border-2 border-white"
+                                 />
+                              );
+                           })}
 
                            <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center text-xs font-medium border-2 border-white">
                               +2K
@@ -145,7 +174,7 @@ export default function HomePage() {
                </div>
             </section>
 
-            {/* Explore Courses */}
+            {/* Learn by Category */}
             <section className="bg-white rounded-lg shadow-md p-8 mb-8">
                <div className="text-center mb-8">
                   <h2 className="text-4xl font-bold mb-4">Learn by Category</h2>
@@ -156,7 +185,7 @@ export default function HomePage() {
                </div>
 
                {/* Nav List */}
-               {/* <div className="relative mb-8">
+               <div className="relative mb-8">
                   <div className="overflow-x-auto scrollbar-hide border-b border-gray-200 px-1">
                      {Object.entries(Category).map(([key, value]) => {
                         return (
@@ -180,20 +209,20 @@ export default function HomePage() {
                         All Category
                      </Link>
                   </div>
-               </div> */}
+               </div>
 
                {/* Course List */}
-               {/* <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                   {filteredCourses.slice(0, 4).map((course) => (
                      <CourseCard key={course.id} course={course} />
                   ))}
-               </div> */}
+               </div>
 
                {/* Actions */}
                <div className="mt-10 text-center">
                   <button
                      className="px-6 py-3 text-white rounded-lg bg-primary-500 hover:bg-primary-600 transition-colors cursor-pointer"
-                     // onClick={() => router.push(`/courses?${CATEGORY_PARAMS}=${selectedCategory}`)}
+                     onClick={() => router.push(createSearchUrl("", selectedCategory, ""))}
                   >
                      View More Courses
                   </button>
@@ -210,16 +239,16 @@ export default function HomePage() {
                </div>
 
                {/* Course List */}
-               {/* <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                   {trendingCourse.slice(0, 4).map((course) => (
                      <CourseCard key={course.id} course={course} />
                   ))}
-               </div> */}
+               </div>
 
                <div className="mt-10 text-center">
                   <button
                      className="px-6 py-3 text-white rounded-lg bg-primary-500 hover:bg-primary-600 transition-colors cursor-pointer"
-                     onClick={() => router.push(`/courses?${TAG_PARAMS}=trending`)}
+                     onClick={() => router.push(createSearchUrl("", "", Tag.TREND))}
                   >
                      View More Courses
                   </button>
@@ -261,104 +290,41 @@ export default function HomePage() {
                </div>
 
                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {/* Testimonial 1 */}
-                  <div className="bg-white border border-gray-200 rounded-lg shadow-md p-6 transition-all duration-300 hover:shadow-md hover:-translate-y-1">
-                     <div className="flex items-center mb-4">
-                        <div className="w-12 h-12 rounded-full overflow-hidden mr-4">
-                           <Image
-                              src="https://images.unsplash.com/photo-1494790108377-be9c29b29330"
-                              alt="Student profile"
-                              className="w-full h-full object-cover"
-                              width={48}
-                              height={48}
-                           />
+                  {testimonials.map((testimonial, index) => {
+                     return (
+                        <div
+                           key={index}
+                           className="bg-white border border-gray-200 rounded-lg shadow-md p-6 transition-all duration-300 hover:shadow-md hover:-translate-y-1"
+                        >
+                           <div className="flex items-center mb-4">
+                              <div className="w-12 h-12 rounded-full overflow-hidden mr-4">
+                                 <Image
+                                    src={testimonial.userImgSrc}
+                                    alt={testimonial.userName}
+                                    className="w-full h-full object-cover"
+                                    width={48}
+                                    height={48}
+                                 />
+                              </div>
+                              <div>
+                                 <h4 className="font-bold text-gray-800">{testimonial.userName}</h4>
+                                 <p className="text-sm text-gray-500">{testimonial.userJobTitle}</p>
+                              </div>
+                           </div>
+                           <div className="mb-4">
+                              <div className="flex text-yellow-500 mb-2">
+                                 <RenderStars rating={testimonial.rating} />
+                              </div>
+                              <p className="text-gray-600 italic">
+                                 &quot;{testimonial.content}&quot;
+                              </p>
+                           </div>
+                           <div className="flex items-center text-xs text-gray-500">
+                              <span>{testimonial.courseTitle}</span>
+                           </div>
                         </div>
-                        <div>
-                           <h4 className="font-bold text-gray-800">Emily Johnson</h4>
-                           <p className="text-sm text-gray-500">Frontend Developer</p>
-                        </div>
-                     </div>
-                     <div className="mb-4">
-                        <div className="flex text-yellow-500 mb-2">
-                           <RenderStars rating={5} />
-                        </div>
-                        <p className="text-gray-600 italic">
-                           &quot;The Advanced JavaScript course completely transformed my
-                           understanding of the language. The instructor explained complex concepts
-                           in a way that was easy to grasp. Within a month of completing the course,
-                           I landed my dream job!&quot;
-                        </p>
-                     </div>
-                     <div className="flex items-center text-xs text-gray-500">
-                        <span>Advanced JavaScript Concepts</span>
-                     </div>
-                  </div>
-
-                  {/* Testimonial 2 */}
-                  <div className="bg-white border border-gray-200 rounded-lg shadow-md p-6 transition-all duration-300 hover:shadow-md hover:-translate-y-1">
-                     <div className="flex items-center mb-4">
-                        <div className="w-12 h-12 rounded-full overflow-hidden mr-4">
-                           <Image
-                              src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e"
-                              alt="Student profile"
-                              className="w-full h-full object-cover"
-                              width={48}
-                              height={48}
-                           />
-                        </div>
-                        <div>
-                           <h4 className="font-bold text-gray-800">Michael Rodriguez</h4>
-                           <p className="text-sm text-gray-500">Full Stack Developer</p>
-                        </div>
-                     </div>
-                     <div className="mb-4">
-                        <div className="flex text-yellow-500 mb-2">
-                           <RenderStars rating={5} />
-                        </div>
-                        <p className="text-gray-600 italic">
-                           &quot;The Node.js Developer Course provided an excellent foundation for
-                           backend development. The projects were practical and relevant to
-                           real-world scenarios. I&apos;ve used what I learned to build my own
-                           startup&apos;s backend infrastructure.&quot;
-                        </p>
-                     </div>
-                     <div className="flex items-center text-xs text-gray-500">
-                        <span>Complete Node.js Developer Course</span>
-                     </div>
-                  </div>
-
-                  {/* Testimonial 3 */}
-                  <div className="bg-white border border-gray-200 rounded-lg shadow-md p-6 transition-all duration-300 hover:shadow-md hover:-translate-y-1">
-                     <div className="flex items-center mb-4">
-                        <div className="w-12 h-12 rounded-full overflow-hidden mr-4">
-                           <Image
-                              src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e"
-                              alt="Student profile"
-                              className="w-full h-full object-cover"
-                              width={48}
-                              height={48}
-                           />
-                        </div>
-                        <div>
-                           <h4 className="font-bold text-gray-800">Sarah Chang</h4>
-                           <p className="text-sm text-gray-500">UX/UI Designer</p>
-                        </div>
-                     </div>
-                     <div className="mb-4">
-                        <div className="flex text-yellow-500 mb-2">
-                           <RenderStars rating={4} />
-                        </div>
-                        <p className="text-gray-600 italic">
-                           &quot;The Responsive Web Design course was incredibly comprehensive. I
-                           especially appreciated the focus on accessibility and modern design
-                           principles. The instructor&apos;s feedback on my projects was invaluable
-                           to my growth as a designer.&quot;
-                        </p>
-                     </div>
-                     <div className="flex items-center text-xs text-gray-500">
-                        <span>Responsive Web Design with HTML5 and CSS3</span>
-                     </div>
-                  </div>
+                     );
+                  })}
                </div>
             </section>
 
@@ -398,42 +364,22 @@ export default function HomePage() {
                      </Link>
                   </div>
                   <div className="md:w-1/2 grid grid-cols-2 gap-4">
-                     <div className="rounded-lg overflow-hidden aspect-video shadow-sm transition-transform hover:scale-105">
-                        <Image
-                           src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f"
-                           alt="Students learning together"
-                           className="w-full h-full object-cover"
-                           width={100}
-                           height={120}
-                        />
-                     </div>
-                     <div className="rounded-lg overflow-hidden aspect-video shadow-sm transition-transform hover:scale-105">
-                        <Image
-                           src="https://images.unsplash.com/photo-1571260899304-425eee4c7efc"
-                           alt="Student coding"
-                           className="w-full h-full object-cover"
-                           width={100}
-                           height={120}
-                        />
-                     </div>
-                     <div className="rounded-lg overflow-hidden aspect-video shadow-sm transition-transform hover:scale-105">
-                        <Image
-                           src="https://images.unsplash.com/photo-1503428593586-e225b39bddfe"
-                           alt="Learning environment"
-                           className="w-full h-full object-cover"
-                           width={100}
-                           height={120}
-                        />
-                     </div>
-                     <div className="rounded-lg overflow-hidden aspect-video shadow-sm transition-transform hover:scale-105">
-                        <Image
-                           src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d"
-                           alt="Online learning"
-                           className="w-full h-full object-cover"
-                           width={100}
-                           height={120}
-                        />
-                     </div>
+                     {learnerImgSrcs.map((src, index) => {
+                        return (
+                           <div
+                              key={index}
+                              className="rounded-lg overflow-hidden aspect-video shadow-sm transition-transform hover:scale-105"
+                           >
+                              <Image
+                                 src={src}
+                                 alt="Learners"
+                                 className="w-full h-full object-cover"
+                                 width={100}
+                                 height={120}
+                              />
+                           </div>
+                        );
+                     })}
                   </div>
                </div>
             </section>

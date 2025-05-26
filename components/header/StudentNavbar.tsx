@@ -1,11 +1,12 @@
 import { useUser } from "@/context/UserContext";
-import { TOKEN } from "@/utils/constant";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import logo from "@/assets/logo-1.png";
 import { useRouter } from "next/navigation";
 import DefaultAvatar from "@/components/common/DefaultAvatar";
+
+const TOKEN = process.env.NEXT_TOKEN_NAMe || "";
 
 const StudentNavbar = () => {
    const { user, updateUser } = useUser();

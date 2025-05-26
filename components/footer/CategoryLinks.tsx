@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import { Category } from "@/utils/data";
-import { CATEGORY_PARAMS, createSearchUrl } from "@/utils/constant";
+import { createSearchUrl } from "@/utils/utils";
 
 const CategoryLinks = () => {
    return (
@@ -12,7 +12,7 @@ const CategoryLinks = () => {
                return (
                   <li key={index}>
                      <Link
-                        href={createSearchUrl(value, CATEGORY_PARAMS)}
+                        href={createSearchUrl("", value, "")}
                         className="py-2 px-3 rounded-lg hover:bg-primary-600 transition-colors"
                         aria-label={value}
                      >

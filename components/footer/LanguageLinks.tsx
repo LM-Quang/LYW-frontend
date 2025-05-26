@@ -1,5 +1,5 @@
-import { createSearchUrl, LANGUAGE_PARAMS } from "@/utils/constant";
-import { LanguageSubCategory } from "@/utils/data";
+import { createSearchUrl } from "@/utils/utils";
+import { Category, LanguageSubCategory } from "@/utils/data";
 import Link from "next/link";
 import React from "react";
 
@@ -12,7 +12,7 @@ const LanguageLinks = () => {
                return (
                   <li key={index}>
                      <Link
-                        href={createSearchUrl(value, LANGUAGE_PARAMS)}
+                        href={createSearchUrl(value, Category.PROGRAMMING, "")}
                         className="py-2 px-3 rounded-lg hover:bg-primary-600 transition-colors"
                         aria-label={value}
                      >

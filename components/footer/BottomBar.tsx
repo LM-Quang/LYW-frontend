@@ -22,20 +22,6 @@ const BottomBar = () => {
                   </Link>
                );
             })}
-            {/* <Link
-               href="/privacy"
-               className="hover:text-primary-400 transition-colors mr-4"
-               aria-label="Privacy Policy"
-            >
-               Privacy Policy
-            </Link>
-            <Link
-               href="/terms-of-service"
-               className="hover:text-primary-400 transition-colors"
-               aria-label="Terms of Service"
-            >
-               Terms of Service
-            </Link> */}
          </div>
          <div>
             &copy; {new Date().getFullYear()}{" "}

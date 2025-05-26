@@ -1,3 +1,5 @@
+import { CATEGORY_PARAMS, KEYWORD_PARAMS, TAG_PARAMS } from "./constant";
+
 // Get Default Name from name (Ex: "John Doe" -> "JD")
 export const getDefaultName = (name: string) => {
    const names = name.trim().split(" ");
@@ -53,4 +55,16 @@ export const timeFromNow = (input: Date | string): string => {
    if (seconds > 0) return `${seconds} second${seconds > 1 ? "s" : ""} ago`;
 
    return "just now";
+};
+
+// Search URL: /courses?search="Search_Keyword"&category="Category"&tag="Tag"
+// Search_Keyword: user input keyword, pre-defined link keyword,...
+// Topic: Category, Framework, Language
+// Tag: Trend, Bestseller, New
+export const createSearchUrl = (
+   keyword: string | null,
+   category: string | null,
+   tag: string | null
+) => {
+   return `/courses?${KEYWORD_PARAMS}=${keyword}&${CATEGORY_PARAMS}=${category}&${TAG_PARAMS}=${tag}`;
 };

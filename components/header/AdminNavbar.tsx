@@ -1,7 +1,8 @@
 import { useUser } from "@/context/UserContext";
-import { TOKEN } from "@/utils/constant";
 import Link from "next/link";
 import React from "react";
+
+const TOKEN = process.env.NEXT_TOKEN_NAME || "";
 
 const AdminNavbar = () => {
    const { updateUser, updateUserInfo } = useUser();

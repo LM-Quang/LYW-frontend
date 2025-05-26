@@ -1,11 +1,11 @@
-import { CourseCardType } from "@/utils/data";
+import { CourseOverviewCard } from "@/utils/data";
 import truncateText, { formatDuration } from "@/utils/utils";
 import Image from "next/image";
 import React from "react";
 import DefaultAvatar from "./DefaultAvatar";
 import Link from "next/link";
 
-const CourseCard = ({ course }: { course: CourseCardType }) => {
+const CourseCard = ({ course }: { course: CourseOverviewCard }) => {
    return (
       <div
          key={course.id}
@@ -22,7 +22,7 @@ const CourseCard = ({ course }: { course: CourseCardType }) => {
             )}
          </div>
          <h3 className="text-2xl font-semibold mb-2 h-16">{truncateText(course.title, 40)}</h3>
-         <p className="text-gray-600 mb-4">{truncateText(course.description, 75)}</p>
+         <p className="text-gray-600 mb-4 h-12">{truncateText(course.description, 75)}</p>
          <div className="mt-4 pt-4 border-t border-gray-100 text-gray-500">
             <div className="flex justify-between items-center">
                <span className="text-sm font-medium mr-auto">
