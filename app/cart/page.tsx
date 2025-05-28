@@ -2,17 +2,8 @@
 import React from "react";
 import img from "@/assets/avatar.jpg";
 import Image from "next/image";
-import {
-   ArrowLeftRight,
-   ArrowRight,
-   Check,
-   CircleHelp,
-   CircleUser,
-   Clock3,
-   Save,
-   Trash2,
-} from "lucide-react";
-import truncateText, { formatDuration } from "@/utils/utils";
+import { ArrowLeftRight, ArrowRight, Check, CircleHelp, CircleUser, Trash2 } from "lucide-react";
+import truncateText from "@/utils/utils";
 import Link from "next/link";
 import { useCart } from "@/context/CartContext";
 
@@ -31,58 +22,38 @@ export default function CartNewPage() {
          <div className="container mx-auto px-4 md:px-4 py-6">
             <div className="flex flex-col lg:flex-row gap-6">
                <div className="w-full lg:w-2/3">
-                  <div className="bg-white rounded-lg shadow-md mb-4">
-                     <div className="pt-6 px-6 mb-4">
+                  <div className="bg-white rounded-lg shadow-md p-8 mb-6">
+                     <div className="pt-6 mb-4">
                         <h1 className="text-3xl font-bold text-gray-800 mb-2">
                            Your Shopping Cart
                         </h1>
                         <p className="text-gray-600">You have {cart.length} courses in your cart</p>
                      </div>
 
-                     <div className="px-6">
+                     <div>
                         {cart.map((item) => {
                            return (
                               <div
                                  key={item.id}
-                                 className="border-2 border-gray-200 rounded-lg mb-4 p-4 flex flex-col md:flex-row gap-4 hover:shadow-md"
+                                 className="border border-gray-200 rounded-lg mb-4 p-4 flex flex-col md:flex-row gap-4 hover:shadow-md"
                               >
                                  <div className="flex-1">
+                                    <span className="p-1 bg-primary-500 text-white rounded-full text-xs">
+                                       Bestseller
+                                    </span>
                                     <h3 className="text-lg font-bold text-gray-800 mb-1">
                                        {item.name}
                                     </h3>
                                     <p className="text-sm text-gray-600 mb-2">
-                                       Created by: {item.instructorName}
+                                       By: {item.instructorName}
                                     </p>
-                                    <div className="flex items-center mb-2">
-                                       <span className="p-1 bg-primary-500 text-white rounded-full text-xs mr-2">
-                                          Bestseller
-                                       </span>
-                                       <span className="text-yellow-500 font-bold text-sm mr-1">
-                                          {item.rating}
-                                       </span>
-                                       <i
-                                          className="fa-solid fa-star text-yellow-400 w-4 h-4"
-                                          aria-label="Full star"
-                                       />
-                                       <div className="bg-gray-400 w-0.5 h-4 mx-3" />
-                                       <span className="text-xs text-gray-500">
-                                          {item.student} students
-                                       </span>
-                                       <div className="bg-gray-400 w-0.5 h-4 mx-3" />
-                                       <span className="flex items-center mr-2 text-xs text-gray-500">
-                                          <Clock3 className="mr-1 w-4 h-4" />
-                                          {formatDuration(item.duration)}
-                                       </span>
-                                    </div>
                                  </div>
                                  <div className="flex flex-col items-end justify-between">
-                                    <div className="text-primary-500 font-bold">
-                                       ${item.finalPrice}
-                                    </div>
-                                    <button className="text-xs text-purple-500 hover:text-purple-700 transition-colors flex items-center mt-2 cursor-pointer">
+                                    <div className="font-bold">${item.finalPrice}</div>
+                                    {/* <button className="text-xs text-purple-500 hover:text-purple-700 transition-colors flex items-center mt-2 cursor-pointer">
                                        <Save className="mr-1" />
                                        Buy Later
-                                    </button>
+                                    </button> */}
                                     <button
                                        className="text-xs text-red-500 hover:text-red-700 transition-colors flex items-center mt-2 cursor-pointer"
                                        onClick={() => removeFromCart(item.id)}
@@ -96,10 +67,10 @@ export default function CartNewPage() {
                         })}
                      </div>
 
-                     <div className="p-4 border-t border-gray-100 flex gap-2 justify-between">
+                     <div className="p-4 border-t border-gray-200 flex gap-2 justify-between">
                         <Link
                            href="/courses"
-                           className="flex items-center text-primary-500 hover:text-primary-600 transition-colors cursor-pointer"
+                           className="p-2 rounded-lg text-white bg-primary-500 hover:bg-primary-600 transition-colors cursor-pointer"
                         >
                            Continue Finding Course
                         </Link>

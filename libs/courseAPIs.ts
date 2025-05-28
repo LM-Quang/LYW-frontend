@@ -1,11 +1,6 @@
 // import { COURSES, USERS } from "@/utils/data";
-import {
-   Category,
-   CourseRelatedStatus,
-   Currency,
-   LectureFileType,
-   PricingRule,
-} from "@/utils/types";
+import { LectureFileType } from "@/utils/data";
+import { Category, CourseRelatedStatus, Currency, PricingRule } from "@/utils/types";
 
 export interface CourseList {
    courseId: string;
@@ -217,7 +212,7 @@ const courses = [
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const getCourseByIdAPI = async (id: string) => {
    // To simulate API calling time
-   await new Promise((resolve) => setTimeout(resolve, 1000));
+   await new Promise((resolve) => setTimeout(resolve, 500));
    // const index = COURSES.findIndex((course) => course.id === id);
    // if (index === -1) return null;
    // return COURSES[index];
@@ -511,6 +506,7 @@ export interface CourseDetailProps {
    twoStarsCount: number;
    oneStarsCount: number;
 }
+
 export const courseDetails: CourseDetailProps = {
    id: "course_003",
    createdAt: "2025-03-01",
@@ -519,7 +515,7 @@ export const courseDetails: CourseDetailProps = {
    instructor: teacherDetail,
    description: "Build modern web applications with HTML, CSS, and JavaScript.",
    duration: 10800,
-   category: Category.WEB_DEV,
+   category: Category.WEB_DEVELOPMENT,
    totalPrice: 109.98,
    currency: Currency.USD,
    thumbnail: "/assets/img-1.jpg",

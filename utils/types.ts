@@ -1,4 +1,4 @@
-import { Category } from "./data";
+import { Category, LectureFileType } from "./data";
 
 // Base entity shared by all, this interface will not be stored in DB so updatedBy is uneccessay
 export interface BaseEntity {
@@ -98,13 +98,6 @@ export interface Teacher extends BaseEntity {
    courseIds?: string[];
    background?: DescriptionBlock[];
    experience?: DescriptionBlock[];
-}
-
-export enum LectureFileType {
-   VIDEO,
-   PDF,
-   QUIZ,
-   PRACTICE,
 }
 
 export enum CourseRelatedStatus {

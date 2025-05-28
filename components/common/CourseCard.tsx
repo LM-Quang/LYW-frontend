@@ -21,12 +21,12 @@ const CourseCard = ({ course }: { course: CourseOverviewCard }) => {
                </div>
             )}
          </div>
-         <h3 className="text-2xl font-semibold mb-2 h-16">{truncateText(course.title, 40)}</h3>
-         <p className="text-gray-600 mb-4 h-12">{truncateText(course.description, 75)}</p>
+         <h3 className="text-xl font-semibold mb-2 h-14">{truncateText(course.title, 40)}</h3>
+         <p className="text-gray-600 mb-4 h-12">{truncateText(course.description, 55)}</p>
          <div className="mt-4 pt-4 border-t border-gray-100 text-gray-500">
             <div className="flex justify-between items-center">
                <span className="text-sm font-medium mr-auto">
-                  {formatDuration(course.duration)}
+                  Duration: {formatDuration(course.duration)}
                </span>
                <i className="fa-solid fa-star text-yellow-400 w-4 h-4 mr-2" />
                <span className="text-sm font-medium">{course.rating} / 5</span>
@@ -38,14 +38,14 @@ const CourseCard = ({ course }: { course: CourseOverviewCard }) => {
                   src={course.instructorImg}
                   alt="Instructor"
                   className="rounded-full"
-                  width={32}
-                  height={32}
+                  width={28}
+                  height={28}
                />
             ) : (
                <DefaultAvatar name={course.instructor} width={32} height={32} fontSize={16} />
             )}
             <span className="text-sm">{course.instructor}</span>
-            <span className="font-bold text-lg ml-auto">$ {course.price}</span>
+            <span className="text-sm font-bold ml-auto">$ {course.price}</span>
          </div>
          <Link
             href={`/course-detail/${course.id}`}

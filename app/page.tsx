@@ -9,7 +9,6 @@ import { useUser } from "@/context/UserContext";
 import { ALL_COURSES, Category, STUDENTS, Tag, TEACHERS, USERS } from "@/utils/data";
 import { useRouter } from "next/navigation";
 import { createSearchUrl } from "@/utils/utils";
-import RenderStars from "@/components/common/RenderStars";
 import CourseCard from "@/components/common/CourseCard";
 
 const whyChooseItems = [
@@ -312,8 +311,9 @@ export default function HomePage() {
                               </div>
                            </div>
                            <div className="mb-4">
-                              <div className="flex text-yellow-500 mb-2">
-                                 <RenderStars rating={testimonial.rating} />
+                              <div className="flex items-center gap-1 text-yellow-400 mb-2">
+                                 <span>4.8</span>
+                                 <i className="fa-solid fa-star w-4 h-4" aria-label="Full star" />
                               </div>
                               <p className="text-gray-600 italic">
                                  &quot;{testimonial.content}&quot;

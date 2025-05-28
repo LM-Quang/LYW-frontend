@@ -29,8 +29,8 @@ export const formatDuration = (seconds: number): string => {
    const hours = Math.floor(seconds / 3600);
    const minutes = Math.floor((seconds % 3600) / 60);
 
-   const hourStr = hours > 0 ? `${hours} hours ` : "";
-   const minuteStr = minutes > 0 ? `${minutes} mins ` : "";
+   const hourStr = hours > 0 ? `${hours}h` : "";
+   const minuteStr = minutes > 0 ? `${minutes}m` : "";
 
    return `${hourStr} ${minuteStr}` || "0m";
 };

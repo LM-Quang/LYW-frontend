@@ -42,6 +42,12 @@ const Modal: React.FC<CourseModalProps> = ({
       }
    };
 
+   const addToCart = () => {
+      handleAddToCart(totalPrice);
+      setSelectedSections([]);
+      setTotalPrice(0);
+   };
+
    return (
       <div
          className={`fixed inset-0 z-40 items-center justify-center ${
@@ -115,7 +121,7 @@ const Modal: React.FC<CourseModalProps> = ({
                </div>
                <div className="flex justify-between items-center text-lg font-bold">
                   <div>Total Price:</div>
-                  <div>${totalPrice}</div>
+                  <div>${totalPrice.toFixed(2)}</div>
                </div>
                <div className="text-xs text-red-600 mt-1">53% off - 2 days left at this price!</div>
             </div>
@@ -124,9 +130,7 @@ const Modal: React.FC<CourseModalProps> = ({
             <div className="flex space-x-3 mt-6">
                <button
                   className="flex-1 py-3 bg-primary-500 text-white rounded-lg font-medium hover:bg-primary-600 flex items-center justify-center cursor-pointer transition-colors"
-                  onClick={() => {
-                     handleAddToCart(totalPrice);
-                  }}
+                  onClick={addToCart}
                >
                   <ShoppingCart className="mr-2" />
                   Add to Cart

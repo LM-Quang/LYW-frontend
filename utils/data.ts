@@ -10,7 +10,6 @@ import {
    SubscriptionTier,
    BillingCycle,
    PaymentMethod,
-   LectureFileType,
    CourseRelatedStatus,
    PricingType,
    Currency,
@@ -23,8 +22,8 @@ import {
 
 export enum Category {
    AI = "AI",
-   MACHINE_LEARNING = "Machine Learning",
    DATA_SCIENCE = "Data Science",
+   SOFTWARE_DEVELOPMENT = "Software Development",
    WEB_DEVELOPMENT = "Web Development",
    MOBILE_DEVELOPMENT = "Mobile Development",
    GAME_DEVELOPMENT = "Game Development",
@@ -33,29 +32,31 @@ export enum Category {
    CYBERSECURITY = "Cybersecurity",
    UI_UX_DESIGN = "UI/UX Design",
    DEVOPS = "Dev Ops",
-   EMBEDDED_SYSTEMS = "Embedded Systems",
    MARKETING = "Marketing",
    FINANCE = "Finance",
    PROGRAMMING = "Programming",
 }
 
 export enum SubCategory {
-   // Technology
-   AI = "AI",
+   // AI
    MACHINE_LEARNING = "Machine Learning",
    DEEP_LEARNING = "Deep Learning",
    NATURAL_LANGUAGE_PROCESSING = "Natural Language Processing",
    COMPUTER_VISION = "Computer Vision",
    REINFORCEMENT_LEARNING = "Reinforcement Learning",
    GENERATIVE_AI = "Generative AI",
+   // Data Science
+   DATA_ENGINEER = "Data Engineer",
+   DATA_ANALYSIS = "Data Analysis",
+   DATA_VISUALIZATION = "Data Visualization",
+   // Software Development
    EMBEDDED_SYSTEMS = "Embedded Systems",
-   // Data
-   DATA_SCIENCE = "Data Science",
-   // Software
-   DEVELOPMENT = "Development",
-   WEB_DEVELOPMENT = "Web Development",
-   MOBILE_DEVELOPMENT = "Mobile Development",
-   GAME_DEVELOPMENT = "Game Development",
+   // Web Development
+   FRONTEND_DEVELOPMENT = "Frontend Development",
+   BACKEND_DEVELOPMENT = "Backend Development",
+   // Mobile Development
+   IOS_DEVELOPMENT = "iOS Development",
+   ANDROID_DEVELOPMENT = "Andriod Development",
    // Cloud
    CLOUD_COMPUTING = "Cloud Computing",
    // Cybersecurity
@@ -73,10 +74,6 @@ export enum SubCategory {
    // Finance
    FINANCIAL_ANALYSIS = "Financial Analysis",
    FINTECH = "FinTech",
-   // Database
-   DBMS = "DBMS",
-   RELATIONAL_DATABASES = "Relational Databases",
-   NOSQL_DATABASES = "NoSQL Databases",
 }
 
 export enum LanguageSubCategory {
@@ -110,7 +107,6 @@ export enum FrameworkSubCategory {
    // Game Development
    UNITY = "Unity",
    UNREAL_ENGINE = "Unreal Engine",
-   GODOT = "Godot",
    // Cloud/DevOps
    AWS = "AWS",
    AZURE = "Azure",
@@ -119,9 +115,12 @@ export enum FrameworkSubCategory {
    // AI/Machine Learning
    TENSORFLOW = "TensorFlow",
    PYTORCH = "PyTorch",
-   SCIKIT_LEARN = "Scikit-learn",
-   KERAS = "Keras",
-   // Database
+}
+
+export enum DatabaseSubCategory {
+   DBMS = "DBMS",
+   RELATIONAL_DATABASES = "Relational Databases",
+   NOSQL_DATABASES = "NoSQL Databases",
    MYSQL = "MySQL",
    POSTGRESQL = "PostgreSQL",
    MONGODB = "MongoDB",
@@ -358,6 +357,13 @@ export const TAG_TREND: CourseTag = { name: Tag.TREND, color: TagColor.RED };
 export const TAG_BESTSELLER: CourseTag = { name: Tag.BEST_SELLER, color: TagColor.GREEN };
 
 export const TAG_NEW: CourseTag = { name: Tag.NEW, color: TagColor.BLUE };
+
+export enum LectureFileType {
+   VIDEO,
+   PDF,
+   QUIZ,
+   PRACTICE,
+}
 // ======================================== Constatnts ========================================
 export const USERS: User[] = [
    {
@@ -1709,7 +1715,7 @@ export const ALL_COURSES: CourseOverviewCard[] = [
    },
    {
       id: "course-008",
-      category: Category.MACHINE_LEARNING,
+      category: Category.AI,
       title: "Machine Learning with TensorFlow",
       description: "Build and deploy machine learning models using TensorFlow",
       instructor: "Dr. Priya Sharma",
@@ -1842,7 +1848,7 @@ export const ALL_COURSES: CourseOverviewCard[] = [
       description: "Build advanced neural networks using PyTorch",
       instructor: "Dr. Wei Zhang",
       price: 79.99,
-      tag: TAG_TREND,
+      tag: TAG_BESTSELLER,
       duration: 41400,
       rating: 4.5,
       lesson: 28,
@@ -1926,3 +1932,41 @@ export const ALL_COURSES: CourseOverviewCard[] = [
       level: CourseLevel.ADVANCED,
    },
 ];
+
+export interface LectureOverview {
+   id: string;
+   title: string;
+   fileType: LectureFileType;
+   duration: number;
+}
+
+export interface SectionOverview {
+   id: string;
+   title: string;
+   order: number;
+   duration: number;
+   lectures: LectureOverview[];
+}
+
+export interface CourseDetail {
+   category: Category[];
+   level: CourseLevel;
+   title: string;
+   description: string;
+   tag: Tag;
+   whatYouWillLearn: string[];
+   section: SectionOverview[];
+   rating: number;
+   reviewsCount: number;
+   enrolledStudents: number;
+   updatedAt: string;
+   instructorId: string;
+   duration: number; // Total seconds
+   thumbnail: string;
+   totalPrice: number; // Sum of Section.finalPrice for all sections
+   currency: Currency; // e.g., "USD"
+   status: CourseRelatedStatus;
+   sectionIds: string[];
+   commentIds: string[];
+   publishedAt?: string;
+}
