@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { ShoppingCart, X } from "lucide-react";
-import { Section } from "@/utils/types";
+import { SectionOverview } from "@/utils/data";
 
 interface CourseModalProps {
    isClicked: boolean;
    setIsClicked: React.Dispatch<React.SetStateAction<boolean>>;
-   sections: Section[];
+   sections: SectionOverview[];
    handleAddToCart: (price: number) => void;
 }
 

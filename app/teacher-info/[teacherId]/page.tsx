@@ -1,7 +1,7 @@
 import React from "react";
 import img from "@/assets/avatar-square.jpg";
 import Image from "next/image";
-import DefaultAvatar from "@/components/DefaultAvatar";
+import DefaultAvatar from "@/components/common/DefaultAvatar";
 import { ArrowRight, ChevronDown, CirclePlus, Clock3, ScrollText, Users } from "lucide-react";
 import Link from "next/link";
 

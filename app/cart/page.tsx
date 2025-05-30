@@ -2,10 +2,11 @@
 import React from "react";
 import img from "@/assets/avatar.jpg";
 import Image from "next/image";
-import { ArrowLeftRight, ArrowRight, Check, CircleHelp, CircleUser, Trash2 } from "lucide-react";
+import { ArrowRight, Check, Trash2 } from "lucide-react";
 import truncateText from "@/utils/utils";
 import Link from "next/link";
 import { useCart } from "@/context/CartContext";
+import NeedHelp from "@/components/common/NeedHelp";
 
 const DISCOUNT_PERCENT = 5;
 const TAX_PERCENT = 5;
@@ -41,7 +42,7 @@ export default function CartNewPage() {
                                     <span className="p-1 bg-primary-500 text-white rounded-full text-xs">
                                        Bestseller
                                     </span>
-                                    <h3 className="text-lg font-bold text-gray-800 mb-1">
+                                    <h3 className="text-xl font-bold text-gray-800 my-1">
                                        {item.name}
                                     </h3>
                                     <p className="text-sm text-gray-600 mb-2">
@@ -84,8 +85,16 @@ export default function CartNewPage() {
                   </div>
 
                   <section className="bg-white rounded-lg shadow-md p-6 mb-4">
-                     <h2 className="text-3xl font-bold mb-4">Related Courses</h2>
-
+                     <div className="flex justify-between items-center mb-5">
+                        <h3 className="text-3xl font-semibold">More Course From Instructor</h3>
+                        <Link
+                           href={"/courses"}
+                           className="text-primary-500 hover:text-primary-600 flex"
+                        >
+                           View All
+                           <ArrowRight className="ml-1" />
+                        </Link>
+                     </div>
                      {/* Course List */}
                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                         <div className="bg-white rounded-xl p-6 border border-gray-200 transition-all duration-300 transform hover:translate-x-1 hover:-translate-y-1 shadow-lg">
@@ -237,7 +246,7 @@ export default function CartNewPage() {
                         <h2 className="text-lg font-bold text-gray-800">Order Summary</h2>
                      </div>
 
-                     <div className="p-4">
+                     <div className="p-6">
                         <div className="space-y-3">
                            <div className="flex justify-between items-center text-sm">
                               <span className="text-gray-600">Original Price:</span>
@@ -277,34 +286,10 @@ export default function CartNewPage() {
                               </span>
                            </div>
                         </div>
+
+                        <NeedHelp />
                      </div>
 
-                     <div className="p-4 border-t border-gray-100">
-                        <h3 className="font-medium text-gray-700 mb-2">Need Help?</h3>
-                        <div className="flex flex-col gap-2 text-sm">
-                           <a
-                              href="#"
-                              className="text-primary-500 hover:text-primary-600 transition-colors flex items-center"
-                           >
-                              <CircleHelp className="mr-1 w-5 h-5" />
-                              Help Center
-                           </a>
-                           <a
-                              href="#"
-                              className="text-primary-500 hover:text-primary-600 transition-colors flex items-center"
-                           >
-                              <ArrowLeftRight className="mr-1 w-5 h-5" />
-                              Refund Policy
-                           </a>
-                           <Link
-                              href="#"
-                              className="text-primary-500 hover:text-primary-600 transition-colors flex items-center"
-                           >
-                              <CircleUser className="mr-1 w-5 h-5" />
-                              Contact Support
-                           </Link>
-                        </div>
-                     </div>
                      {/* Next: "Add gift card option" */}
                   </div>
                </div>

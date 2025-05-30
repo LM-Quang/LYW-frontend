@@ -1,5 +1,5 @@
 import { createSearchUrl } from "@/utils/utils";
-import { Category, LanguageSubCategory } from "@/utils/data";
+import { Category, SubCategory } from "@/utils/data";
 import Link from "next/link";
 import React from "react";
 
@@ -8,7 +8,7 @@ const LanguageLinks = () => {
       <div className="mx-auto">
          <h3 className="text-xl font-semibold mb-4 pl-2">Language</h3>
          <ul className="space-y-3">
-            {Object.values(LanguageSubCategory).map((value, index) => {
+            {Object.values(SubCategory.Language).map((value, index) => {
                return (
                   <li key={index}>
                      <Link

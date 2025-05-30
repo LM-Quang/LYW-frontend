@@ -32,310 +32,102 @@ export enum Category {
    CYBERSECURITY = "Cybersecurity",
    UI_UX_DESIGN = "UI/UX Design",
    DEVOPS = "Dev Ops",
-   MARKETING = "Marketing",
-   FINANCE = "Finance",
    PROGRAMMING = "Programming",
 }
 
-export enum SubCategory {
-   // AI
-   MACHINE_LEARNING = "Machine Learning",
-   DEEP_LEARNING = "Deep Learning",
-   NATURAL_LANGUAGE_PROCESSING = "Natural Language Processing",
-   COMPUTER_VISION = "Computer Vision",
-   REINFORCEMENT_LEARNING = "Reinforcement Learning",
-   GENERATIVE_AI = "Generative AI",
-   // Data Science
-   DATA_ENGINEER = "Data Engineer",
-   DATA_ANALYSIS = "Data Analysis",
-   DATA_VISUALIZATION = "Data Visualization",
-   // Software Development
-   EMBEDDED_SYSTEMS = "Embedded Systems",
-   // Web Development
-   FRONTEND_DEVELOPMENT = "Frontend Development",
-   BACKEND_DEVELOPMENT = "Backend Development",
-   // Mobile Development
-   IOS_DEVELOPMENT = "iOS Development",
-   ANDROID_DEVELOPMENT = "Andriod Development",
-   // Cloud
-   CLOUD_COMPUTING = "Cloud Computing",
-   // Cybersecurity
-   NETWORK_SECURITY = "Network Security",
-   ETHICAL_HACKING = "Ethical Hacking",
-   // UI/UX Design
-   USER_EXPERIENCE = "User Experience",
-   USER_INTERFACE = "User Interface",
-   // DevOps
-   CI_CD = "CI/CD",
-   INFRASTRUCTURE_AS_CODE = "Infrastructure as Code",
-   // Marketing
-   DIGITAL_MARKETING = "Digital Marketing",
-   SEO = "SEO",
-   // Finance
-   FINANCIAL_ANALYSIS = "Financial Analysis",
-   FINTECH = "FinTech",
-}
+export const SubCategory = {
+   AI: {
+      MachineLearning: "Machine Learning",
+      DeepLearning: "Deep Learning",
+      NaturalLanguageProcessing: "Natural Language Processing",
+      ComputerVision: "Computer Vision",
+      ReinforcementLearning: "Reinforcement Learning",
+      GenerativeAI: "Generative AI",
+   } as const,
+   DataScience: {
+      DataEngineer: "Data Engineer",
+      DataAnalysis: "Data Analysis",
+      DataVisualization: "Data Visualization",
+   } as const,
+   WebDevelopment: {
+      FrontendDevelopment: "Frontend Development",
+      BackendDevelopment: "Backend Development",
+      SEO: "SEO",
+   } as const,
+   MobileDevelopment: {
+      iOSDevelopment: "iOS Development",
+      AndroidDevelopment: "Android Development",
+   } as const,
+   Cloud: {
+      CloudComputing: "Cloud Computing",
+      AWS: "AWS",
+      Azure: "Azure",
+   } as const,
+   DevOps: {
+      CICD: "CI/CD",
+      InfrastructureAsCode: "Infrastructure as Code",
+      Kubernetes: "Kubernetes",
+      Docker: "Docker",
+   } as const,
+   Cybersecurity: {
+      NetworkSecurity: "Network Security",
+      EthicalHacking: "Ethical Hacking",
+   } as const,
+   UIUX: {
+      UserExperience: "User Experience",
+      UserInterface: "User Interface",
+   } as const,
+   Language: {
+      Bash: "Bash",
+      C: "C",
+      CPP: "C++",
+      CSharp: "C#",
+      Java: "Java",
+      Python: "Python",
+      JavaScript: "JavaScript",
+      TypeScript: "TypeScript",
+      Rust: "Rust",
+      SQL: "SQL",
+      R: "R",
+      Swift: "Swift",
+      Kotlin: "Kotlin",
+      Go: "Go",
+   } as const,
+   Framework: {
+      // Web Development
+      React: "React",
+      Angular: "Angular",
+      Vue: "Vue",
+      SpringBoot: "Spring Boot",
+      ASPNet: "ASP.NET",
+      // Mobile Development
+      Flutter: "Flutter",
+      ReactNative: "React Native",
+      SwiftUI: "SwiftUI",
+      // Game Development
+      Unity: "Unity",
+      UnrealEngine: "Unreal Engine",
+      // AI/Machine Learning
+      TensorFlow: "TensorFlow",
+      PyTorch: "PyTorch",
+   } as const,
+   Database: {
+      DBMS: "DBMS",
+      RelationalDatabases: "Relational Databases",
+      NoSQLDatabases: "NoSQL Databases",
+      MySQL: "MySQL",
+      PostgreSQL: "PostgreSQL",
+      MongoDB: "MongoDB",
+      Oracle: "Oracle",
+   } as const,
+};
 
-export enum LanguageSubCategory {
-   BASH = "Bash",
-   C = "C",
-   CPP = "C++",
-   CSHARP = "C#",
-   JAVA = "Java",
-   PYTHON = "Python",
-   JAVASCRIPT = "JavaScript",
-   TYPESCRIPT = "TypeScript",
-   RUST = "Rust",
-   SQL = "SQL",
-   R = "R",
-   SWIFT = "Swift",
-   KOTLIN = "Kotlin",
-   GO = "Go",
-}
-
-export enum FrameworkSubCategory {
-   // Web Development
-   REACT = "React",
-   ANGULAR = "Angular",
-   VUE = "Vue",
-   SPRING_BOOT = "Spring Boot",
-   ASP_NET = "ASP.NET",
-   // Mobile Development
-   FLUTTER = "Flutter",
-   REACT_NATIVE = "React Native",
-   SWIFTUI = "SwiftUI",
-   // Game Development
-   UNITY = "Unity",
-   UNREAL_ENGINE = "Unreal Engine",
-   // Cloud/DevOps
-   AWS = "AWS",
-   AZURE = "Azure",
-   KUBERNETES = "Kubernetes",
-   DOCKER = "Docker",
-   // AI/Machine Learning
-   TENSORFLOW = "TensorFlow",
-   PYTORCH = "PyTorch",
-}
-
-export enum DatabaseSubCategory {
-   DBMS = "DBMS",
-   RELATIONAL_DATABASES = "Relational Databases",
-   NOSQL_DATABASES = "NoSQL Databases",
-   MYSQL = "MySQL",
-   POSTGRESQL = "PostgreSQL",
-   MONGODB = "MongoDB",
-   ORACLE = "Oracle",
-}
-
-// Mapping type to associate categories with subcategories, languages, and frameworks
-// type CategoryMapping = {
-//    category: Category;
-//    subcategory: SubCategory | LanguageSubCategory | FrameworkSubCategory;
-// };
-
-// // Updated mapping for filtering
-// const categoryMappings: CategoryMapping[] = [
-//    // Technology mappings
-//    { category: Category.AI_ML, subcategory: SubCategory.AI },
-//    { category: Category.AI_ML, subcategory: SubCategory.MACHINE_LEARNING },
-//    { category: Category.AI_ML, subcategory: SubCategory.DEEP_LEARNING },
-//    { category: Category.AI_ML, subcategory: SubCategory.NATURAL_LANGUAGE_PROCESSING },
-//    { category: Category.AI_ML, subcategory: SubCategory.COMPUTER_VISION },
-//    { category: Category.AI_ML, subcategory: SubCategory.REINFORCEMENT_LEARNING },
-//    { category: Category.AI_ML, subcategory: SubCategory.GENERATIVE_AI },
-//    { category: Category.EMBEDDED_SYSTEMS, subcategory: SubCategory.EMBEDDED_SYSTEMS },
-//    // Cloud mappings
-//    { category: Category.CLOUD, subcategory: SubCategory.CLOUD_COMPUTING },
-//    { category: Category.CLOUD, subcategory: FrameworkSubCategory.AWS },
-//    { category: Category.CLOUD, subcategory: FrameworkSubCategory.AZURE },
-//    { category: Category.CLOUD, subcategory: FrameworkSubCategory.KUBERNETES },
-//    { category: Category.CLOUD, subcategory: FrameworkSubCategory.DOCKER },
-//    { category: Category.CLOUD, subcategory: LanguageSubCategory.PYTHON },
-//    { category: Category.CLOUD, subcategory: LanguageSubCategory.BASH },
-//    // Cybersecurity mappings
-//    { category: Category.CYBERSECURITY, subcategory: SubCategory.NETWORK_SECURITY },
-//    { category: Category.CYBERSECURITY, subcategory: SubCategory.ETHICAL_HACKING },
-//    { category: Category.CYBERSECURITY, subcategory: LanguageSubCategory.PYTHON },
-//    { category: Category.CYBERSECURITY, subcategory: LanguageSubCategory.BASH },
-//    // UI/UX Design mappings
-//    { category: Category.UI_UX_DESIGN, subcategory: SubCategory.USER_EXPERIENCE },
-//    { category: Category.UI_UX_DESIGN, subcategory: SubCategory.USER_INTERFACE },
-//    { category: Category.UI_UX_DESIGN, subcategory: LanguageSubCategory.JAVASCRIPT },
-//    { category: Category.UI_UX_DESIGN, subcategory: FrameworkSubCategory.REACT },
-//    // DevOps mappings
-//    { category: Category.DEVOPS, subcategory: SubCategory.CI_CD },
-//    { category: Category.DEVOPS, subcategory: SubCategory.INFRASTRUCTURE_AS_CODE },
-//    { category: Category.DEVOPS, subcategory: FrameworkSubCategory.KUBERNETES },
-//    { category: Category.DEVOPS, subcategory: FrameworkSubCategory.DOCKER },
-//    { category: Category.DEVOPS, subcategory: LanguageSubCategory.PYTHON },
-//    { category: Category.DEVOPS, subcategory: LanguageSubCategory.BASH },
-//    // Marketing mappings
-//    { category: Category.MARKETING, subcategory: SubCategory.DIGITAL_MARKETING },
-//    { category: Category.MARKETING, subcategory: SubCategory.SEO },
-//    // Finance mappings
-//    { category: Category.FINANCE, subcategory: SubCategory.FINANCIAL_ANALYSIS },
-//    { category: Category.FINANCE, subcategory: SubCategory.FINTECH },
-//    { category: Category.FINANCE, subcategory: LanguageSubCategory.PYTHON },
-//    // Database mappings
-//    { category: Category.DATABASE, subcategory: SubCategory.DBMS },
-//    { category: Category.DATABASE, subcategory: SubCategory.RELATIONAL_DATABASES },
-//    { category: Category.DATABASE, subcategory: SubCategory.NOSQL_DATABASES },
-//    { category: Category.DATABASE, subcategory: LanguageSubCategory.SQL },
-//    { category: Category.DATABASE, subcategory: FrameworkSubCategory.MYSQL },
-//    { category: Category.DATABASE, subcategory: FrameworkSubCategory.POSTGRESQL },
-//    { category: Category.DATABASE, subcategory: FrameworkSubCategory.MONGODB },
-//    { category: Category.DATABASE, subcategory: FrameworkSubCategory.ORACLE },
-// ];
-
-// // Filtering utility functions for learning platform
-// // Get all categories
-// export function getAllCategories(): Category[] {
-//    return Object.values(Category);
-// }
-
-// // Get all subcategories (including languages and frameworks) for a category
-// export function getSubCategoriesForCategory(
-//    category: Category
-// ): (SubCategory | LanguageSubCategory | FrameworkSubCategory)[] {
-//    return categoryMappings
-//       .filter((mapping) => mapping.category === category)
-//       .map((mapping) => mapping.subcategory);
-// }
-
-// // Get only non-language, non-framework subcategories
-// export function getNonLanguageSubCategories(category: Category): SubCategory[] {
-//    return categoryMappings
-//       .filter(
-//          (mapping) =>
-//             mapping.category === category &&
-//             Object.values(SubCategory).includes(mapping.subcategory as SubCategory)
-//       )
-//       .map((mapping) => mapping.subcategory as SubCategory);
-// }
-
-// // Get only language subcategories
-// export function getLanguageSubCategories(category: Category): LanguageSubCategory[] {
-//    return categoryMappings
-//       .filter(
-//          (mapping) =>
-//             mapping.category === category &&
-//             Object.values(LanguageSubCategory).includes(mapping.subcategory as LanguageSubCategory)
-//       )
-//       .map((mapping) => mapping.subcategory as LanguageSubCategory);
-// }
-
-// // Get only framework subcategories
-// export function getFrameworkSubCategories(category: Category): FrameworkSubCategory[] {
-//    return categoryMappings
-//       .filter(
-//          (mapping) =>
-//             mapping.category === category &&
-//             Object.values(FrameworkSubCategory).includes(
-//                mapping.subcategory as FrameworkSubCategory
-//             )
-//       )
-//       .map((mapping) => mapping.subcategory as FrameworkSubCategory);
-// }
-
-// // Example: Course type and sample data for learning platform
-// type Course = {
-//    title: string;
-//    category: Category;
-//    subcategory: SubCategory | LanguageSubCategory | FrameworkSubCategory;
-// };
-
-// const courses: Course[] = [
-//    // Technology
-//    { title: "Introduction to AI", category: Category.TECHNOLOGY, subcategory: SubCategory.AI },
-//    { title: "Machine Learning with Python", category: Category.TECHNOLOGY, subcategory: LanguageSubCategory.PYTHON },
-//    { title: "Deep Learning with TensorFlow", category: Category.TECHNOLOGY, subcategory: FrameworkSubCategory.TENSORFLOW },
-//    { title: "Natural Language Processing Basics", category: Category.TECHNOLOGY, subcategory: SubCategory.NATURAL_LANGUAGE_PROCESSING },
-//    { title: "Computer Vision with PyTorch", category: Category.TECHNOLOGY, subcategory: FrameworkSubCategory.PYTORCH },
-//    { title: "Reinforcement Learning Fundamentals", category: Category.TECHNOLOGY, subcategory: SubCategory.REINFORCEMENT_LEARNING },
-//    { title: "Generative AI with GANs", category: Category.TECHNOLOGY, subcategory: SubCategory.GENERATIVE_AI },
-//    { title: "Embedded Systems with C", category: Category.TECHNOLOGY, subcategory: LanguageSubCategory.C },
-//    // Data
-//    { title: "Python for Data Science", category: Category.DATA, subcategory: LanguageSubCategory.PYTHON },
-//    // Software
-//    { title: "Web Development with JavaScript", category: Category.SOFTWARE, subcategory: LanguageSubCategory.JAVASCRIPT },
-//    { title: "React for Beginners", category: Category.SOFTWARE, subcategory: FrameworkSubCategory.REACT },
-//    { title: "Building APIs with Spring Boot", category: Category.SOFTWARE, subcategory: FrameworkSubCategory.SPRING_BOOT },
-//    { title: "Full-Stack Web Development", category: Category.SOFTWARE, subcategory: SubCategory.WEB_DEVELOPMENT },
-//    { title: "Mobile App Development with Flutter", category: Category.SOFTWARE, subcategory: FrameworkSubCategory.FLUTTER },
-//    { title: "iOS Development with Swift", category: Category.SOFTWARE, subcategory: LanguageSubCategory.SWIFT },
-//    { title: "Android Development with Kotlin", category: Category.SOFTWARE, subcategory: LanguageSubCategory.KOTLIN },
-//    { title: "Cross-Platform Mobile Apps", category: Category.SOFTWARE, subcategory: SubCategory.MOBILE_DEVELOPMENT },
-//    { title: "Game Development with Unity", category: Category.SOFTWARE, subcategory: FrameworkSubCategory.UNITY },
-//    { title: "Unreal Engine Basics", category: Category.SOFTWARE, subcategory: FrameworkSubCategory.UNREAL_ENGINE },
-//    { title: "Introduction to Game Development", category: Category.SOFTWARE, subcategory: SubCategory.GAME_DEVELOPMENT },
-//    // Cloud
-//    { title: "AWS Cloud Practitioner", category: Category.CLOUD, subcategory: FrameworkSubCategory.AWS },
-//    { title: "Cloud Computing Fundamentals", category: Category.CLOUD, subcategory: SubCategory.CLOUD_COMPUTING },
-//    // Cybersecurity
-//    { title: "Ethical Hacking Basics", category: Category.CYBERSECURITY, subcategory: SubCategory.ETHICAL_HACKING },
-//    { title: "Network Security with Python", category: Category.CYBERSECURITY, subcategory: LanguageSubCategory.PYTHON },
-//    // UI/UX Design
-//    { title: "User Experience Design", category: Category.UI_UX_DESIGN, subcategory: SubCategory.USER_EXPERIENCE },
-//    { title: "Building UI with React", category: Category.UI_UX_DESIGN, subcategory: FrameworkSubCategory.REACT },
-//    // DevOps
-//    { title: "CI/CD with Jenkins", category: Category.DEVOPS, subcategory: SubCategory.CI_CD },
-//    { title: "Kubernetes for DevOps", category: Category.DEVOPS, subcategory: FrameworkSubCategory.KUBERNETES },
-//    // Marketing
-//    { title: "Digital Marketing Strategy", category: Category.MARKETING, subcategory: SubCategory.DIGITAL_MARKETING },
-//    { title: "SEO Fundamentals", category: Category.MARKETING, subcategory: SubCategory.SEO },
-//    // Finance
-//    { title: "Financial Analysis with Python", category: Category.FINANCE, subcategory: LanguageSubCategory.PYTHON },
-//    { title: "Introduction to FinTech", category: Category.FINANCE, subcategory: SubCategory.FINTECH },
-//    // Database
-//    { title: "Introduction to DBMS", category: Category.DATABASE, subcategory: SubCategory.DBMS },
-//    { title: "SQL for Relational Databases", category: Category.DATABASE, subcategory: LanguageSubCategory.SQL },
-//    { title: "MySQL Database Administration", category: Category.DATABASE, subcategory: FrameworkSubCategory.MYSQL },
-//    { title: "MongoDB for NoSQL Databases", category: Category.DATABASE, subcategory: FrameworkSubCategory.MONGODB },
-//    { title: "Relational Database Design", category: Category.DATABASE, subcategory: SubCategory.RELATIONAL_DATABASES },
-//    { title: "NoSQL Database Fundamentals", category: Category.DATABASE, subcategory: SubCategory.NOSQL_DATABASES }
-// ];
-
-// Filter courses by category
-// export function filterCoursesByCategory(category: Category): Course[] {
-//    return courses.filter(course => course.category === category);
-// }
-
-// Filter courses by subcategory, language, or framework
-// export function filterCoursesBySubCategory(subcategory: SubCategory | LanguageSubCategory | FrameworkSubCategory): Course[] {
-//    return courses.filter(course => course.subcategory === subcategory);
-// }
-
-// Test the filtering
-// console.log(getAllCategories());
-// Output: ["Technology", "Data", "Software", "Cloud", "Cybersecurity", "UI/UX Design", "DevOps", "Marketing", "Finance", "Database"]
-
-// console.log(getSubCategoriesForCategory(Category.DATABASE));
-// Output: ["DBMS", "Relational Databases", "NoSQL Databases", "SQL", "MySQL", "PostgreSQL", "MongoDB", "Oracle"]
-
-// console.log(getNonLanguageSubCategories(Category.DATABASE));
-// Output: ["DBMS", "Relational Databases", "NoSQL Databases"]
-
-// console.log(getFrameworkSubCategories(Category.DATABASE));
-// Output: ["MySQL", "PostgreSQL", "MongoDB", "Oracle"]
-
-// console.log(filterCoursesByCategory(Category.DATABASE));
-// Output: [
-//   { title: "Introduction to DBMS", category: "Database", subcategory: "DBMS" },
-//   { title: "SQL for Relational Databases", category: "Database", subcategory: "SQL" },
-//   { title: "MySQL Database Administration", category: "Database", subcategory: "MySQL" },
-//   { title: "MongoDB for NoSQL Databases", category: "Database", subcategory: "MongoDB" },
-//   { title: "Relational Database Design", category: "Database", subcategory: "Relational Databases" },
-//   { title: "NoSQL Database Fundamentals", category: "Database", subcategory: "NoSQL Databases" }
-// ]
-
-// console.log(filterCoursesBySubCategory(SubCategory.DBMS));
-// Output: [{ title: "Introduction to DBMS", category: "Database", subcategory: "DBMS" }]
-
-// console.log(filterCoursesBySubCategory(FrameworkSubCategory.MYSQL));
-// Output: [{ title: "MySQL Database Administration", category: "Database", subcategory: "MySQL" }]
+export type SubCategoryValues = {
+   [K in keyof typeof SubCategory]: (typeof SubCategory)[K][keyof (typeof SubCategory)[K]];
+}[keyof typeof SubCategory];
 
 export enum CourseLevel {
-   BEGINNER = "Beginner Frendly",
+   BEGINNER = "Beginner Friendly",
    INTERMEDIATE = "Intermediate",
    ADVANCED = "Advanced",
 }
@@ -352,18 +144,488 @@ export enum TagColor {
    BLUE = "bg-blue-500",
 }
 
-export const TAG_TREND: CourseTag = { name: Tag.TREND, color: TagColor.RED };
-
-export const TAG_BESTSELLER: CourseTag = { name: Tag.BEST_SELLER, color: TagColor.GREEN };
-
-export const TAG_NEW: CourseTag = { name: Tag.NEW, color: TagColor.BLUE };
+export const COURSE_TAGS = {
+   TREND: { name: Tag.TREND, color: TagColor.RED } as const,
+   BEST_SELLER: { name: Tag.BEST_SELLER, color: TagColor.GREEN } as const,
+   NEW: { name: Tag.NEW, color: TagColor.BLUE } as const,
+} as const;
 
 export enum LectureFileType {
-   VIDEO,
-   PDF,
-   QUIZ,
-   PRACTICE,
+   VIDEO = "Video",
+   PDF = "PDF",
+   QUIZ = "Quiz",
+   PRACTICE = "Practice",
 }
+
+export interface CourseTag {
+   name: Tag;
+   color: TagColor;
+}
+
+export interface CourseOverviewCard {
+   id: string;
+   category: Category;
+   title: string;
+   description: string;
+   instructor: string;
+   instructorImg?: string;
+   price: number;
+   tag?: CourseTag;
+   duration: number;
+   rating: number;
+   lesson: number;
+   level: CourseLevel;
+}
+
+export const ALL_COURSES: CourseOverviewCard[] = [
+   {
+      id: "course-001",
+      category: Category.PROGRAMMING,
+      title: "JavaScript Fundamentals",
+      description:
+         "Master JavaScript from scratch with practical exercises and real-world projects",
+      instructor: "James Wilson",
+      price: 49.99,
+      tag: COURSE_TAGS.TREND,
+      duration: 33000,
+      rating: 4.8,
+      lesson: 24,
+      level: CourseLevel.BEGINNER,
+   },
+   {
+      id: "course-002",
+      category: Category.UI_UX_DESIGN,
+      title: "Figma for UI Designers",
+      description: "Learn to create beautiful interfaces and prototypes with Figma",
+      instructor: "Emily Chen",
+      price: 59.99,
+      tag: COURSE_TAGS.BEST_SELLER,
+      duration: 37200,
+      rating: 4.0,
+      lesson: 18,
+      level: CourseLevel.INTERMEDIATE,
+   },
+   {
+      id: "course-003",
+      category: Category.DATA_SCIENCE,
+      title: "Python for Data Analysis",
+      description: "Learn to analyze and visualize data using Python, Pandas and NumPy",
+      instructor: "Robert Kim",
+      price: 69.99,
+      duration: 39630,
+      rating: 4.2,
+      lesson: 30,
+      level: CourseLevel.ADVANCED,
+   },
+   {
+      id: "course-004",
+      category: Category.PROGRAMMING,
+      title: "Swift for Beginners",
+      description: "Swift for iOS app development",
+      instructor: "Maria Lopez",
+      price: 39.99,
+      tag: COURSE_TAGS.NEW,
+      duration: 37200,
+      rating: 4.5,
+      lesson: 16,
+      level: CourseLevel.BEGINNER,
+   },
+   {
+      id: "course-005",
+      category: Category.AI,
+      title: "Introduction to Artificial Intelligence",
+      description: "Explore AI concepts and build your first neural network",
+      instructor: "Dr. Sarah Thompson",
+      price: 79.99,
+      tag: COURSE_TAGS.TREND,
+      duration: 43200,
+      rating: 4.7,
+      lesson: 28,
+      level: CourseLevel.INTERMEDIATE,
+   },
+   {
+      id: "course-006",
+      category: Category.CLOUD,
+      title: "AWS Cloud Practitioner Essentials",
+      description: "Master the fundamentals of AWS cloud services and solutions",
+      instructor: "Michael Brown",
+      price: 64.99,
+      tag: COURSE_TAGS.BEST_SELLER,
+      duration: 36000,
+      rating: 4.4,
+      lesson: 20,
+      level: CourseLevel.BEGINNER,
+   },
+   {
+      id: "course-007",
+      category: Category.CYBERSECURITY,
+      title: "Ethical Hacking Basics",
+      description: "Learn penetration testing and cybersecurity fundamentals",
+      instructor: "Alex Carter",
+      price: 89.99,
+      duration: 46800,
+      rating: 4.6,
+      lesson: 32,
+      level: CourseLevel.ADVANCED,
+   },
+   {
+      id: "course-008",
+      category: Category.AI,
+      title: "Machine Learning with TensorFlow",
+      description: "Build and deploy machine learning models using TensorFlow",
+      instructor: "Dr. Priya Sharma",
+      price: 74.99,
+      tag: COURSE_TAGS.NEW,
+      duration: 41400,
+      rating: 4.3,
+      lesson: 26,
+      level: CourseLevel.INTERMEDIATE,
+   },
+   {
+      id: "course-009",
+      category: Category.UI_UX_DESIGN,
+      title: "Adobe Photoshop Masterclass",
+      description: "Create stunning graphics and photo edits with Photoshop",
+      instructor: "Lisa Nguyen",
+      price: 54.99,
+      tag: COURSE_TAGS.BEST_SELLER,
+      duration: 34200,
+      rating: 4.9,
+      lesson: 22,
+      level: CourseLevel.BEGINNER,
+   },
+   {
+      id: "course-010",
+      category: Category.WEB_DEVELOPMENT,
+      title: "React.js for Web Development",
+      description: "Build modern web applications with React and Redux",
+      instructor: "David Miller",
+      price: 69.99,
+      tag: COURSE_TAGS.TREND,
+      duration: 39600,
+      rating: 4.5,
+      lesson: 29,
+      level: CourseLevel.INTERMEDIATE,
+   },
+   {
+      id: "course-011",
+      category: Category.CLOUD,
+      title: "Docker and Kubernetes Fundamentals",
+      description: "Learn containerization and orchestration for modern DevOps",
+      instructor: "Sophie Lee",
+      price: 79.99,
+      duration: 45000,
+      rating: 4.3,
+      lesson: 31,
+      level: CourseLevel.ADVANCED,
+   },
+   {
+      id: "course-013",
+      category: Category.DATABASE,
+      title: "SQL and Database Design",
+      description: "Learn to design and query databases with SQL and MySQL",
+      instructor: "John Patel",
+      price: 59.99,
+      tag: COURSE_TAGS.BEST_SELLER,
+      duration: 37800,
+      rating: 4.4,
+      lesson: 25,
+      level: CourseLevel.INTERMEDIATE,
+   },
+   {
+      id: "course-014",
+      category: Category.GAME_DEVELOPMENT,
+      title: "Unity 3D Game Development",
+      description: "Build your first 3D game using Unity and C#",
+      instructor: "Thomas Reed",
+      price: 74.99,
+      tag: COURSE_TAGS.TREND,
+      duration: 43200,
+      rating: 4.7,
+      lesson: 27,
+      level: CourseLevel.INTERMEDIATE,
+   },
+   {
+      id: "course-016",
+      category: Category.PROGRAMMING,
+      title: "Advanced Python Programming",
+      description: "Dive into advanced Python concepts like decorators and concurrency",
+      instructor: "Dr. Anna Kowalski",
+      price: 84.99,
+      duration: 46800,
+      rating: 4.8,
+      lesson: 33,
+      level: CourseLevel.ADVANCED,
+   },
+   {
+      id: "course-017",
+      category: Category.PROGRAMMING,
+      title: "Intermediate Java Programming language",
+      description: "Improve your Java skills with Multi threading",
+      instructor: "Claire Dubois",
+      price: 49.99,
+      tag: COURSE_TAGS.BEST_SELLER,
+      duration: 36000,
+      rating: 4.6,
+      lesson: 20,
+      level: CourseLevel.INTERMEDIATE,
+   },
+   {
+      id: "course-018",
+      category: Category.AI,
+      title: "Deep Learning with PyTorch",
+      description: "Build advanced neural networks using PyTorch",
+      instructor: "Dr. Wei Zhang",
+      price: 79.99,
+      tag: COURSE_TAGS.BEST_SELLER,
+      duration: 41400,
+      rating: 4.5,
+      lesson: 28,
+      level: CourseLevel.ADVANCED,
+   },
+   {
+      id: "course-019",
+      category: Category.CLOUD,
+      title: "Azure Cloud Fundamentals",
+      description: "Learn Microsoft Azure services for cloud computing",
+      instructor: "Mark Sullivan",
+      price: 64.99,
+      tag: COURSE_TAGS.NEW,
+      duration: 37200,
+      rating: 4.3,
+      lesson: 21,
+      level: CourseLevel.BEGINNER,
+   },
+   {
+      id: "course-020",
+      category: Category.UI_UX_DESIGN,
+      title: "Advanced UX Research Techniques",
+      description: "Master user research methods for creating user-centered designs",
+      instructor: "Rachel Kim",
+      price: 69.99,
+      duration: 39600,
+      rating: 4.4,
+      lesson: 26,
+      level: CourseLevel.ADVANCED,
+   },
+   {
+      id: "course-021",
+      category: Category.CYBERSECURITY,
+      title: "Network Security Essentials",
+      description: "Learn to secure networks and prevent cyber threats",
+      instructor: "Daniel Ortiz",
+      price: 74.99,
+      tag: COURSE_TAGS.BEST_SELLER,
+      duration: 41400,
+      rating: 4.6,
+      lesson: 29,
+      level: CourseLevel.INTERMEDIATE,
+   },
+];
+
+export interface LectureOverview {
+   id: string;
+   title: string;
+   fileType: LectureFileType;
+   duration: number;
+}
+
+export interface SectionOverview {
+   id: string;
+   title: string;
+   order: number;
+   duration: number;
+   basePrice: number;
+   lectures: LectureOverview[];
+}
+
+export interface Feedback {
+   id: string;
+   rating: number;
+   createdAt: string;
+   content: string;
+   student: string;
+   studentImg?: string;
+   studentId: string;
+}
+export interface CourseDetail {
+   id: string;
+   category: Category;
+   subCategory: SubCategoryValues[];
+   title: string;
+   description: string;
+   tag?: CourseTag;
+   rating: number;
+   reviewsCount: number;
+   enrolledStudents: number;
+   updatedAt: string;
+   duration: number; // Total seconds
+   level: CourseLevel;
+   projects: number;
+   resources: number;
+   whatYouWillLearn: string[];
+   section: SectionOverview[];
+   feedbacks: Feedback[];
+   instructorId: string;
+   instructorImg?: string;
+   instructorName: string;
+   instructorCoursesCount: number;
+   seeAlsoCourses: CourseOverviewCard[];
+   currency: Currency; // e.g., "USD"
+   originalPrice: number;
+   discount: number; // Percent
+   totalPrice: number; // Sum of Section.finalPrice for all sections
+}
+
+export const SAMPLE_COURSE_DETAIL: CourseDetail = {
+   id: "course-022",
+   category: Category.AI,
+   subCategory: [
+      SubCategory.AI.MachineLearning,
+      SubCategory.AI.DeepLearning,
+      SubCategory.Framework.PyTorch,
+   ],
+   title: "Mastering Deep Learning with PyTorch",
+   description:
+      "Dive into deep learning with hands-on projects using PyTorch. Learn to build, train, and deploy neural networks for real-world applications.",
+   tag: COURSE_TAGS.BEST_SELLER,
+   rating: 4.7,
+   reviewsCount: 250,
+   enrolledStudents: 1200,
+   updatedAt: "2025-05-01",
+   duration: 54000, // 15 hours (15 * 3600 seconds)
+   level: CourseLevel.INTERMEDIATE,
+   projects: 5,
+   resources: 12,
+   whatYouWillLearn: [
+      "Understand deep learning fundamentals",
+      "Build neural networks with PyTorch",
+      "Implement convolutional neural networks (CNNs)",
+      "Work with real-world datasets",
+      "Optimize and deploy models",
+   ],
+   section: [
+      {
+         id: "section-001",
+         title: "Introduction to Deep Learning",
+         order: 1,
+         duration: 7200, // 2 hours
+         basePrice: 49.99,
+         lectures: [
+            {
+               id: "lecture-001",
+               title: "What is Deep Learning?",
+               fileType: LectureFileType.VIDEO,
+               duration: 1800, // 30 minutes
+            },
+            {
+               id: "lecture-002",
+               title: "Setting Up PyTorch",
+               fileType: LectureFileType.VIDEO,
+               duration: 1200, // 20 minutes
+            },
+            {
+               id: "lecture-003",
+               title: "Quiz: Deep Learning Basics",
+               fileType: LectureFileType.QUIZ,
+               duration: 600, // 10 minutes
+            },
+         ],
+      },
+      {
+         id: "section-002",
+         title: "Building Neural Networks",
+         order: 2,
+         duration: 10800, // 3 hours
+         basePrice: 59.99,
+         lectures: [
+            {
+               id: "lecture-004",
+               title: "Neural Network Architecture",
+               fileType: LectureFileType.VIDEO,
+               duration: 2400, // 40 minutes
+            },
+            {
+               id: "lecture-005",
+               title: "Hands-On: Building a Simple Neural Network",
+               fileType: LectureFileType.PRACTICE,
+               duration: 3600, // 60 minutes
+            },
+            {
+               id: "lecture-006",
+               title: "Reference Guide: Neural Networks",
+               fileType: LectureFileType.PDF,
+               duration: 1200, // 20 minutes
+            },
+         ],
+      },
+   ],
+   feedbacks: [
+      {
+         id: "feedback-001",
+         rating: 4.8,
+         createdAt: "2025-05-15",
+         content:
+            "This course completely changed my understanding of AI. The practical examples and clear explanations made complex concepts easy to grasp and readl-world example.",
+         student: "John Wick",
+         studentId: "student-001",
+      },
+      {
+         id: "feedback-002",
+         rating: 4,
+         createdAt: "2025-04-20",
+         content:
+            "Dr. Johnson is an exceptional instructor. Her passion for the subject shines through in every lecture. Highly recommended!",
+         student: "Bob Smith",
+         studentId: "student-002",
+      },
+      {
+         id: "feedback-003",
+         rating: 5,
+         createdAt: "2025-04-25",
+         content:
+            "Great content and structure. Some sections could use more detailed explanations, but overall a fantastic learning experience.",
+         student: "Robert Lewandowsky",
+         studentId: "student-003",
+      },
+   ],
+   instructorId: "inst-002",
+   instructorName: "Dr. Wei Zhang",
+   instructorCoursesCount: 3,
+   seeAlsoCourses: [
+      {
+         id: "course-008",
+         category: Category.AI,
+         title: "Machine Learning with TensorFlow",
+         description: "Build and deploy machine learning models using TensorFlow",
+         instructor: "Dr. Priya Sharma",
+         price: 74.99,
+         tag: COURSE_TAGS.NEW,
+         duration: 41400,
+         rating: 4.3,
+         lesson: 26,
+         level: CourseLevel.INTERMEDIATE,
+      },
+      {
+         id: "course-018",
+         category: Category.AI,
+         title: "Deep Learning with PyTorch",
+         description: "Build advanced neural networks using PyTorch",
+         instructor: "Dr. Wei Zhang",
+         price: 79.99,
+         tag: COURSE_TAGS.BEST_SELLER,
+         duration: 41400,
+         rating: 4.5,
+         lesson: 28,
+         level: CourseLevel.ADVANCED,
+      },
+   ],
+   currency: Currency.USD,
+   originalPrice: 99.99,
+   discount: 15, // 15% discount
+   totalPrice: 84.99, // After discount
+};
+
 // ======================================== Constatnts ========================================
 export const USERS: User[] = [
    {
@@ -634,220 +896,6 @@ export const PRICING_RULES: PricingRule[] = [
       maxApplications: 1,
    },
 ];
-
-// export const COURSES: Course[] = [
-//    {
-//       id: "course_001",
-//       createdAt: "2025-03-01",
-//       updatedAt: "2025-05-10",
-//       title: "Introduction to Python",
-//       instructorId: "user_007",
-//       description: "Learn Python programming from scratch.",
-//       duration: 3600,
-//       category: Category.PROGRAMMING,
-//       totalPrice: 69.98,
-//       currency: Currency.USD,
-//       thumbnail: "/assets/img-1.jpg",
-//       rating: 4.5,
-//       reviewsCount: 12044,
-//       enrolledStudents: 1234,
-//       isBestSeller: true,
-//       status: CourseRelatedStatus.PUBLISHED,
-//       sectionIds: ["section_001", "section_002"],
-//       commentIds: ["comment_001", "comment_002"],
-//       publishedAt: "2025-05-10",
-//    },
-//    {
-//       id: "course_002",
-//       createdAt: "2025-03-01",
-//       updatedAt: "2025-05-10",
-//       title: "Data Science with R",
-//       instructorId: "user_007",
-//       description: "Master data analysis with R.",
-//       duration: 7200,
-//       category: Category.DATA_SCIENCE,
-//       totalPrice: 60,
-//       currency: Currency.USD,
-//       thumbnail: "/assets/img-1.jpg",
-//       rating: 4.2,
-//       reviewsCount: 80,
-//       enrolledStudents: 55,
-//       isBestSeller: false,
-//       status: CourseRelatedStatus.PUBLISHED,
-//       sectionIds: ["section_003", "section_004", "section_005", "section_006"],
-//       commentIds: [],
-//       publishedAt: "2025-05-10",
-//    },
-//    {
-//       id: "course_003",
-//       createdAt: "2025-03-01",
-//       updatedAt: "2025-05-10",
-//       title: "Web Development Bootcamp",
-//       instructorId: "user_008",
-//       description: "Build modern web applications with HTML, CSS, and JavaScript.",
-//       duration: 10800,
-//       category: Category.WEB_DEVELOPMENT,
-//       totalPrice: 109.98,
-//       currency: Currency.USD,
-//       thumbnail: "/assets/img-1.jpg",
-//       rating: 4.8,
-//       reviewsCount: 200,
-//       enrolledStudents: 150,
-//       isBestSeller: true,
-//       status: CourseRelatedStatus.PUBLISHED,
-//       sectionIds: ["section_007", "section_008"],
-//       commentIds: ["comment_003", "comment_004"],
-//       publishedAt: "2025-05-10",
-//    },
-//    {
-//       id: "course_004",
-//       createdAt: "2025-03-01",
-//       updatedAt: "2025-05-10",
-//       title: "Advanced JavaScript",
-//       instructorId: "user_008",
-//       description: "Deep dive into JavaScript frameworks and patterns.",
-//       duration: 5400,
-//       category: Category.DEVELOPMENT,
-//       totalPrice: 39.99,
-//       currency: Currency.USD,
-//       thumbnail: "/assets/img-1.jpg",
-//       rating: 4.3,
-//       reviewsCount: 90,
-//       enrolledStudents: 80,
-//       isBestSeller: false,
-//       status: CourseRelatedStatus.PUBLISHED,
-//       sectionIds: ["section_009"],
-//       commentIds: [],
-//       publishedAt: "2025-05-10",
-//    },
-//    {
-//       id: "course_005",
-//       createdAt: "2025-03-01",
-//       updatedAt: "2025-05-10",
-//       title: "Intro to Machine Learning",
-//       instructorId: "user_008",
-//       description: "Learn the basics of machine learning with Python.",
-//       duration: 9000,
-//       category: Category.MACHINE_LEARNING,
-//       totalPrice: 179.99,
-//       currency: Currency.USD,
-//       thumbnail: "/assets/img-1.jpg",
-//       rating: 4.6,
-//       reviewsCount: 150,
-//       enrolledStudents: 100,
-//       isBestSeller: true,
-//       status: CourseRelatedStatus.PUBLISHED,
-//       sectionIds: [],
-//       commentIds: ["comment_005"],
-//       publishedAt: "2025-05-10",
-//    },
-//    {
-//       id: "course_006",
-//       createdAt: "2025-03-01",
-//       updatedAt: "2025-05-10",
-//       title: "AWS Cloud Practitioner Essentials",
-//       instructorId: "user_008",
-//       description: "Master the fundamentals of AWS cloud services.",
-//       duration: 7200,
-//       category: Category.CLOUD,
-//       totalPrice: 89.98,
-//       currency: Currency.USD,
-//       thumbnail: "/assets/img-1.jpg",
-//       rating: 4.7,
-//       reviewsCount: 180,
-//       enrolledStudents: 100,
-//       isBestSeller: true,
-//       status: CourseRelatedStatus.PUBLISHED,
-//       sectionIds: ["section_010", "section_011"],
-//       commentIds: ["comment_006", "comment_007"],
-//       publishedAt: "2025-05-10",
-//    },
-//    {
-//       id: "course_007",
-//       createdAt: "2025-03-01",
-//       updatedAt: "2025-05-10",
-//       title: "Cybersecurity Fundamentals",
-//       instructorId: "user_007",
-//       description: "Learn to protect systems and data from cyber threats.",
-//       duration: 7200,
-//       category: Category.CYBERSECURITY,
-//       totalPrice: 109.98,
-//       currency: Currency.USD,
-//       thumbnail: "/assets/img-1.jpg",
-//       rating: 4.4,
-//       reviewsCount: 110,
-//       enrolledStudents: 95,
-//       isBestSeller: false,
-//       status: CourseRelatedStatus.PUBLISHED,
-//       sectionIds: ["section_012", "section_013"],
-//       commentIds: ["comment_008"],
-//       publishedAt: "2025-05-10",
-//    },
-//    {
-//       id: "course_008",
-//       createdAt: "2025-03-01",
-//       updatedAt: "2025-05-10",
-//       title: "UI/UX Design with Figma",
-//       instructorId: "user_008",
-//       description: "Design user-friendly interfaces using Figma.",
-//       duration: 5400,
-//       category: Category.UI_UX_DESIGN,
-//       totalPrice: 29.99,
-//       currency: Currency.USD,
-//       thumbnail: "/assets/img-1.jpg",
-//       rating: 4.6,
-//       reviewsCount: 95,
-//       enrolledStudents: 80,
-//       isBestSeller: true,
-//       status: CourseRelatedStatus.PUBLISHED,
-//       sectionIds: ["section_014"],
-//       commentIds: ["comment_009"],
-//       publishedAt: "2025-05-10",
-//    },
-//    {
-//       id: "course_009",
-//       createdAt: "2025-03-01",
-//       updatedAt: "2025-05-10",
-//       title: "SQL for Beginners",
-//       instructorId: "user_007",
-//       description: "Learn database management with SQL.",
-//       duration: 3600,
-//       category: Category.DATABASE,
-//       totalPrice: 29.99,
-//       currency: Currency.USD,
-//       thumbnail: "/assets/img-1.jpg",
-//       rating: 4.3,
-//       reviewsCount: 75,
-//       enrolledStudents: 70,
-//       isBestSeller: false,
-//       status: CourseRelatedStatus.PUBLISHED,
-//       sectionIds: ["section_015"],
-//       commentIds: ["comment_010"],
-//       publishedAt: "2025-05-10",
-//    },
-//    {
-//       id: "course_010",
-//       createdAt: "2025-03-01",
-//       updatedAt: "2025-05-10",
-//       title: "Advanced Cloud Architecture",
-//       instructorId: "user_008",
-//       description: "Design scalable cloud solutions with AWS.",
-//       duration: 9000,
-//       category: Category.CLOUD,
-//       totalPrice: 69.99,
-//       currency: Currency.USD,
-//       thumbnail: "assets/img-1.jpg",
-//       rating: 4.9,
-//       reviewsCount: 50,
-//       enrolledStudents: 40,
-//       isBestSeller: false,
-//       status: CourseRelatedStatus.PUBLISHED,
-//       sectionIds: ["section_016"],
-//       commentIds: ["comment_011"],
-//       publishedAt: "2025-05-10",
-//    },
-//    // Note: Courses 011–015 omitted for brevity; similar structure applies
-// ];
 
 export const SECTIONS: Section[] = [
    {
@@ -1599,374 +1647,3 @@ export const CART_ITEMS: CartItem[] = [
       subscriptionBenefitApplied: false,
    },
 ];
-
-// =============== Data Ver 2 ===============
-
-export interface CourseTag {
-   name: Tag;
-   color: TagColor;
-}
-
-export interface CourseOverviewCard {
-   id: string;
-   category: Category;
-   title: string;
-   description: string;
-   instructor: string;
-   instructorImg?: string;
-   price: number;
-   tag?: CourseTag;
-   duration: number;
-   rating: number;
-   lesson: number;
-   level: CourseLevel;
-}
-
-export const ALL_COURSES: CourseOverviewCard[] = [
-   {
-      id: "course-001",
-      category: Category.PROGRAMMING,
-      title: "JavaScript Fundamentals",
-      description:
-         "Master JavaScript from scratch with practical exercises and real-world projects",
-      instructor: "James Wilson",
-      price: 49.99,
-      tag: TAG_TREND,
-      duration: 33000,
-      rating: 4.8,
-      lesson: 24,
-      level: CourseLevel.BEGINNER,
-   },
-   {
-      id: "course-002",
-      category: Category.UI_UX_DESIGN,
-      title: "Figma for UI Designers",
-      description: "Learn to create beautiful interfaces and prototypes with Figma",
-      instructor: "Emily Chen",
-      price: 59.99,
-      tag: TAG_BESTSELLER,
-      duration: 37200,
-      rating: 4.0,
-      lesson: 18,
-      level: CourseLevel.INTERMEDIATE,
-   },
-   {
-      id: "course-003",
-      category: Category.DATA_SCIENCE,
-      title: "Python for Data Analysis",
-      description: "Learn to analyze and visualize data using Python, Pandas and NumPy",
-      instructor: "Robert Kim",
-      price: 69.99,
-      duration: 39630,
-      rating: 4.2,
-      lesson: 30,
-      level: CourseLevel.ADVANCED,
-   },
-   {
-      id: "course-004",
-      category: Category.PROGRAMMING,
-      title: "Swift for Beginners",
-      description: "Swift for iOS app development",
-      instructor: "Maria Lopez",
-      price: 39.99,
-      tag: TAG_NEW,
-      duration: 37200,
-      rating: 4.5,
-      lesson: 16,
-      level: CourseLevel.BEGINNER,
-   },
-   {
-      id: "course-005",
-      category: Category.AI,
-      title: "Introduction to Artificial Intelligence",
-      description: "Explore AI concepts and build your first neural network",
-      instructor: "Dr. Sarah Thompson",
-      price: 79.99,
-      tag: TAG_TREND,
-      duration: 43200,
-      rating: 4.7,
-      lesson: 28,
-      level: CourseLevel.INTERMEDIATE,
-   },
-   {
-      id: "course-006",
-      category: Category.CLOUD,
-      title: "AWS Cloud Practitioner Essentials",
-      description: "Master the fundamentals of AWS cloud services and solutions",
-      instructor: "Michael Brown",
-      price: 64.99,
-      tag: TAG_BESTSELLER,
-      duration: 36000,
-      rating: 4.4,
-      lesson: 20,
-      level: CourseLevel.BEGINNER,
-   },
-   {
-      id: "course-007",
-      category: Category.CYBERSECURITY,
-      title: "Ethical Hacking Basics",
-      description: "Learn penetration testing and cybersecurity fundamentals",
-      instructor: "Alex Carter",
-      price: 89.99,
-      duration: 46800,
-      rating: 4.6,
-      lesson: 32,
-      level: CourseLevel.ADVANCED,
-   },
-   {
-      id: "course-008",
-      category: Category.AI,
-      title: "Machine Learning with TensorFlow",
-      description: "Build and deploy machine learning models using TensorFlow",
-      instructor: "Dr. Priya Sharma",
-      price: 74.99,
-      tag: TAG_NEW,
-      duration: 41400,
-      rating: 4.3,
-      lesson: 26,
-      level: CourseLevel.INTERMEDIATE,
-   },
-   {
-      id: "course-009",
-      category: Category.UI_UX_DESIGN,
-      title: "Adobe Photoshop Masterclass",
-      description: "Create stunning graphics and photo edits with Photoshop",
-      instructor: "Lisa Nguyen",
-      price: 54.99,
-      tag: TAG_BESTSELLER,
-      duration: 34200,
-      rating: 4.9,
-      lesson: 22,
-      level: CourseLevel.BEGINNER,
-   },
-   {
-      id: "course-010",
-      category: Category.WEB_DEVELOPMENT,
-      title: "React.js for Web Development",
-      description: "Build modern web applications with React and Redux",
-      instructor: "David Miller",
-      price: 69.99,
-      tag: TAG_TREND,
-      duration: 39600,
-      rating: 4.5,
-      lesson: 29,
-      level: CourseLevel.INTERMEDIATE,
-   },
-   {
-      id: "course-011",
-      category: Category.CLOUD,
-      title: "Docker and Kubernetes Fundamentals",
-      description: "Learn containerization and orchestration for modern DevOps",
-      instructor: "Sophie Lee",
-      price: 79.99,
-      duration: 45000,
-      rating: 4.3,
-      lesson: 31,
-      level: CourseLevel.ADVANCED,
-   },
-   {
-      id: "course-012",
-      category: Category.MARKETING,
-      title: "Digital Marketing Strategies",
-      description: "Master SEO, social media, and content marketing techniques",
-      instructor: "Emma Watson",
-      price: 49.99,
-      tag: TAG_NEW,
-      duration: 32400,
-      rating: 4.6,
-      lesson: 19,
-      level: CourseLevel.BEGINNER,
-   },
-   {
-      id: "course-013",
-      category: Category.DATABASE,
-      title: "SQL and Database Design",
-      description: "Learn to design and query databases with SQL and MySQL",
-      instructor: "John Patel",
-      price: 59.99,
-      tag: TAG_BESTSELLER,
-      duration: 37800,
-      rating: 4.4,
-      lesson: 25,
-      level: CourseLevel.INTERMEDIATE,
-   },
-   {
-      id: "course-014",
-      category: Category.GAME_DEVELOPMENT,
-      title: "Unity 3D Game Development",
-      description: "Build your first 3D game using Unity and C#",
-      instructor: "Thomas Reed",
-      price: 74.99,
-      tag: TAG_TREND,
-      duration: 43200,
-      rating: 4.7,
-      lesson: 27,
-      level: CourseLevel.INTERMEDIATE,
-   },
-   {
-      id: "course-015",
-      category: Category.FINANCE,
-      title: "Personal Finance and Investing",
-      description: "Master budgeting, investing, and financial planning",
-      instructor: "Laura Bennett",
-      price: 44.99,
-      tag: TAG_NEW,
-      duration: 30600,
-      rating: 4.5,
-      lesson: 17,
-      level: CourseLevel.BEGINNER,
-   },
-   {
-      id: "course-016",
-      category: Category.PROGRAMMING,
-      title: "Advanced Python Programming",
-      description: "Dive into advanced Python concepts like decorators and concurrency",
-      instructor: "Dr. Anna Kowalski",
-      price: 84.99,
-      duration: 46800,
-      rating: 4.8,
-      lesson: 33,
-      level: CourseLevel.ADVANCED,
-   },
-   {
-      id: "course-017",
-      category: Category.PROGRAMMING,
-      title: "Intermediate Java Programming language",
-      description: "Improve your Java skills with Multi threading",
-      instructor: "Claire Dubois",
-      price: 49.99,
-      tag: TAG_BESTSELLER,
-      duration: 36000,
-      rating: 4.6,
-      lesson: 20,
-      level: CourseLevel.INTERMEDIATE,
-   },
-   {
-      id: "course-018",
-      category: Category.AI,
-      title: "Deep Learning with PyTorch",
-      description: "Build advanced neural networks using PyTorch",
-      instructor: "Dr. Wei Zhang",
-      price: 79.99,
-      tag: TAG_BESTSELLER,
-      duration: 41400,
-      rating: 4.5,
-      lesson: 28,
-      level: CourseLevel.ADVANCED,
-   },
-   {
-      id: "course-019",
-      category: Category.CLOUD,
-      title: "Azure Cloud Fundamentals",
-      description: "Learn Microsoft Azure services for cloud computing",
-      instructor: "Mark Sullivan",
-      price: 64.99,
-      tag: TAG_NEW,
-      duration: 37200,
-      rating: 4.3,
-      lesson: 21,
-      level: CourseLevel.BEGINNER,
-   },
-   {
-      id: "course-020",
-      category: Category.UI_UX_DESIGN,
-      title: "Advanced UX Research Techniques",
-      description: "Master user research methods for creating user-centered designs",
-      instructor: "Rachel Kim",
-      price: 69.99,
-      duration: 39600,
-      rating: 4.4,
-      lesson: 26,
-      level: CourseLevel.ADVANCED,
-   },
-   {
-      id: "course-021",
-      category: Category.CYBERSECURITY,
-      title: "Network Security Essentials",
-      description: "Learn to secure networks and prevent cyber threats",
-      instructor: "Daniel Ortiz",
-      price: 74.99,
-      tag: TAG_BESTSELLER,
-      duration: 41400,
-      rating: 4.6,
-      lesson: 29,
-      level: CourseLevel.INTERMEDIATE,
-   },
-   {
-      id: "course-022",
-      category: Category.MARKETING,
-      title: "Advanced Social Media Marketing",
-      description: "Develop expert strategies for social media campaigns",
-      instructor: "Olivia Grant",
-      price: 59.99,
-      tag: TAG_TREND,
-      duration: 34200,
-      rating: 4.5,
-      lesson: 23,
-      level: CourseLevel.ADVANCED,
-   },
-   {
-      id: "course-023",
-      category: Category.MARKETING,
-      title: "Advanced Social Media Marketing",
-      description: "Develop expert strategies for social media campaigns",
-      instructor: "Olivia Grant",
-      price: 59.99,
-      tag: TAG_BESTSELLER,
-      duration: 34200,
-      rating: 4.5,
-      lesson: 23,
-      level: CourseLevel.ADVANCED,
-   },
-   {
-      id: "course-024",
-      category: Category.MARKETING,
-      title: "Advanced Social Media Marketing",
-      description: "Develop expert strategies for social media campaigns",
-      instructor: "Olivia Grant",
-      price: 59.99,
-      tag: TAG_NEW,
-      duration: 34200,
-      rating: 4.5,
-      lesson: 23,
-      level: CourseLevel.ADVANCED,
-   },
-];
-
-export interface LectureOverview {
-   id: string;
-   title: string;
-   fileType: LectureFileType;
-   duration: number;
-}
-
-export interface SectionOverview {
-   id: string;
-   title: string;
-   order: number;
-   duration: number;
-   lectures: LectureOverview[];
-}
-
-export interface CourseDetail {
-   category: Category[];
-   level: CourseLevel;
-   title: string;
-   description: string;
-   tag: Tag;
-   whatYouWillLearn: string[];
-   section: SectionOverview[];
-   rating: number;
-   reviewsCount: number;
-   enrolledStudents: number;
-   updatedAt: string;
-   instructorId: string;
-   duration: number; // Total seconds
-   thumbnail: string;
-   totalPrice: number; // Sum of Section.finalPrice for all sections
-   currency: Currency; // e.g., "USD"
-   status: CourseRelatedStatus;
-   sectionIds: string[];
-   commentIds: string[];
-   publishedAt?: string;
-}

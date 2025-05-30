@@ -3,8 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { KEYWORD_PARAMS, CATEGORY_PARAMS, TAG_PARAMS } from "@/utils/constant";
-import { ALL_COURSES, CourseOverviewCard } from "@/utils/data";
-import { X } from "lucide-react";
+import { ALL_COURSES, Category, CourseLevel, CourseOverviewCard } from "@/utils/data";
 import CourseCard from "@/components/common/CourseCard";
 
 export default function CoursesPage() {
@@ -62,10 +61,6 @@ export default function CoursesPage() {
       setMinRating(0);
    };
 
-   // Categories and levels for filter options
-   const categories = ["Web Development", "Data Science", "Marketing", "Design"];
-   const levels = ["Beginner", "Intermediate", "Advanced", "All Levels"];
-
    // Replace the hard-coded coursesData with an API call to fetch courses based on the search query and filters
    // useEffect(() => {
    //    const fetchCourses = async () => {
@@ -87,19 +82,16 @@ export default function CoursesPage() {
    );
 
    return (
-      <div className="w-full min-h-screen p-0 bg-gray-50 font-sans">
-         <p>Keyword: {keyword}</p>
-         <p>Category: {category}</p>
-         <p>Tag: {tag}</p>
+      <div className="w-full min-h-screen font-sans">
          <div className="container mx-auto px-4 md:px-6 py-8 flex flex-col lg:flex-row gap-8">
             {/* Left Sidebar: Filters */}
             <div className="lg:w-1/4 block">
                <div className="bg-white rounded-lg shadow-md p-6 sticky top-24 max-h-[calc(100vh-100px)] overflow-y-auto">
                   <div className="flex justify-between items-center mb-6">
-                     <h2 className="text-xl font-semibold text-gray-800">Filters</h2>
+                     <h2 className="text-2xl font-semibold text-gray-800">Filters</h2>
                      <button
                         onClick={clearFilters}
-                        className="text-primary-600 hover:text-primary-700 text-sm"
+                        className="text-primary-600 hover:text-primary-700 text-sm cursor-pointer"
                      >
                         Clear All
                      </button>
@@ -109,29 +101,31 @@ export default function CoursesPage() {
                   <div className="mb-6">
                      <h3 className="text-sm font-medium text-gray-700 mb-3">Category</h3>
                      <div className="space-y-2">
-                        {categories.map((category) => (
-                           <div key={category} className="flex items-center">
-                              <input
-                                 type="checkbox"
-                                 id={`category-${category}`}
-                                 checked={selectedCategories.includes(category)}
-                                 onChange={() => {
-                                    setSelectedCategories((prev) =>
-                                       prev.includes(category)
-                                          ? prev.filter((c) => c !== category)
-                                          : [...prev, category]
-                                    );
-                                 }}
-                                 className="w-4 h-4 text-primary-600 rounded focus:ring-primary-500"
-                              />
-                              <label
-                                 htmlFor={`category-${category}`}
-                                 className="ml-2 text-sm text-gray-700"
-                              >
-                                 {category}
-                              </label>
-                           </div>
-                        ))}
+                        {Object.values(Category).map((value, index) => {
+                           return (
+                              <div key={index} className="flex items-center">
+                                 <input
+                                    type="checkbox"
+                                    id={`category-${value}`}
+                                    checked={selectedCategories.includes(value)}
+                                    onChange={() => {
+                                       setSelectedCategories((prev) =>
+                                          prev.includes(value)
+                                             ? prev.filter((c) => c !== value)
+                                             : [...prev, value]
+                                       );
+                                    }}
+                                    className="w-4 h-4 text-primary-600 rounded focus:ring-primary-500 cursor-pointer"
+                                 />
+                                 <label
+                                    htmlFor={`category-${value}`}
+                                    className="ml-2 text-sm text-gray-700"
+                                 >
+                                    {value}
+                                 </label>
+                              </div>
+                           );
+                        })}
                      </div>
                   </div>
 
@@ -139,29 +133,31 @@ export default function CoursesPage() {
                   <div className="mb-6">
                      <h3 className="text-sm font-medium text-gray-700 mb-3">Level</h3>
                      <div className="space-y-2">
-                        {levels.map((level) => (
-                           <div key={level} className="flex items-center">
-                              <input
-                                 type="checkbox"
-                                 id={`level-${level}`}
-                                 checked={selectedLevels.includes(level)}
-                                 onChange={() => {
-                                    setSelectedLevels((prev) =>
-                                       prev.includes(level)
-                                          ? prev.filter((l) => l !== level)
-                                          : [...prev, level]
-                                    );
-                                 }}
-                                 className="w-4 h-4 text-primary-600 rounded focus:ring-primary-500"
-                              />
-                              <label
-                                 htmlFor={`level-${level}`}
-                                 className="ml-2 text-sm text-gray-700"
-                              >
-                                 {level}
-                              </label>
-                           </div>
-                        ))}
+                        {Object.values(CourseLevel).map((value, index) => {
+                           return (
+                              <div key={index} className="flex items-center">
+                                 <input
+                                    type="checkbox"
+                                    id={`level-${value}`}
+                                    checked={selectedLevels.includes(value)}
+                                    onChange={() => {
+                                       setSelectedLevels((prev) =>
+                                          prev.includes(value)
+                                             ? prev.filter((l) => l !== value)
+                                             : [...prev, value]
+                                       );
+                                    }}
+                                    className="w-4 h-4 text-primary-600 rounded focus:ring-primary-500 cursor-pointer"
+                                 />
+                                 <label
+                                    htmlFor={`level-${value}`}
+                                    className="ml-2 text-sm text-gray-700"
+                                 >
+                                    {value}
+                                 </label>
+                              </div>
+                           );
+                        })}
                      </div>
                   </div>
 
@@ -177,7 +173,7 @@ export default function CoursesPage() {
                               value="all"
                               checked={priceFilter === "all"}
                               onChange={() => setPriceFilter("all")}
-                              className="w-4 h-4 text-primary-600 focus:ring-primary-500"
+                              className="w-4 h-4 text-primary-600 focus:ring-primary-500 cursor-pointer"
                            />
                            <label htmlFor="price-all" className="ml-2 text-sm text-gray-700">
                               All
@@ -191,7 +187,7 @@ export default function CoursesPage() {
                               value="free"
                               checked={priceFilter === "free"}
                               onChange={() => setPriceFilter("free")}
-                              className="w-4 h-4 text-primary-600 focus:ring-primary-500"
+                              className="w-4 h-4 text-primary-600 focus:ring-primary-500 cursor-pointer"
                            />
                            <label htmlFor="price-free" className="ml-2 text-sm text-gray-700">
                               Free
@@ -205,7 +201,7 @@ export default function CoursesPage() {
                               value="paid"
                               checked={priceFilter === "paid"}
                               onChange={() => setPriceFilter("paid")}
-                              className="w-4 h-4 text-primary-600 focus:ring-primary-500"
+                              className="w-4 h-4 text-primary-600 focus:ring-primary-500 cursor-pointer"
                            />
                            <label htmlFor="price-paid" className="ml-2 text-sm text-gray-700">
                               Paid
@@ -213,94 +209,70 @@ export default function CoursesPage() {
                         </div>
                      </div>
                   </div>
-
-                  {/* Rating Filter */}
-                  <div>
-                     <h3 className="text-sm font-medium text-gray-700 mb-3">Minimum Rating</h3>
-                     <div className="flex items-center space-x-2">
-                        <input
-                           type="range"
-                           min="0"
-                           max="5"
-                           step="0.5"
-                           value={minRating}
-                           onChange={(e) => setMinRating(Number(e.target.value))}
-                           className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
-                        />
-                        <span className="text-sm text-gray-700">{minRating} stars</span>
-                     </div>
-                  </div>
                </div>
             </div>
 
             {/* Main Content: Course List */}
             <div className="lg:w-3/4">
-               {/* Search Results Header */}
-               <div className="mb-6">
-                  <div className="flex items-center">
-                     <h2 className="text-2xl font-bold text-gray-800">Results for</h2>
-                     {keyword && (
-                        <div className=" ml-2 flex items-center bg-gray-300 text-gray-600 px-3 py-1 rounded-full text-sm">
-                           <span className="mr-1">Keyword: {keyword}</span>
-                           <button className="cursor-pointer">
-                              <X className="ml-1 w-4 h-4" />
-                           </button>
-                        </div>
-                     )}
-                     {category && (
-                        <div className=" ml-2 flex items-center bg-gray-300 text-gray-600 px-3 py-1 rounded-full text-sm">
-                           <span className="mr-1">Category: {category}</span>
-                           <button className="cursor-pointer">
-                              <X className="ml-1 w-4 h-4" />
-                           </button>
-                        </div>
-                     )}
-                     {tag && (
-                        <div className=" ml-2 flex items-center bg-gray-300 text-gray-600 px-3 py-1 rounded-full text-sm">
-                           <span className="mr-1">Tag: {tag}</span>
-                           <button className="cursor-pointer">
-                              <X className="ml-1 w-4 h-4" />
-                           </button>
-                        </div>
-                     )}
+               <div className="bg-white rounded-lg shadow-md p-6">
+                  {/* Search Results Header */}
+                  <div className="mb-5">
+                     <div className="flex items-center gap-5">
+                        <h2 className="text-2xl font-bold text-gray-800">Results for</h2>
+                        {keyword && (
+                           <span className="bg-gray-200 text-gray-600 text-xs font-medium px-2 py-1 rounded-full">
+                              Keyword: {keyword}
+                           </span>
+                        )}
+                        {category && (
+                           <span className="bg-gray-200 text-gray-600 text-xs font-medium px-2 py-1 rounded-full">
+                              Category: {category}
+                           </span>
+                        )}
+                        {tag && (
+                           <span className="bg-gray-200 text-gray-600 text-xs font-medium px-2 py-1 rounded-full">
+                              Tag: {tag}
+                           </span>
+                        )}
+                     </div>
+                     <p className="text-gray-600">{filteredCourses.length} courses found</p>
                   </div>
-                  <p className="text-gray-600">{filteredCourses.length} courses found</p>
+
+                  {/* Course List */}
+                  {paginatedCourses.length > 0 ? (
+                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        {paginatedCourses.map((course) => (
+                           <CourseCard key={course.id} course={course} />
+                        ))}
+                     </div>
+                  ) : (
+                     <div className="text-center py-10">
+                        <h2 className="text-xl font-semibold text-gray-800">No courses found</h2>
+                        <p className="text-gray-600">Try adjusting your search query or filters.</p>
+                     </div>
+                  )}
+
+                  {/* Pagination (Simplified) */}
+                  {filteredCourses.length > 0 && (
+                     <div className="mt-8 flex justify-center space-x-2">
+                        <button
+                           onClick={() => setPage((p) => Math.max(1, p - 1))}
+                           disabled={page === 1}
+                           className="px-4 py-2 bg-gray-200 hover:bg-gray-300 rounded-lg disabled:opacity-50 disabled:hover:bg-gray-200 cursor-pointer"
+                        >
+                           Previous
+                        </button>
+                        <span className="px-4 py-2">Page {page}</span>
+                        <button
+                           onClick={() => setPage((p) => p + 1)}
+                           disabled={page * coursesPerPage >= filteredCourses.length}
+                           className="px-4 py-2 bg-primary-500 hover:bg-primary-600 text-white rounded-lg disabled:opacity-50 disabled:hover:bg-primary-500 cursor-pointer"
+                        >
+                           Next
+                        </button>
+                     </div>
+                  )}
                </div>
-
-               {/* Course List */}
-               {paginatedCourses.length > 0 ? (
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                     {paginatedCourses.map((course) => (
-                        <CourseCard key={course.id} course={course} />
-                     ))}
-                  </div>
-               ) : (
-                  <div className="text-center py-10">
-                     <h2 className="text-xl font-semibold text-gray-800">No courses found</h2>
-                     <p className="text-gray-600">Try adjusting your search query or filters.</p>
-                  </div>
-               )}
-
-               {/* Pagination (Simplified) */}
-               {filteredCourses.length > 0 && (
-                  <div className="mt-8 flex justify-center space-x-2">
-                     <button
-                        onClick={() => setPage((p) => Math.max(1, p - 1))}
-                        disabled={page === 1}
-                        className="px-4 py-2 bg-gray-200 hover:bg-gray-300 rounded-lg disabled:opacity-50 disabled:hover:bg-gray-200 cursor-pointer"
-                     >
-                        Previous
-                     </button>
-                     <span className="px-4 py-2">Page {page}</span>
-                     <button
-                        onClick={() => setPage((p) => p + 1)}
-                        disabled={page * coursesPerPage >= filteredCourses.length}
-                        className="px-4 py-2 bg-primary-500 hover:bg-primary-600 text-white rounded-lg disabled:opacity-50 disabled:hover:bg-primary-500 cursor-pointer"
-                     >
-                        Next
-                     </button>
-                  </div>
-               )}
             </div>
          </div>
       </div>

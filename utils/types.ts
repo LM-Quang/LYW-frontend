@@ -162,8 +162,8 @@ export interface Comment extends BaseEntity {
 }
 
 export enum Currency {
-   USD,
-   YEN,
+   USD = "$",
+   YEN = "¥",
 }
 
 export interface Course extends BaseEntity {
