@@ -181,7 +181,7 @@ export const ALL_COURSES: CourseOverviewCard[] = [
    {
       id: "course-001",
       category: Category.PROGRAMMING,
-      title: "JavaScript Fundamentals",
+      title: "Learn JavaScript Fundamentals for Frontend Development",
       description:
          "Master JavaScript from scratch with practical exercises and real-world projects",
       instructor: "James Wilson",
@@ -419,6 +419,18 @@ export const ALL_COURSES: CourseOverviewCard[] = [
       duration: 41400,
       rating: 4.6,
       lesson: 29,
+      level: CourseLevel.INTERMEDIATE,
+   },
+   {
+      id: "course-022",
+      category: Category.AI,
+      title: "Introduction to Artificial Intelligence",
+      description: "Explore AI concepts and build your first neural network",
+      instructor: "Dr. Sarah Thompson",
+      price: 79.99,
+      duration: 43200,
+      rating: 4.7,
+      lesson: 28,
       level: CourseLevel.INTERMEDIATE,
    },
 ];

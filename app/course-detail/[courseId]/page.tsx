@@ -17,15 +17,17 @@ import {
    Shapes,
    Share,
    ShoppingCart,
+   Users,
 } from "lucide-react";
 import { courseDetails } from "@/libs/courseAPIs";
-import truncateText, { createSearchUrl, formatDuration, timeFromNow } from "@/utils/utils";
+import { createSearchUrl, formatDuration, timeFromNow } from "@/utils/utils";
 import Link from "next/link";
 import { ALL_COURSES, CourseDetail, LectureFileType, SAMPLE_COURSE_DETAIL } from "@/utils/data";
 import CourseCard from "@/components/common/CourseCard";
 import Modal from "@/components/courseDetailPage/Modal";
 import { useParams, useRouter } from "next/navigation";
 import NeedHelp from "@/components/common/NeedHelp";
+import DefaultAvatar from "@/components/common/DefaultAvatar";
 // import { useParams } from "next/navigation";
 // import { CourseDetail } from "@/utils/data";
 
@@ -59,14 +61,14 @@ export default function CourseDetailPage() {
                         {/* Title */}
                         <div className="bg-white rounded-lg shadow-md p-8 mb-6">
                            <div className="flex flex-wrap items-center gap-2 mb-5">
-                              <span className="bg-gray-200 text-gray-600 text-xs font-medium px-2 py-1 rounded-full">
+                              <span className="bg-primary-50 text-primary-600 text-xs font-medium px-2.5 py-1 rounded-full">
                                  {courseDetail.category}
                               </span>
                               {courseDetail.subCategory.map((subCategory, index) => {
                                  return (
                                     <span
                                        key={index}
-                                       className="bg-gray-200 text-gray-600 text-xs font-medium px-2 py-1 rounded-full"
+                                       className="bg-primary-50 text-primary-600 text-xs font-medium px-2.5 py-1 rounded-full"
                                     >
                                        {subCategory}
                                     </span>
@@ -81,7 +83,7 @@ export default function CourseDetailPage() {
                                  {courseDetail.description}
                               </p>
                            </div>
-                           <div className="flex items-center gap-5 mb-5 text-sm">
+                           <div className="flex items-center gap-5 mb-5 text-sm text-gray-500">
                               {courseDetail.tag && (
                                  <div
                                     className={`inline-block text-white text-xs px-2 py-1 rounded-full ${courseDetail.tag.color}`}
@@ -89,28 +91,29 @@ export default function CourseDetailPage() {
                                     {courseDetail.tag.name}
                                  </div>
                               )}
-                              <span className="px-5 border-x border-gray-200">
-                                 Rating: {courseDetail.rating}
-                                 <i
-                                    className="fa-solid fa-star text-yellow-400 w-4 h-4 ml-2"
-                                    aria-label="Full star"
-                                 />
+                              <span className="text-sm font-medium flex items-center px-5 border-x border-gray-200">
+                                 <Users className="w-5 h-5 mr-2" />
+                                 {courseDetail.enrolledStudents.toLocaleString()} students
                               </span>
-                              <span>Student: {courseDetail.enrolledStudents.toLocaleString()}</span>
+
+                              <span className="text-sm font-medium">
+                                 <i className="fa-solid fa-star text-yellow-400 w-4 h-4 mr-2" />
+                                 {courseDetail.rating} (2,345)
+                              </span>
                            </div>
-                           <div className="border-y border-gray-200 py-4 px-2 flex justify-between">
+                           <div className="border-y border-gray-200 py-4 px-2 flex justify-between text-gray-500">
                               <div className="flex items-center gap-2">
-                                 <CalendarSync className="w-7 h-7 text-gray-500" />
+                                 <CalendarSync className="w-7 h-7" />
                                  <div>
-                                    <p className="text-gray-500">Last updated</p>
+                                    <p>Last updated</p>
                                     <p className="font-medium">{courseDetail.updatedAt}</p>
                                  </div>
                               </div>
 
                               <div className="flex items-center gap-2">
-                                 <Hourglass className="w-7 h-7 text-gray-500" />
+                                 <Hourglass className="w-7 h-7" />
                                  <div>
-                                    <p className="text-gray-500">Duration</p>
+                                    <p>Duration</p>
                                     <p className="font-medium">
                                        {formatDuration(courseDetail.duration)}
                                     </p>
@@ -118,25 +121,25 @@ export default function CourseDetailPage() {
                               </div>
 
                               <div className="flex items-center gap-2">
-                                 <Shapes className="w-7 h-7 text-gray-500" />
+                                 <Shapes className="w-7 h-7" />
                                  <div>
-                                    <p className="text-gray-500">Level</p>
+                                    <p>Level</p>
                                     <p className="font-medium">{courseDetail.level}</p>
                                  </div>
                               </div>
 
                               <div className="flex items-center gap-2">
-                                 <FileCode className="w-7 h-7 text-gray-500" />
+                                 <FileCode className="w-7 h-7" />
                                  <div>
-                                    <p className="text-gray-500">Projects</p>
+                                    <p>Projects</p>
                                     <p className="font-medium">{courseDetail.projects}</p>
                                  </div>
                               </div>
 
                               <div className="flex items-center gap-2">
-                                 <Paperclip className="w-7 h-7 text-gray-500" />
+                                 <Paperclip className="w-7 h-7" />
                                  <div>
-                                    <p className="text-gray-500">Resourse</p>
+                                    <p>Resourse</p>
                                     <p className="font-medium">{courseDetail.resources}</p>
                                  </div>
                               </div>
@@ -223,38 +226,57 @@ export default function CourseDetailPage() {
                            </div>
                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                               {ALL_COURSES.slice(0, 3).map((course) => (
-                                 <CourseCard key={course.id} course={course} />
+                                 <CourseCard
+                                    key={course.id}
+                                    course={course}
+                                    titleLength={40}
+                                    descriptionLength={70}
+                                 />
                               ))}
                            </div>
                         </div>
 
                         {/* Feedback */}
                         <div className="bg-white rounded-lg shadow-md p-8 mb-6">
-                           <h3 className="text-4xl font-semibold mb-5">Feedback</h3>
+                           <h3 className="text-4xl font-semibold mb-5">Recent Feedbacks</h3>
 
-                           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                              {courseDetail.feedbacks.map((feedback) => {
+                           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                              {courseDetail.feedbacks.slice(0, 2).map((feedback) => {
                                  return (
                                     <div
                                        key={feedback.id}
-                                       className="p-4 rounded-xl border border-gray-200 hover:shadow-lg transition"
+                                       className="p-4 rounded-xl border border-gray-200 shadow-lg"
                                     >
-                                       <div className="flex items-center justify-between mb-3">
-                                          <div className="flex items-center text-yellow-400 mr-2">
-                                             <span className="mr-1">{feedback.rating}</span>
-                                             <i
-                                                className="fa-solid fa-star text-yellow-400 w-3 h-3 mb-1"
-                                                aria-label="Full star"
+                                       <div className="flex items-start gap-2 mb-2">
+                                          <div>
+                                             <DefaultAvatar
+                                                name={feedback.student}
+                                                width={35}
+                                                height={35}
+                                                fontSize={16}
                                              />
                                           </div>
-                                          <span className="text-gray-500 text-sm">
-                                             {timeFromNow(feedback.createdAt)}
-                                          </span>
+                                          <div className="w-full">
+                                             <div className="flex items-center justify-between">
+                                                <h4 className="font-medium text-gray-800">
+                                                   {feedback.student}
+                                                </h4>
+                                                <div className="flex items-center">
+                                                   <i
+                                                      className="fa-solid fa-star text-yellow-400 w-4 h-4 mr-2"
+                                                      aria-label="Full star"
+                                                   />
+                                                   <span>{feedback.rating}</span>
+                                                </div>
+                                             </div>
+                                             <p className="text-gray-500 text-sm">
+                                                {timeFromNow(feedback.createdAt)}
+                                             </p>
+                                          </div>
                                        </div>
-                                       <p className="text-gray-700 mb-2 h-[120px]">
-                                          &quot;{truncateText(feedback.content, 145)}&quot;
+                                       <p className="text-gray-700 h-[110px]">
+                                          &quot;{feedback.content}&quot;
                                        </p>
-                                       <p className="text-gray-500 text-sm">{feedback.student}</p>
                                     </div>
                                  );
                               })}
@@ -277,7 +299,12 @@ export default function CourseDetailPage() {
                            </div>
                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                               {ALL_COURSES.slice(3, 6).map((course) => (
-                                 <CourseCard key={course.id} course={course} />
+                                 <CourseCard
+                                    key={course.id}
+                                    course={course}
+                                    titleLength={50}
+                                    descriptionLength={65}
+                                 />
                               ))}
                            </div>
                         </div>
@@ -302,7 +329,7 @@ export default function CourseDetailPage() {
                               </div>
 
                               <button
-                                 className="w-full py-3 bg-primary-500 text-white rounded-lg mb-3 font-medium hover:bg-primary-600 transition-colors transform hover:-translate-y-0.5 duration-300 shadow-md hover:shadow-lg flex items-center justify-center cursor-pointer"
+                                 className="w-full py-2 bg-primary-500 text-white rounded-lg mb-3 font-medium hover:bg-primary-600 transition-colors flex items-center justify-center cursor-pointer"
                                  onClick={() => setIsClicked(true)}
                               >
                                  <ShoppingCart className="mr-2" />

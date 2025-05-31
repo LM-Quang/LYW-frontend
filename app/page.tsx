@@ -213,7 +213,12 @@ export default function HomePage() {
                {/* Course List */}
                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                   {filteredCourses.slice(0, 4).map((course) => (
-                     <CourseCard key={course.id} course={course} />
+                     <CourseCard
+                        key={course.id}
+                        course={course}
+                        titleLength={55}
+                        descriptionLength={75}
+                     />
                   ))}
                </div>
 
@@ -240,7 +245,12 @@ export default function HomePage() {
                {/* Course List */}
                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                   {trendingCourse.slice(0, 4).map((course) => (
-                     <CourseCard key={course.id} course={course} />
+                     <CourseCard
+                        key={course.id}
+                        course={course}
+                        titleLength={55}
+                        descriptionLength={75}
+                     />
                   ))}
                </div>
 

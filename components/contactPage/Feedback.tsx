@@ -3,10 +3,8 @@ import React from "react";
 
 const Feedback = () => {
    return (
-      <div className="bg-white rounded-xl p-6 shadow-md">
-         <h2 className="text-3xl font-bold mb-6 text-gray-800 text-center">
-            We&apos;d Love to Hear From You
-         </h2>
+      <div className="bg-white rounded-xl p-6 shadow-md mb-10">
+         <h2 className="text-4xl font-bold mb-5 text-center">We&apos;d Love to Hear From You</h2>
          <p className="text-center text-gray-600 max-w-2xl mx-auto mb-8">
             Whether you have a question about courses, pricing, or anything else, our team is ready
             to answer all your questions.

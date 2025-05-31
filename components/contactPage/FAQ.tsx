@@ -30,8 +30,8 @@ export const FAQS = [
 
 const FAQ = () => {
    return (
-      <div className="bg-white rounded-xl p-6 shadow-md mb-10">
-         <h2 className="text-3xl font-semibold mb-6 text-gray-800">Frequently Asked Questions</h2>
+      <section className="bg-white rounded-lg shadow-md p-8 mb-8">
+         <h2 className="text-4xl font-semibold mb-5">Frequently Asked Questions</h2>
 
          <div className="space-y-4">
             {FAQS.map((faq, index) => {
@@ -50,7 +50,7 @@ const FAQ = () => {
                );
             })}
          </div>
-      </div>
+      </section>
    );
 };
 

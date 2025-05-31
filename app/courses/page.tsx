@@ -73,7 +73,7 @@ export default function CoursesPage() {
    //    fetchCourses();
    // }, [query, selectedCategories, selectedLevels, priceFilter, minRating]);
 
-   // Implement proper pagination instead of a "Load More" button
+   // Implement pagination
    const coursesPerPage = 9;
    const [page, setPage] = useState(1);
    const paginatedCourses = filteredCourses.slice(
@@ -85,7 +85,7 @@ export default function CoursesPage() {
       <div className="w-full min-h-screen font-sans">
          <div className="container mx-auto px-4 md:px-6 py-8 flex flex-col lg:flex-row gap-8">
             {/* Left Sidebar: Filters */}
-            <div className="lg:w-1/4 block">
+            <section className="lg:w-1/4 block">
                <div className="bg-white rounded-lg shadow-md p-6 sticky top-24 max-h-[calc(100vh-100px)] overflow-y-auto">
                   <div className="flex justify-between items-center mb-6">
                      <h2 className="text-2xl font-semibold text-gray-800">Filters</h2>
@@ -210,10 +210,10 @@ export default function CoursesPage() {
                      </div>
                   </div>
                </div>
-            </div>
+            </section>
 
             {/* Main Content: Course List */}
-            <div className="lg:w-3/4">
+            <section className="lg:w-3/4">
                <div className="bg-white rounded-lg shadow-md p-6">
                   {/* Search Results Header */}
                   <div className="mb-5">
@@ -242,7 +242,12 @@ export default function CoursesPage() {
                   {paginatedCourses.length > 0 ? (
                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                         {paginatedCourses.map((course) => (
-                           <CourseCard key={course.id} course={course} />
+                           <CourseCard
+                              key={course.id}
+                              course={course}
+                              titleLength={45}
+                              descriptionLength={75}
+                           />
                         ))}
                      </div>
                   ) : (
@@ -252,7 +257,7 @@ export default function CoursesPage() {
                      </div>
                   )}
 
-                  {/* Pagination (Simplified) */}
+                  {/* Pagination */}
                   {filteredCourses.length > 0 && (
                      <div className="mt-8 flex justify-center space-x-2">
                         <button
@@ -273,7 +278,7 @@ export default function CoursesPage() {
                      </div>
                   )}
                </div>
-            </div>
+            </section>
          </div>
       </div>
    );

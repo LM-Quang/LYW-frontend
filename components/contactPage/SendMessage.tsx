@@ -31,7 +31,7 @@ const SendMessage = () => {
    };
 
    return (
-      <div id="sendMessage" className="p-6 border border-gray-200 rounded-lg shadow-sm">
+      <div id="sendMessage" className="p-6 border border-gray-200 rounded-lg shadow-md">
          <h2 className="text-xl font-semibold mb-4 text-gray-800">Send Us a Message</h2>
          <form className="space-y-4" onSubmit={handleSubmit}>
             <div>
