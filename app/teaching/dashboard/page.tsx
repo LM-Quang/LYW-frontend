@@ -1,5 +1,4 @@
 import DefaultAvatar from "@/components/common/DefaultAvatar";
-import renderStars from "@/components/common/RenderStars";
 import {
    Banknote,
    ChartColumn,
@@ -11,8 +10,6 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import React from "react";
-import img from "@/assets/avatar-square.jpg";
-import Image from "next/image";
 
 export default function TeacherDashboard() {
    return (
@@ -114,8 +111,12 @@ export default function TeacherDashboard() {
                         <div className="space-y-2 mt-4">
                            {/* 5 Stars */}
                            <div className="flex items-center">
-                              <div className="text-yellow-500 flex text-sm w-32">
-                                 {renderStars(5)}
+                              <div className="flex items-center justify-center">
+                                 <span className="mr-1 font-medium text-sm text-yellow-400">5</span>
+                                 <i
+                                    className="fa-solid fa-star text-yellow-400 w-4 h-4"
+                                    aria-label="Full star"
+                                 />
                               </div>
                               <div className="w-full h-2 mx-2 bg-gray-200 rounded-full">
                                  <div className="h-2 bg-primary-500 rounded-full w-[80%]"></div>
@@ -125,8 +126,12 @@ export default function TeacherDashboard() {
 
                            {/* 4 Stars */}
                            <div className="flex items-center">
-                              <div className="text-yellow-500 flex text-sm w-32">
-                                 {renderStars(4)}
+                              <div className="flex items-center justify-center">
+                                 <span className="mr-1 font-medium text-sm text-yellow-400">4</span>
+                                 <i
+                                    className="fa-solid fa-star text-yellow-400 w-4 h-4"
+                                    aria-label="Full star"
+                                 />
                               </div>
                               <div className="w-full h-2 mx-2 bg-gray-200 rounded-full">
                                  <div className="h-2 bg-primary-500 rounded-full w-[15%]"></div>
@@ -136,8 +141,12 @@ export default function TeacherDashboard() {
 
                            {/* 3 Stars */}
                            <div className="flex items-center">
-                              <div className="text-yellow-500 flex text-sm w-32">
-                                 {renderStars(3)}
+                              <div className="flex items-center justify-center">
+                                 <span className="mr-1 font-medium text-yellow-400 text-sm">3</span>
+                                 <i
+                                    className="fa-solid fa-star text-yellow-400 w-4 h-4"
+                                    aria-label="Full star"
+                                 />
                               </div>
                               <div className="w-full h-2 mx-2 bg-gray-200 rounded-full">
                                  <div className="h-2 bg-primary-500 rounded-full w-[5%]"></div>
@@ -147,8 +156,12 @@ export default function TeacherDashboard() {
 
                            {/* 2 Stars */}
                            <div className="flex items-center">
-                              <div className="text-yellow-500 flex text-sm w-32">
-                                 {renderStars(2)}
+                              <div className="flex items-center justify-center">
+                                 <span className="mr-1 font-medium text-sm text-yellow-400">2</span>
+                                 <i
+                                    className="fa-solid fa-star text-yellow-400 w-4 h-4"
+                                    aria-label="Full star"
+                                 />
                               </div>
                               <div className="w-full h-2 mx-2 bg-gray-200 rounded-full">
                                  <div className="h-2 bg-primary-500 rounded-full w-[5%]"></div>
@@ -158,8 +171,12 @@ export default function TeacherDashboard() {
 
                            {/* 1 Stars */}
                            <div className="flex items-center">
-                              <div className="text-yellow-500 flex text-sm w-32">
-                                 {renderStars(1)}
+                              <div className="flex items-center justify-center">
+                                 <span className="mr-1 font-medium text-yellow-400 text-sm">1</span>
+                                 <i
+                                    className="fa-solid fa-star text-yellow-400 w-4 h-4"
+                                    aria-label="Full star"
+                                 />
                               </div>
                               <div className="w-full h-2 mx-2 bg-gray-200 rounded-full">
                                  <div className="h-2 bg-primary-500 rounded-full w-[5%]"></div>
@@ -448,11 +465,13 @@ export default function TeacherDashboard() {
                            </Link>
                         </div>
                         <div className="space-y-4">
-                           <div className="flex items-center justify-between">
+                           <Link
+                              href="#"
+                              className="flex items-center justify-between p-2 rounded-lg border-b border-gray-200 hover:shadow-lg"
+                           >
                               <div className="flex items-center justify-center gap-2">
-                                 <Image src={img} alt="Avatar" width={45} height={45} />
                                  <div className="flex flex-col text-sm">
-                                    <h4 className="font-medium text-gray-800">
+                                    <h4 className="font-bold text-lg text-gray-800">
                                        Python Masterclass
                                     </h4>
                                     <span className="text-gray-500">1,243 students</span>
@@ -473,13 +492,14 @@ export default function TeacherDashboard() {
                                     <span className="text-xs text-gray-500 block">Revenue</span>
                                  </div>
                               </div>
-                           </div>
-
-                           <div className="flex items-center justify-between">
+                           </Link>
+                           <Link
+                              href="#"
+                              className="flex items-center justify-between p-2 rounded-lg border-b border-gray-200 hover:shadow-lg"
+                           >
                               <div className="flex items-center justify-center gap-2">
-                                 <Image src={img} alt="Avatar" width={45} height={45} />
                                  <div className="flex flex-col text-sm">
-                                    <h4 className="font-medium text-gray-800">
+                                    <h4 className="font-bold text-lg text-gray-800">
                                        Python Masterclass
                                     </h4>
                                     <span className="text-gray-500">1,243 students</span>
@@ -500,13 +520,14 @@ export default function TeacherDashboard() {
                                     <span className="text-xs text-gray-500 block">Revenue</span>
                                  </div>
                               </div>
-                           </div>
-
-                           <div className="flex items-center justify-between">
+                           </Link>
+                           <Link
+                              href="#"
+                              className="flex items-center justify-between p-2 rounded-lg border-b border-gray-200 hover:shadow-lg"
+                           >
                               <div className="flex items-center justify-center gap-2">
-                                 <Image src={img} alt="Avatar" width={45} height={45} />
                                  <div className="flex flex-col text-sm">
-                                    <h4 className="font-medium text-gray-800">
+                                    <h4 className="font-bold text-lg text-gray-800">
                                        Python Masterclass
                                     </h4>
                                     <span className="text-gray-500">1,243 students</span>
@@ -527,7 +548,7 @@ export default function TeacherDashboard() {
                                     <span className="text-xs text-gray-500 block">Revenue</span>
                                  </div>
                               </div>
-                           </div>
+                           </Link>
                         </div>
                      </div>
 
@@ -536,36 +557,34 @@ export default function TeacherDashboard() {
                            <h3 className="text-xl font-bold text-gray-800">Quick Actions</h3>
                         </div>
                         <div className="grid grid-cols-2 gap-3">
-                           <button className="bg-primary-50 hover:bg-primary-100 text-primary-600 p-4 rounded-lg transition-colors flex flex-col items-center">
+                           <Link
+                              href="#"
+                              className="bg-primary-50 hover:bg-primary-100 text-primary-600 p-4 rounded-lg transition-colors flex flex-col items-center"
+                           >
                               <CirclePlus className="mb-2" />
                               <span className="text-sm font-medium">New Course</span>
-                           </button>
-                           <button className="bg-primary-50 hover:bg-primary-100 text-primary-600 p-4 rounded-lg transition-colors flex flex-col items-center">
+                           </Link>
+                           <Link
+                              href="#"
+                              className="bg-primary-50 hover:bg-primary-100 text-primary-600 p-4 rounded-lg transition-colors flex flex-col items-center"
+                           >
                               <MessageCircleMore className="mb-2" />
                               <span className="text-sm font-medium">Messages</span>
-                           </button>
-                           <button className="bg-primary-50 hover:bg-primary-100 text-primary-600 p-4 rounded-lg transition-colors flex flex-col items-center">
+                           </Link>
+                           <Link
+                              href="#"
+                              className="bg-primary-50 hover:bg-primary-100 text-primary-600 p-4 rounded-lg transition-colors flex flex-col items-center"
+                           >
                               <Banknote className="mb-2" />
                               <span className="text-sm font-medium">Payouts</span>
-                           </button>
-                           <button className="bg-primary-50 hover:bg-primary-100 text-primary-600 p-4 rounded-lg transition-colors flex flex-col items-center">
+                           </Link>
+                           <Link
+                              href="#"
+                              className="bg-primary-50 hover:bg-primary-100 text-primary-600 p-4 rounded-lg transition-colors flex flex-col items-center"
+                           >
                               <ChartColumn className="mb-2" />
                               <span className="text-sm font-medium">Analytics</span>
-                           </button>
-                        </div>
-
-                        <div className="mt-6 bg-gradient-to-r from-primary-50 to-white border border-primary-100 rounded-lg p-4">
-                           <h4 className="font-medium text-gray-800 mb-2">Complete Your Profile</h4>
-                           <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden mb-2">
-                              <div className="h-full bg-primary-500 rounded-full w-[75%]"></div>
-                           </div>
-                           <div className="flex justify-between text-xs text-gray-500">
-                              <span>75% Complete</span>
-                              <span>3 of 4 tasks done</span>
-                           </div>
-                           <ul className="space-y-2 mt-3">
-                              <li className="flex items-center text-sm"></li>
-                           </ul>
+                           </Link>
                         </div>
                      </div>
                   </div>

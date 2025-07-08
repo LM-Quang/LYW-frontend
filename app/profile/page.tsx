@@ -4,7 +4,7 @@ import React from "react";
 import Image from "next/image";
 import avatar from "@/assets/avatar.jpg";
 import { Camera, Pencil, ShieldCheck } from "lucide-react";
-import DefaultAvatar from "@/components/DefaultAvatar";
+import DefaultAvatar from "@/components/common/DefaultAvatar";
 import { useUser } from "@/context/UserContext";
 
 const ProfilePage = () => {
@@ -117,7 +117,7 @@ const ProfilePage = () => {
                               <p className="font-medium">Master&apos;s in Web Development</p>
                               <p className="text-sm text-gray-600">MIT</p>
                            </div>
-                           <button className="mt-2 text-primary-600 hover:text-primary-700 text-sm flex items-center transition-colors">
+                           <button className="mt-2 text-primary-500 hover:text-primary-600 text-sm flex items-center transition-colors cursor-pointer">
                               + Add Another Education
                            </button>
                         </div>
@@ -143,17 +143,17 @@ const ProfilePage = () => {
                                  5 years working at Facebook as Frontend Developer with React
                               </p>
                            </div>
-                           <button className="mt-2 text-primary-600 hover:text-primary-700 text-sm flex items-center transition-colors">
+                           <button className="mt-2 text-primary-500 hover:text-primary-600 text-sm flex items-center transition-colors cursor-pointer">
                               + Add Another Experience
                            </button>
                         </div>
                      </div>
 
                      <div className="flex gap-4 mt-6">
-                        <button className="flex-1 py-3 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors transform hover:-translate-y-1 duration-300 shadow-md hover:shadow-lg flex items-center justify-center">
+                        <button className="flex-1 py-3 bg-primary-500 text-white rounded-lg hover:bg-primary-600 transition-colors transform hover:-translate-y-1 duration-300 shadow-md hover:shadow-lg flex items-center justify-center cursor-pointer">
                            Save Changes
                         </button>
-                        <button className="flex-1 py-3 bg-white border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors flex items-center justify-center">
+                        <button className="flex-1 py-3 bg-white border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors flex items-center justify-center cursor-pointer">
                            Cancel
                         </button>
                      </div>

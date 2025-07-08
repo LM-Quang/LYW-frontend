@@ -1,8 +1,10 @@
+import { Mail, MapPin, PhoneIncoming } from "lucide-react";
 import React from "react";
+import SocialMedias from "../common/SocialMedias";
 
 const GetInTouch = () => {
    return (
-      <div>
+      <div className="col-span-1">
          <h2 className="text-xl font-semibold mb-4 text-gray-800">Get in Touch</h2>
          <p className="text-gray-600 mb-6">
             Have questions about our courses or becoming an instructor? We&apos;re here to help!
@@ -11,9 +13,7 @@ const GetInTouch = () => {
 
          <div className="space-y-6">
             <div className="flex items-start">
-               <span className="material-symbols-outlined text-primary-500 mr-3 text-2xl">
-                  location_on
-               </span>
+               <MapPin className="text-primary-500 mr-3" />
                <div>
                   <h3 className="font-medium text-gray-800">Our Location</h3>
                   <p className="text-gray-600">
@@ -25,9 +25,7 @@ const GetInTouch = () => {
             </div>
 
             <div className="flex items-start">
-               <span className="material-symbols-outlined text-primary-500 mr-3 text-2xl">
-                  call
-               </span>
+               <PhoneIncoming className="text-primary-500 mr-3" />
                <div>
                   <h3 className="font-medium text-gray-800">Phone</h3>
                   <p className="text-gray-600">+1 (555) 123-4567</p>
@@ -36,9 +34,7 @@ const GetInTouch = () => {
             </div>
 
             <div className="flex items-start">
-               <span className="material-symbols-outlined text-primary-500 mr-3 text-2xl">
-                  email
-               </span>
+               <Mail className="text-primary-500 mr-3" />
                <div>
                   <h3 className="font-medium text-gray-800">Email</h3>
                   <p className="text-gray-600">support@edulearn.com</p>
@@ -49,32 +45,7 @@ const GetInTouch = () => {
 
          <div className="mt-8">
             <h3 className="font-medium text-gray-800 mb-3">Connect With Us</h3>
-            <div className="flex space-x-4">
-               <a
-                  href="#"
-                  className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 hover:bg-primary-100 hover:text-primary-600 transition-colors"
-               >
-                  <span className="material-symbols-outlined">facebook</span>
-               </a>
-               <a
-                  href="#"
-                  className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 hover:bg-primary-100 hover:text-primary-600 transition-colors"
-               >
-                  <span className="material-symbols-outlined">twitter</span>
-               </a>
-               <a
-                  href="#"
-                  className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 hover:bg-primary-100 hover:text-primary-600 transition-colors"
-               >
-                  <span className="material-symbols-outlined">linkedin</span>
-               </a>
-               <a
-                  href="#"
-                  className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 hover:bg-primary-100 hover:text-primary-600 transition-colors"
-               >
-                  <span className="material-symbols-outlined">youtube_activity</span>
-               </a>
-            </div>
+            <SocialMedias />
          </div>
       </div>
    );

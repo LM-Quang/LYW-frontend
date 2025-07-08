@@ -1,4 +1,15 @@
-import { ChartNoAxesCombined, LayoutDashboard, TrendingUp } from "lucide-react";
+import {
+   ArrowRight,
+   BellRing,
+   ChartNoAxesCombined,
+   Check,
+   CircleGauge,
+   LayoutDashboard,
+   Server,
+   ShieldAlert,
+   ShieldCheck,
+   TrendingUp,
+} from "lucide-react";
 import React from "react";
 
 export default function AnotherPage() {
@@ -128,9 +139,7 @@ export default function AnotherPage() {
                               <h3 className="font-semibold text-lg text-gray-800">
                                  User Registration
                               </h3>
-                              <span className="material-symbols-outlined text-primary-500 hover:text-primary-600 transition-colors cursor-pointer">
-                                 more_horiz
-                              </span>
+                              <ArrowRight className="text-primary-500 hover:text-primary-600 transition-colors cursor-pointer" />
                            </div>
                            <div className="h-[180px] relative">
                               <div className="absolute inset-0 flex items-center justify-center">
@@ -142,9 +151,7 @@ export default function AnotherPage() {
                                        New Users This Month
                                     </p>
                                     <div className="mt-2 flex items-center justify-center text-green-500">
-                                       <span className="material-symbols-outlined text-sm">
-                                          trending_up
-                                       </span>
+                                       <TrendingUp className="text-sm" />
                                        <span className="text-sm ml-1">8.3% from last month</span>
                                     </div>
                                  </div>
@@ -167,9 +174,7 @@ export default function AnotherPage() {
                               <h3 className="font-semibold text-lg text-gray-800">
                                  Teacher Registration
                               </h3>
-                              <span className="material-symbols-outlined text-primary-500 hover:text-primary-600 transition-colors cursor-pointer">
-                                 more_horiz
-                              </span>
+                              <ArrowRight className="text-primary-500 hover:text-primary-600 transition-colors cursor-pointer" />
                            </div>
                            <div className="h-[180px] relative">
                               <div className="absolute inset-0 flex items-center justify-center">
@@ -179,9 +184,7 @@ export default function AnotherPage() {
                                        New Teachers This Month
                                     </p>
                                     <div className="mt-2 flex items-center justify-center text-green-500">
-                                       <span className="material-symbols-outlined text-sm">
-                                          trending_up
-                                       </span>
+                                       <TrendingUp className="text-sm" />
                                        <span className="text-sm ml-1">5.2% from last month</span>
                                     </div>
                                  </div>
@@ -204,9 +207,7 @@ export default function AnotherPage() {
                               <h3 className="font-semibold text-lg text-gray-800">
                                  Teacher Registration
                               </h3>
-                              <span className="material-symbols-outlined text-primary-500 hover:text-primary-600 transition-colors cursor-pointer">
-                                 more_horiz
-                              </span>
+                              <ArrowRight className="text-primary-500 hover:text-primary-600 transition-colors cursor-pointer" />
                            </div>
                            <div className="h-[180px] relative">
                               <div className="absolute inset-0 flex items-center justify-center">
@@ -216,9 +217,7 @@ export default function AnotherPage() {
                                        New Teachers This Month
                                     </p>
                                     <div className="mt-2 flex items-center justify-center text-green-500">
-                                       <span className="material-symbols-outlined text-sm">
-                                          trending_up
-                                       </span>
+                                       <TrendingUp className="text-sm" />
                                        <span className="text-sm ml-1">5.2% from last month</span>
                                     </div>
                                  </div>
@@ -244,9 +243,7 @@ export default function AnotherPage() {
                            <span className="bg-red-500 text-white text-xs px-2 py-1 rounded-full mr-2">
                               8 New
                            </span>
-                           <span className="material-symbols-outlined text-primary-500 hover:text-primary-600 transition-colors cursor-pointer">
-                              more_horiz
-                           </span>
+                           <ArrowRight className="text-primary-500 hover:text-primary-600 transition-colors cursor-pointer" />
                         </div>
                      </div>
                      <div className="space-y-3 max-h-[350px] overflow-y-auto pr-2">
@@ -261,9 +258,6 @@ export default function AnotherPage() {
                            </p>
                            <div className="flex justify-end mt-2">
                               <button className="text-primary-500 hover:text-primary-600 text-sm flex items-center transition-all">
-                                 <span className="material-symbols-outlined text-sm mr-1">
-                                    reply
-                                 </span>{" "}
                                  Reply
                               </button>
                            </div>
@@ -280,9 +274,6 @@ export default function AnotherPage() {
                            </p>
                            <div className="flex justify-end mt-2">
                               <button className="text-primary-500 hover:text-primary-600 text-sm flex items-center transition-all">
-                                 <span className="material-symbols-outlined text-sm mr-1">
-                                    reply
-                                 </span>{" "}
                                  Reply
                               </button>
                            </div>
@@ -299,9 +290,6 @@ export default function AnotherPage() {
                            </p>
                            <div className="flex justify-end mt-2">
                               <button className="text-gray-500 hover:text-gray-600 text-sm flex items-center transition-all">
-                                 <span className="material-symbols-outlined text-sm mr-1">
-                                    done
-                                 </span>{" "}
                                  Answered
                               </button>
                            </div>
@@ -318,9 +306,6 @@ export default function AnotherPage() {
                            </p>
                            <div className="flex justify-end mt-2">
                               <button className="text-gray-500 hover:text-gray-600 text-sm flex items-center transition-all">
-                                 <span className="material-symbols-outlined text-sm mr-1">
-                                    done
-                                 </span>{" "}
                                  Answered
                               </button>
                            </div>
@@ -332,7 +317,7 @@ export default function AnotherPage() {
                      <div className="bg-white p-5 rounded-xl shadow-md hover:shadow-lg transition-all mb-8">
                         <div className="flex items-center mb-4">
                            <div className="bg-green-100 p-3 rounded-full mr-3">
-                              <span className="material-symbols-outlined text-green-500">dns</span>
+                              <Server className="text-green-500" />
                            </div>
                            <div>
                               <h3 className="font-semibold text-lg text-gray-800">Server Status</h3>
@@ -378,7 +363,7 @@ export default function AnotherPage() {
                      <div className="bg-white p-5 rounded-xl shadow-md hover:shadow-lg transition-all mb-8">
                         <div className="flex items-center mb-4">
                            <div className="bg-blue-100 p-3 rounded-full mr-3">
-                              <span className="material-symbols-outlined text-blue-500">speed</span>
+                              <CircleGauge className="text-blue-500" />
                            </div>
                            <div>
                               <h3 className="font-semibold text-lg text-gray-800">
@@ -428,9 +413,7 @@ export default function AnotherPage() {
                      <div className="bg-white p-5 rounded-xl shadow-md hover:shadow-lg transition-all mb-8">
                         <div className="flex items-center mb-4">
                            <div className="bg-purple-100 p-3 rounded-full mr-3">
-                              <span className="material-symbols-outlined text-purple-500">
-                                 security
-                              </span>
+                              <ShieldCheck className="text-purple-500" />
                            </div>
                            <div>
                               <h3 className="font-semibold text-lg text-gray-800">
@@ -441,27 +424,19 @@ export default function AnotherPage() {
                         </div>
                         <div className="space-y-3 mt-3">
                            <div className="flex items-center">
-                              <span className="material-symbols-outlined text-green-500 mr-2">
-                                 check_circle
-                              </span>
+                              <Check className="text-green-500 mr-2 w-5 h-5" />
                               <span className="text-sm text-gray-600">Firewall Active</span>
                            </div>
                            <div className="flex items-center">
-                              <span className="material-symbols-outlined text-green-500 mr-2">
-                                 check_circle
-                              </span>
+                              <Check className="text-green-500 mr-2 w-5 h-5" />
                               <span className="text-sm text-gray-600">DDoS Protection</span>
                            </div>
                            <div className="flex items-center">
-                              <span className="material-symbols-outlined text-green-500 mr-2">
-                                 check_circle
-                              </span>
+                              <Check className="text-green-500 mr-2 w-5 h-5" />
                               <span className="text-sm text-gray-600">SSL Certificates Valid</span>
                            </div>
                            <div className="flex items-center">
-                              <span className="material-symbols-outlined text-yellow-500 mr-2">
-                                 warning
-                              </span>
+                              <ShieldAlert className="text-yellow-500 mr-2 w-5 h-5" />
                               <span className="text-sm text-gray-600">Updates Available</span>
                            </div>
                         </div>
@@ -470,9 +445,7 @@ export default function AnotherPage() {
                      <div className="bg-white p-5 rounded-xl shadow-md hover:shadow-lg transition-all mb-8">
                         <div className="flex items-center mb-4">
                            <div className="bg-orange-100 p-3 rounded-full mr-3">
-                              <span className="material-symbols-outlined text-orange-500">
-                                 notifications
-                              </span>
+                              <BellRing className="text-orange-500" />
                            </div>
                            <div>
                               <h3 className="font-semibold text-lg text-gray-800">

@@ -86,7 +86,7 @@ export default function CoursesPage() {
          <div className="container mx-auto px-4 md:px-6 py-8 flex flex-col lg:flex-row gap-8">
             {/* Left Sidebar: Filters */}
             <section className="lg:w-1/4 block">
-               <div className="bg-white rounded-lg shadow-md p-6 sticky top-24 max-h-[calc(100vh-100px)] overflow-y-auto">
+               <div className="bg-white rounded-lg shadow-md p-6 sticky top-2.5">
                   <div className="flex justify-between items-center mb-6">
                      <h2 className="text-2xl font-semibold text-gray-800">Filters</h2>
                      <button

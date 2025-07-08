@@ -1,10 +1,11 @@
 "use client";
 
 import { useUser } from "@/context/UserContext";
-import { TOKEN } from "@/utils/constant";
 import axios from "axios";
 import { useSearchParams, useRouter } from "next/navigation";
 import { useEffect } from "react";
+
+const TOKEN = process.env.NEXT_TOKEN_NAME || "";
 
 export default function OAuth2RedirectPage() {
    const router = useRouter();
@@ -37,5 +38,5 @@ export default function OAuth2RedirectPage() {
       fetchData();
    }, [router, updateUserInfo, token]);
 
-   return <p>Redirecting...</p>;
+   return <p className="text-xl p-5">Redirecting...</p>;
 }

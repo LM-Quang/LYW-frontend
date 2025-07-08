@@ -15,7 +15,7 @@ export default function TeacherInfoPage() {
       <div className="w-full min-h-screen font-sans">
          <div className="container mx-auto px-4 md:px-6 py-8">
             {/* Introduction */}
-            <section className=" bg-white rounded-lg shadow-md p-8 mb-8">
+            <section className="bg-white rounded-lg shadow-md p-8 mb-8">
                <div className="flex flex-col md:flex-row items-start md:items-center gap-6 mb-5">
                   <DefaultAvatar name="Alan Johnson" width={100} height={100} fontSize={50} />
                   <div className="flex-1">
@@ -180,7 +180,7 @@ export default function TeacherInfoPage() {
 
                <div className="text-center mt-6">
                   <button className="text-primary-500 hover:text-primary-600 font-medium flex items-center mx-auto cursor-pointer">
-                     <span>View more reviews</span>
+                     <span>Read more reviews</span>
                      <ChevronDown className="ml-1" />
                   </button>
                </div>

@@ -1,33 +1,13 @@
+import FAQ from "@/components/contactPage/FAQ";
+import { Check, CircleUser, Handshake, LaptopMinimalCheck, Users } from "lucide-react";
 import React from "react";
 
 export default function PricePlanPage() {
    return (
-      <div className="w-full min-h-screen p-0 bg-gray-50 font-sans">
-         <div className="bg-white border-b border-gray-200">
-            <div className="container mx-auto px-4 py-3">
-               <nav className="flex items-center text-sm">
-                  <a href="#" className="text-gray-500 hover:text-primary-500 transition-colors">
-                     Home
-                  </a>
-                  <span className="mx-2 text-gray-400">
-                     <span className="material-symbols-outlined text-xs">chevron_right</span>
-                  </span>
-                  <a href="#" className="text-gray-500 hover:text-primary-500 transition-colors">
-                     Courses
-                  </a>
-                  <span className="mx-2 text-gray-400">
-                     <span className="material-symbols-outlined text-xs">chevron_right</span>
-                  </span>
-                  <span className="text-gray-700 font-medium">Shopping Cart</span>
-               </nav>
-            </div>
-         </div>
-
+      <div className="w-full min-h-screen font-sans">
          <div className="container mx-auto px-4 md:px-6 py-8">
             <div className="mb-10 text-center">
-               <h1 className="text-3xl font-bold text-gray-800 mb-2">
-                  EduLearn Academy Pricing Plans
-               </h1>
+               <h1 className="text-3xl font-bold text-gray-800 mb-2">Pricing Plans</h1>
                <p className="text-gray-600 max-w-2xl mx-auto">
                   Choose the perfect plan for your learning journey. Unlock premium courses and
                   transform your career with our flexible pricing options.
@@ -67,16 +47,14 @@ export default function PricePlanPage() {
                            "30-day money-back guarantee",
                         ].map((feature, i) => (
                            <li key={i} className="flex items-start">
-                              <span className="material-symbols-outlined text-green-500 text-sm mr-2 mt-0.5">
-                                 check_circle
-                              </span>
+                              <Check className="text-green-500 mr-2 w-5 h-5" />
                               <span className="text-sm text-gray-700">{feature}</span>
                            </li>
                         ))}
                      </ul>
                   </div>
                   <div className="p-6 pt-0">
-                     <button className="w-full py-3 rounded-lg border border-primary-500 text-primary-500 font-medium hover:bg-primary-50 transition-colors">
+                     <button className="w-full py-3 rounded-lg bg-primary-500 text-white font-medium hover:bg-primary-600 transition-colors cursor-pointer">
                         Get Started
                      </button>
                   </div>
@@ -108,16 +86,14 @@ export default function PricePlanPage() {
                            "Resume and portfolio review",
                         ].map((feature, i) => (
                            <li key={i} className="flex items-start">
-                              <span className="material-symbols-outlined text-green-500 text-sm mr-2 mt-0.5">
-                                 check_circle
-                              </span>
+                              <Check className="text-green-500 mr-2 w-5 h-5" />
                               <span className="text-sm text-gray-700">{feature}</span>
                            </li>
                         ))}
                      </ul>
                   </div>
                   <div className="p-6 pt-0">
-                     <button className="w-full py-3 rounded-lg bg-primary-500 text-white font-medium hover:bg-primary-600 transition-colors">
+                     <button className="w-full py-3 rounded-lg bg-primary-500 text-white font-medium hover:bg-primary-600 transition-colors cursor-pointer">
                         Verify Student Status
                      </button>
                   </div>
@@ -145,16 +121,14 @@ export default function PricePlanPage() {
                            "Monthly team performance reports",
                         ].map((feature, i) => (
                            <li key={i} className="flex items-start">
-                              <span className="material-symbols-outlined text-green-500 text-sm mr-2 mt-0.5">
-                                 check_circle
-                              </span>
+                              <Check className="text-green-500 mr-2 w-5 h-5" />
                               <span className="text-sm text-gray-700">{feature}</span>
                            </li>
                         ))}
                      </ul>
                   </div>
                   <div className="p-6 pt-0">
-                     <button className="w-full py-3 rounded-lg border border-primary-500 text-primary-500 font-medium hover:bg-primary-50 transition-colors">
+                     <button className="w-full py-3 rounded-lg bg-primary-500 text-white font-medium hover:bg-primary-600 transition-colors cursor-pointer">
                         Start Team Trial
                      </button>
                   </div>
@@ -186,9 +160,7 @@ export default function PricePlanPage() {
                            "Custom course development",
                         ].map((feature, i) => (
                            <li key={i} className="flex items-start">
-                              <span className="material-symbols-outlined text-green-500 text-sm mr-2 mt-0.5">
-                                 check_circle
-                              </span>
+                              <Check className="text-green-500 mr-2 w-5 h-5" />
                               <span className="text-sm text-gray-700">{feature}</span>
                            </li>
                         ))}
@@ -202,86 +174,37 @@ export default function PricePlanPage() {
                </div>
             </div>
 
-            <div className="bg-gray-50 rounded-xl p-6 mb-12">
-               <h2 className="text-2xl font-bold text-gray-800 mb-4 text-center">
-                  Frequently Asked Questions
-               </h2>
-               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {[
-                     {
-                        question: "Can I switch between plans?",
-                        answer:
-                           "Yes, you can upgrade or downgrade your plan at any time. The new rate will be applied to your next billing cycle.",
-                     },
-                     {
-                        question: "Is there a free trial available?",
-                        answer:
-                           "We offer a 7-day free trial for Individual and Student plans. Teams and Business plans come with a 14-day trial period.",
-                     },
-                     {
-                        question: "What payment methods do you accept?",
-                        answer:
-                           "We accept major credit cards, PayPal, and bank transfers for Business plans. Some regions also support local payment methods.",
-                     },
-                     {
-                        question: "How does the student verification work?",
-                        answer:
-                           "We use a trusted third-party service to verify your student status. You'll need to provide your academic email or upload a valid student ID.",
-                     },
-                  ].map((faq, i) => (
-                     <details
-                        key={i}
-                        className="bg-white p-4 rounded-lg shadow-sm cursor-pointer group"
-                     >
-                        <summary className="font-medium text-gray-800 flex justify-between items-center">
-                           {faq.question}
-                           <span className="material-symbols-outlined text-primary-500 group-open:rotate-180 transition-transform">
-                              expand_more
-                           </span>
-                        </summary>
-                        <p className="mt-3 text-gray-600 text-sm">{faq.answer}</p>
-                     </details>
-                  ))}
-               </div>
-            </div>
+            <FAQ />
 
-            <div className="bg-primary-50 rounded-xl p-8 text-center">
+            <div className="bg-white rounded-lg shadow-md p-8 mb-8 text-center">
                <h2 className="text-2xl font-bold text-gray-800 mb-2">Need a custom solution?</h2>
                <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
                   Contact our sales team to discuss custom pricing and features tailored to your
                   organization&apos;s specific learning needs.
                </p>
                <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <button className="px-6 py-3 bg-primary-500 text-white rounded-lg font-medium hover:bg-primary-600 transition-colors">
+                  <button className="px-6 py-3 bg-primary-500 text-white rounded-lg font-medium hover:bg-primary-600 transition-colors cursor-pointer">
                      Schedule a Demo
                   </button>
-                  <button className="px-6 py-3 border border-primary-500 text-primary-500 rounded-lg font-medium hover:bg-primary-50 transition-colors">
+                  <button className="px-6 py-3 border border-primary-500 text-primary-500 rounded-lg font-medium hover:bg-primary-50 transition-colors cursor-pointer">
                      Contact Sales
                   </button>
                </div>
                <div className="mt-8 flex flex-wrap justify-center gap-8">
                   <div className="flex flex-col items-center">
-                     <span className="material-symbols-outlined text-primary-500 text-3xl mb-2">
-                        support_agent
-                     </span>
+                     <CircleUser className="text-primary-500 mb-2 w-8 h-8" />
                      <p className="text-sm font-medium text-gray-800">24/7 Support</p>
                   </div>
                   <div className="flex flex-col items-center">
-                     <span className="material-symbols-outlined text-primary-500 text-3xl mb-2">
-                        handshake
-                     </span>
+                     <Handshake className="text-primary-500 mb-2 w-8 h-8" />
                      <p className="text-sm font-medium text-gray-800">Custom Contracts</p>
                   </div>
                   <div className="flex flex-col items-center">
-                     <span className="material-symbols-outlined text-primary-500 text-3xl mb-2">
-                        groups
-                     </span>
+                     <Users className="text-primary-500 mb-2 w-8 h-8" />
                      <p className="text-sm font-medium text-gray-800">Team Onboarding</p>
                   </div>
                   <div className="flex flex-col items-center">
-                     <span className="material-symbols-outlined text-primary-500 text-3xl mb-2">
-                        verified
-                     </span>
+                     <LaptopMinimalCheck className="text-primary-500 mb-2 w-8 h-8" />
                      <p className="text-sm font-medium text-gray-800">99.9% Uptime</p>
                   </div>
                </div>

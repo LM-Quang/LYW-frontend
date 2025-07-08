@@ -541,7 +541,13 @@ export default function CourseLearningPage() {
                         <div className="md:col-span-2">
                            <div className="space-y-2">
                               <div className="flex items-center">
-                                 <div className="w-20 text-right pr-3">5 stars</div>
+                                 <div className="w-20 text-right pr-3">
+                                    <span className="mr-1 text-lg text-yellow-400">5</span>
+                                    <i
+                                       className="fa-solid fa-star text-yellow-400 w-4 h-4"
+                                       aria-label="Full star"
+                                    />
+                                 </div>
                                  <div className="flex-1 h-2 bg-gray-200 rounded-full overflow-hidden">
                                     <div
                                        className="bg-primary-500 h-full rounded-full"
@@ -553,7 +559,13 @@ export default function CourseLearningPage() {
                                  </div>
                               </div>
                               <div className="flex items-center">
-                                 <div className="w-20 text-right pr-3">4 stars</div>
+                                 <div className="w-20 text-right pr-3">
+                                    <span className="mr-1 text-lg text-yellow-400">4</span>
+                                    <i
+                                       className="fa-solid fa-star text-yellow-400 w-4 h-4"
+                                       aria-label="Full star"
+                                    />
+                                 </div>
                                  <div className="flex-1 h-2 bg-gray-200 rounded-full overflow-hidden">
                                     <div
                                        className="bg-primary-500 h-full rounded-full"
@@ -565,7 +577,13 @@ export default function CourseLearningPage() {
                                  </div>
                               </div>
                               <div className="flex items-center">
-                                 <div className="w-20 text-right pr-3">3 stars</div>
+                                 <div className="w-20 text-right pr-3">
+                                    <span className="mr-1 text-lg text-yellow-400">3</span>
+                                    <i
+                                       className="fa-solid fa-star text-yellow-400 w-4 h-4"
+                                       aria-label="Full star"
+                                    />
+                                 </div>
                                  <div className="flex-1 h-2 bg-gray-200 rounded-full overflow-hidden">
                                     <div
                                        className="bg-primary-500 h-full rounded-full"
@@ -577,7 +595,13 @@ export default function CourseLearningPage() {
                                  </div>
                               </div>
                               <div className="flex items-center">
-                                 <div className="w-20 text-right pr-3">2 stars</div>
+                                 <div className="w-20 text-right pr-3">
+                                    <span className="mr-1 text-lg text-yellow-400">2</span>
+                                    <i
+                                       className="fa-solid fa-star text-yellow-400 w-4 h-4"
+                                       aria-label="Full star"
+                                    />
+                                 </div>
                                  <div className="flex-1 h-2 bg-gray-200 rounded-full overflow-hidden">
                                     <div
                                        className="bg-primary-500 h-full rounded-full"
@@ -589,7 +613,13 @@ export default function CourseLearningPage() {
                                  </div>
                               </div>
                               <div className="flex items-center">
-                                 <div className="w-20 text-right pr-3">1 star</div>
+                                 <div className="w-20 text-right pr-3">
+                                    <span className="mr-1 text-lg text-yellow-400">1</span>
+                                    <i
+                                       className="fa-solid fa-star text-yellow-400 w-4 h-4"
+                                       aria-label="Full star"
+                                    />
+                                 </div>
                                  <div className="flex-1 h-2 bg-gray-200 rounded-full overflow-hidden">
                                     <div
                                        className="bg-primary-500 h-full rounded-full"
@@ -652,7 +682,7 @@ export default function CourseLearningPage() {
 
                         {/* Show more */}
                         <button className="p-3 text-primary-500 font-medium flex items-center justify-center mx-auto transition-colors cursor-pointer hover:text-primary-600">
-                           <span>See all 3,245 reviews</span>
+                           <span>See more reviews</span>
                            <ChevronDown className="ml-1" />
                         </button>
                      </div>

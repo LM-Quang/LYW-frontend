@@ -1,26 +1,24 @@
 "use client";
 
 import React, { useState } from "react";
-import Image from "next/image";
-import { useRouter } from "next/navigation";
-import { GraduationCap, Search, ChevronDown, ArrowRight } from "lucide-react";
+// import { useRouter } from "next/navigation";
+import { ArrowRight } from "lucide-react";
 import Link from "next/link";
-import avatar from "@/assets/avatar.jpg";
+// import avatar from "@/assets/avatar.jpg";
 import img1 from "@/assets/img-1.jpg";
-import RenderStars from "@/components/common/RenderStars";
 
 // Hard-coded user data (same as in the source code)
-interface User {
-   avatar: string;
-   username: string;
-   email: string;
-}
+// interface User {
+//    avatar: string;
+//    username: string;
+//    email: string;
+// }
 
-const USER: User = {
-   avatar: avatar.src,
-   username: "Quang",
-   email: "quang@gmail.com",
-};
+// const USER: User = {
+//    avatar: avatar.src,
+//    username: "Quang",
+//    email: "quang@gmail.com",
+// };
 
 // Interface for a course
 interface Course {
@@ -95,9 +93,9 @@ const LIKEDCOURSES: Course[] = [
 ];
 
 export default function MyCoursesPage() {
-   const [user, setUser] = useState<User | null>(USER);
+   // const [user, setUser] = useState<User | null>(USER);
    const [favorites, setFavorites] = useState<Course[]>(LIKEDCOURSES);
-   const router = useRouter();
+   // const router = useRouter();
    // eslint-disable-next-line @typescript-eslint/no-unused-vars
    const [enrolledCourses, setEnrolledCourses] = useState<Course[]>(ENROLLEDCOURSES);
 
@@ -244,148 +242,6 @@ export default function MyCoursesPage() {
                )}
             </section>
          </main>
-
-         {/* Footer (same as in HomePage) */}
-         <footer className="bg-white top-shadow py-10">
-            <div className="container mx-auto px-4 md:px-5">
-               <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                  {/* Brand Information */}
-                  <div>
-                     <div className="flex items-center mb-4">
-                        <div className="bg-primary-500 text-white p-2 rounded-full mr-2">
-                           <GraduationCap aria-label="Learn Your Way Logo" />
-                        </div>
-                        <div className="text-xl font-bold">Learn Your Way</div>
-                     </div>
-                     <p className="text-sm">
-                        Empowering learners worldwide with high-quality online courses in
-                        programming, design, business, and more.
-                     </p>
-                  </div>
-
-                  {/* Navigation Links */}
-                  <div>
-                     <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
-                     <ul className="space-y-2 text-sm">
-                        <li>
-                           <Link
-                              href="/"
-                              className="hover:text-primary-400 transition-colors"
-                              aria-label="Home page"
-                           >
-                              Home
-                           </Link>
-                        </li>
-                        <li>
-                           <Link
-                              href="#"
-                              className="hover:text-primary-400 transition-colors"
-                              aria-label="Courses page"
-                           >
-                              Courses
-                           </Link>
-                        </li>
-                        <li>
-                           <Link
-                              href="#"
-                              className="hover:text-primary-400 transition-colors"
-                              aria-label="Categories page"
-                           >
-                              Categories
-                           </Link>
-                        </li>
-                        <li>
-                           <Link
-                              href="#"
-                              className="hover:text-primary-400 transition-colors"
-                              aria-label="Teaching page"
-                           >
-                              Teaching
-                           </Link>
-                        </li>
-                        <li>
-                           <Link
-                              href="#"
-                              className="hover:text-primary-400 transition-colors"
-                              aria-label="About page"
-                           >
-                              About
-                           </Link>
-                        </li>
-                        <li>
-                           <Link
-                              href="#"
-                              className="hover:text-primary-400 transition-colors"
-                              aria-label="Contact page"
-                           >
-                              Contact
-                           </Link>
-                        </li>
-                     </ul>
-                  </div>
-
-                  {/* Contact and Social Media */}
-                  <div>
-                     <h3 className="text-lg font-semibold mb-4">Get in Touch</h3>
-                     <div className="mt-4 flex space-x-4">
-                        <a
-                           href="https://twitter.com"
-                           target="_blank"
-                           rel="noopener noreferrer"
-                           aria-label="Follow us on Twitter"
-                        >
-                           <i className="fa-brands fa-x-twitter text-2xl"></i>
-                        </a>
-                        <a
-                           href="https://facebook.com"
-                           target="_blank"
-                           rel="noopener noreferrer"
-                           aria-label="Follow us on Facebook"
-                        >
-                           <i className="fa-brands fa-facebook-f text-2xl"></i>
-                        </a>
-                        <a
-                           href="https://instagram.com"
-                           target="_blank"
-                           rel="noopener noreferrer"
-                           aria-label="Follow us on Instagram"
-                        >
-                           <i className="fa-brands fa-square-instagram text-2xl"></i>
-                        </a>
-                        <a
-                           href="https://linkedin.com"
-                           target="_blank"
-                           rel="noopener noreferrer"
-                           aria-label="Follow us on LinkedIn"
-                        >
-                           <i className="fa-brands fa-linkedin text-2xl"></i>
-                        </a>
-                     </div>
-                  </div>
-               </div>
-
-               {/* Bottom Bar */}
-               <div className="mt-8 pt-8 border-t border-gray-700 flex flex-col md:flex-row justify-between items-center text-sm">
-                  <div className="mb-4 md:mb-0">
-                     <a
-                        href="#"
-                        className="hover:text-primary-400 transition-colors mr-4"
-                        aria-label="Privacy Policy"
-                     >
-                        Privacy Policy
-                     </a>
-                     <a
-                        href="#"
-                        className="hover:text-primary-400 transition-colors"
-                        aria-label="Terms of Service"
-                     >
-                        Terms of Service
-                     </a>
-                  </div>
-                  <div>© {new Date().getFullYear()} Learn Your Way. All rights reserved.</div>
-               </div>
-            </div>
-         </footer>
       </div>
    );
 }
